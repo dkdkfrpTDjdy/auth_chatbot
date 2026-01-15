@@ -195,7 +195,7 @@ const App: React.FC = () => {
               >
                 <option value="">-- 팀을 선택하세요 --</option>
                 {teams.map(t => (
-                  <option key={t.team_code} value={t.team_code}>{t.team_name} ({t.team_code})</option>
+                  <option key={t.team_code} value={t.team_code}>{t.team_name}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-4 top-4 text-gray-400 pointer-events-none" size={18} />
@@ -215,7 +215,7 @@ const App: React.FC = () => {
               >
                 <option value="">-- 시스템을 선택하세요 --</option>
                 {systems.map(s => (
-                  <option key={s.sys_code} value={s.sys_code}>{s.sys_name} ({s.sys_code})</option>
+                  <option key={s.sys_code} value={s.sys_code}>{s.sys_name}</option>
                 ))}
               </select>
               <ChevronDown className="absolute right-4 top-4 text-gray-400 pointer-events-none" size={18} />
