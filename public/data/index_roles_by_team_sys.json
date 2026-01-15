@@ -1,0 +1,16 @@
+
+{
+  "3070|LEGO": [
+    {"auth_code": "ADM_01", "auth_name": "ROLE_ADMIN", "auth_desc": "시스템 전체 관리자 권한"},
+    {"auth_code": "USR_01", "auth_name": "ROLE_USER", "auth_desc": "일반 영업 사용자 권한"}
+  ],
+  "3070|HRMS": [
+    {"auth_code": "HR_01", "auth_name": "ROLE_HR_READ", "auth_desc": "인사 정보 조회 권한"}
+  ],
+  "2020|ERP": [
+    {"auth_code": "ERP_P1", "auth_name": "ROLE_PLAN_MGR", "auth_desc": "기획 예산 관리자 권한"}
+  ],
+  "1010|GW": [
+    {"auth_code": "GW_01", "auth_name": "ROLE_GW_USER", "auth_desc": "그룹웨어 기본 사용 권한"}
+  ]
+}

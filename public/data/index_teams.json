@@ -1,0 +1,8 @@
+
+{
+  "teams": [
+    {"team_code": "3070", "team_name": "DX본부"},
+    {"team_code": "2020", "team_name": "전략기획팀"},
+    {"team_code": "1010", "team_name": "경영지원본부"}
+  ]
+}

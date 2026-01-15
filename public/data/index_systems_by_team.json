@@ -1,0 +1,14 @@
+
+{
+  "3070": [
+    {"sys_code": "LEGO", "sys_name": "IAS(AJ차세대영업)"},
+    {"sys_code": "HRMS", "sys_name": "인사정보시스템"}
+  ],
+  "2020": [
+    {"sys_code": "ERP", "sys_name": "통합 ERP 시스템"}
+  ],
+  "1010": [
+    {"sys_code": "GW", "sys_name": "그룹웨어"},
+    {"sys_code": "ASSET", "sys_name": "자산관리시스템"}
+  ]
+}
