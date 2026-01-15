@@ -1,8 +1,876 @@
-
 {
   "teams": [
-    {"team_code": "3070", "team_name": "DX본부"},
-    {"team_code": "2020", "team_name": "전략기획팀"},
-    {"team_code": "1010", "team_name": "경영지원본부"}
+    {
+      "team_code": "3060371",
+      "team_name": "AJ Eco Solutions"
+    },
+    {
+      "team_code": "306038",
+      "team_name": "AJ LogisValue Hungary"
+    },
+    {
+      "team_code": "306037",
+      "team_name": "AJ LogisValue Poland"
+    },
+    {
+      "team_code": "306039",
+      "team_name": "AJ LogisValue USA"
+    },
+    {
+      "team_code": "118630",
+      "team_name": "AJ Rental"
+    },
+    {
+      "team_code": "7",
+      "team_name": "AJ Rental"
+    },
+    {
+      "team_code": "3",
+      "team_name": "AJ네트웍스"
+    },
+    {
+      "team_code": "30804",
+      "team_name": "AJ빌딩"
+    },
+    {
+      "team_code": "30405",
+      "team_name": "AJ솔루션테크"
+    },
+    {
+      "team_code": "5",
+      "team_name": "AJ에너지"
+    },
+    {
+      "team_code": "30803",
+      "team_name": "AJ장학재단"
+    },
+    {
+      "team_code": "37",
+      "team_name": "AJ전국스카이"
+    },
+    {
+      "team_code": "3040603",
+      "team_name": "AM파트"
+    },
+    {
+      "team_code": "304014",
+      "team_name": "AM파트"
+    },
+    {
+      "team_code": "3040518",
+      "team_name": "AWP운영팀"
+    },
+    {
+      "team_code": "3040505",
+      "team_name": "AWP정비센터"
+    },
+    {
+      "team_code": "3040532",
+      "team_name": "AWP팀"
+    },
+    {
+      "team_code": "305051",
+      "team_name": "B&T 기획팀"
+    },
+    {
+      "team_code": "3050",
+      "team_name": "B&T부문"
+    },
+    {
+      "team_code": "301072",
+      "team_name": "B&T파트"
+    },
+    {
+      "team_code": "604",
+      "team_name": "CC사업본부"
+    },
+    {
+      "team_code": "306035",
+      "team_name": "CKD사업팀"
+    },
+    {
+      "team_code": "3060212",
+      "team_name": "DC운영팀"
+    },
+    {
+      "team_code": "3070",
+      "team_name": "DX본부"
+    },
+    {
+      "team_code": "60301",
+      "team_name": "Enterprise팀"
+    },
+    {
+      "team_code": "3040534",
+      "team_name": "FL수도권팀"
+    },
+    {
+      "team_code": "3040516",
+      "team_name": "FL운영팀"
+    },
+    {
+      "team_code": "3040503",
+      "team_name": "FL정비센터"
+    },
+    {
+      "team_code": "3040533",
+      "team_name": "FL지역팀"
+    },
+    {
+      "team_code": "306011",
+      "team_name": "Fleet영업본부"
+    },
+    {
+      "team_code": "307021",
+      "team_name": "IT 외주"
+    },
+    {
+      "team_code": "30706",
+      "team_name": "IT개발팀"
+    },
+    {
+      "team_code": "30702",
+      "team_name": "IT운영팀"
+    },
+    {
+      "team_code": "604015",
+      "team_name": "KM파트"
+    },
+    {
+      "team_code": "3005",
+      "team_name": "M&A팀"
+    },
+    {
+      "team_code": "307011",
+      "team_name": "PI 협력사"
+    },
+    {
+      "team_code": "30611",
+      "team_name": "Pallet사업본부"
+    },
+    {
+      "team_code": "30704",
+      "team_name": "QA파트"
+    },
+    {
+      "team_code": "30703",
+      "team_name": "QA혁신팀"
+    },
+    {
+      "team_code": "30031",
+      "team_name": "RM팀"
+    },
+    {
+      "team_code": "306114",
+      "team_name": "SCM컨설팅팀"
+    },
+    {
+      "team_code": "305034",
+      "team_name": "SCM팀"
+    },
+    {
+      "team_code": "370200",
+      "team_name": "SKY배차팀"
+    },
+    {
+      "team_code": "370100",
+      "team_name": "SKY운영팀"
+    },
+    {
+      "team_code": "306012",
+      "team_name": "SMB영업본부"
+    },
+    {
+      "team_code": "305024",
+      "team_name": "TECH SALES 10팀"
+    },
+    {
+      "team_code": "305014",
+      "team_name": "TECH SALES 1팀"
+    },
+    {
+      "team_code": "305016",
+      "team_name": "TECH SALES 2팀"
+    },
+    {
+      "team_code": "305011",
+      "team_name": "TECH SALES 3팀"
+    },
+    {
+      "team_code": "305012",
+      "team_name": "TECH SALES 4팀"
+    },
+    {
+      "team_code": "305013",
+      "team_name": "TECH SALES 5팀"
+    },
+    {
+      "team_code": "305021",
+      "team_name": "TECH SALES 6팀"
+    },
+    {
+      "team_code": "305026",
+      "team_name": "TECH SALES 7팀"
+    },
+    {
+      "team_code": "305023",
+      "team_name": "TECH SALES 8팀"
+    },
+    {
+      "team_code": "305022",
+      "team_name": "TECH SALES 9팀"
+    },
+    {
+      "team_code": "3040517",
+      "team_name": "TM센터"
+    },
+    {
+      "team_code": "3040531",
+      "team_name": "TM운영팀"
+    },
+    {
+      "team_code": "304018",
+      "team_name": "가치창출팀"
+    },
+    {
+      "team_code": "3090",
+      "team_name": "감사"
+    },
+    {
+      "team_code": "30801",
+      "team_name": "개발파트"
+    },
+    {
+      "team_code": "30401",
+      "team_name": "건설인프라본부"
+    },
+    {
+      "team_code": "304033",
+      "team_name": "건설인프라영업 1팀"
+    },
+    {
+      "team_code": "304035",
+      "team_name": "건설인프라영업 2팀"
+    },
+    {
+      "team_code": "3040101",
+      "team_name": "건설인프라영업 3팀"
+    },
+    {
+      "team_code": "3040102",
+      "team_name": "건설인프라영업 4팀"
+    },
+    {
+      "team_code": "30102",
+      "team_name": "경영관리팀"
+    },
+    {
+      "team_code": "3030",
+      "team_name": "경영지원실"
+    },
+    {
+      "team_code": "3040504",
+      "team_name": "경영지원팀"
+    },
+    {
+      "team_code": "304034",
+      "team_name": "경인파트"
+    },
+    {
+      "team_code": "60302",
+      "team_name": "공공/금융/SMB팀"
+    },
+    {
+      "team_code": "306033",
+      "team_name": "글로벌사업팀"
+    },
+    {
+      "team_code": "60303",
+      "team_name": "기술지원팀"
+    },
+    {
+      "team_code": "301022",
+      "team_name": "기획파트"
+    },
+    {
+      "team_code": "302041",
+      "team_name": "내부통제팀"
+    },
+    {
+      "team_code": "11070400",
+      "team_name": "내부통제팀 협력사"
+    },
+    {
+      "team_code": "30105",
+      "team_name": "동남아 지역총괄"
+    },
+    {
+      "team_code": "604012",
+      "team_name": "두산파트"
+    },
+    {
+      "team_code": "30104",
+      "team_name": "렌탈 베트남"
+    },
+    {
+      "team_code": "604014",
+      "team_name": "렌탈파트"
+    },
+    {
+      "team_code": "305043",
+      "team_name": "로봇 SI팀"
+    },
+    {
+      "team_code": "30504",
+      "team_name": "로봇영업본부"
+    },
+    {
+      "team_code": "305041",
+      "team_name": "로봇영업팀"
+    },
+    {
+      "team_code": "305042",
+      "team_name": "로봇유지보수팀"
+    },
+    {
+      "team_code": "30607",
+      "team_name": "로지스 외주"
+    },
+    {
+      "team_code": "3060115",
+      "team_name": "로지스 제주지점"
+    },
+    {
+      "team_code": "3060033",
+      "team_name": "로지스WM센터"
+    },
+    {
+      "team_code": "3060031",
+      "team_name": "로지스경기광주센터"
+    },
+    {
+      "team_code": "3060041",
+      "team_name": "로지스경산센터"
+    },
+    {
+      "team_code": "3060038",
+      "team_name": "로지스광주센터"
+    },
+    {
+      "team_code": "3060024",
+      "team_name": "로지스구로센터"
+    },
+    {
+      "team_code": "306032",
+      "team_name": "로지스기획팀"
+    },
+    {
+      "team_code": "3060023",
+      "team_name": "로지스김포센터"
+    },
+    {
+      "team_code": "3060045",
+      "team_name": "로지스김해센터"
+    },
+    {
+      "team_code": "3060040",
+      "team_name": "로지스대구센터"
+    },
+    {
+      "team_code": "3060",
+      "team_name": "로지스부문"
+    },
+    {
+      "team_code": "3060043",
+      "team_name": "로지스부산센터"
+    },
+    {
+      "team_code": "3060044",
+      "team_name": "로지스사천센터"
+    },
+    {
+      "team_code": "3060036",
+      "team_name": "로지스세종센터"
+    },
+    {
+      "team_code": "3060029",
+      "team_name": "로지스시흥센터"
+    },
+    {
+      "team_code": "3060037",
+      "team_name": "로지스아산센터"
+    },
+    {
+      "team_code": "3060042",
+      "team_name": "로지스안동센터"
+    },
+    {
+      "team_code": "3060025",
+      "team_name": "로지스양주센터"
+    },
+    {
+      "team_code": "3060027",
+      "team_name": "로지스오산센터"
+    },
+    {
+      "team_code": "3060035",
+      "team_name": "로지스용인센터"
+    },
+    {
+      "team_code": "3060032",
+      "team_name": "로지스원주센터"
+    },
+    {
+      "team_code": "3060028",
+      "team_name": "로지스인천센터"
+    },
+    {
+      "team_code": "30603",
+      "team_name": "로지스전략본부"
+    },
+    {
+      "team_code": "3060039",
+      "team_name": "로지스전주센터"
+    },
+    {
+      "team_code": "30604",
+      "team_name": "로지스지원본부"
+    },
+    {
+      "team_code": "3060034",
+      "team_name": "로지스진천센터"
+    },
+    {
+      "team_code": "301073",
+      "team_name": "로지스파트"
+    },
+    {
+      "team_code": "3060026",
+      "team_name": "로지스포천센터"
+    },
+    {
+      "team_code": "3060030",
+      "team_name": "로지스화성센터"
+    },
+    {
+      "team_code": "3003",
+      "team_name": "리스크관리본부"
+    },
+    {
+      "team_code": "305033",
+      "team_name": "마케팅기획파트"
+    },
+    {
+      "team_code": "3060431",
+      "team_name": "물류기획팀"
+    },
+    {
+      "team_code": "30403",
+      "team_name": "물류인프라본부"
+    },
+    {
+      "team_code": "304037",
+      "team_name": "물류인프라영업 1팀"
+    },
+    {
+      "team_code": "304032",
+      "team_name": "물류인프라영업 2팀"
+    },
+    {
+      "team_code": "3040301",
+      "team_name": "물류인프라영업 3팀"
+    },
+    {
+      "team_code": "304022",
+      "team_name": "물류인프라영업 3팀"
+    },
+    {
+      "team_code": "3040302",
+      "team_name": "물류인프라영업 4팀"
+    },
+    {
+      "team_code": "3060392",
+      "team_name": "미국동부지점"
+    },
+    {
+      "team_code": "306031",
+      "team_name": "미래성장팀"
+    },
+    {
+      "team_code": "301031",
+      "team_name": "법무심사파트"
+    },
+    {
+      "team_code": "3060111",
+      "team_name": "법인1팀"
+    },
+    {
+      "team_code": "3060112",
+      "team_name": "법인2팀"
+    },
+    {
+      "team_code": "3060113",
+      "team_name": "법인3팀"
+    },
+    {
+      "team_code": "3060116",
+      "team_name": "법인4팀"
+    },
+    {
+      "team_code": "303031",
+      "team_name": "비상주근무자(재택)"
+    },
+    {
+      "team_code": "3002",
+      "team_name": "비서팀"
+    },
+    {
+      "team_code": "3040602",
+      "team_name": "사업개발팀"
+    },
+    {
+      "team_code": "601011",
+      "team_name": "사업지원팀"
+    },
+    {
+      "team_code": "304041",
+      "team_name": "산업장비 영업기획팀"
+    },
+    {
+      "team_code": "3040520",
+      "team_name": "산업장비 외주"
+    },
+    {
+      "team_code": "304042",
+      "team_name": "산업장비 자산관리팀"
+    },
+    {
+      "team_code": "3040",
+      "team_name": "산업장비부문"
+    },
+    {
+      "team_code": "301071",
+      "team_name": "산업장비파트"
+    },
+    {
+      "team_code": "3060125",
+      "team_name": "서남부팀"
+    },
+    {
+      "team_code": "3060121",
+      "team_name": "수도권동부팀"
+    },
+    {
+      "team_code": "3060122",
+      "team_name": "수도권서부팀"
+    },
+    {
+      "team_code": "50102",
+      "team_name": "수도권영업 1팀"
+    },
+    {
+      "team_code": "603",
+      "team_name": "스토리지영업본부"
+    },
+    {
+      "team_code": "30503",
+      "team_name": "시너지운영본부"
+    },
+    {
+      "team_code": "301011",
+      "team_name": "신사업파트"
+    },
+    {
+      "team_code": "30406",
+      "team_name": "신성장사업본부"
+    },
+    {
+      "team_code": "304051801",
+      "team_name": "안성 운영관리파트"
+    },
+    {
+      "team_code": "3040511",
+      "team_name": "안성정비팀"
+    },
+    {
+      "team_code": "3001",
+      "team_name": "안전관리본부"
+    },
+    {
+      "team_code": "306044",
+      "team_name": "안전보건팀"
+    },
+    {
+      "team_code": "3060124",
+      "team_name": "영남팀"
+    },
+    {
+      "team_code": "30501",
+      "team_name": "영업1본부"
+    },
+    {
+      "team_code": "30502",
+      "team_name": "영업2본부"
+    },
+    {
+      "team_code": "50101",
+      "team_name": "영업기획팀"
+    },
+    {
+      "team_code": "30505101",
+      "team_name": "영업기획파트"
+    },
+    {
+      "team_code": "3004",
+      "team_name": "영업지원본부"
+    },
+    {
+      "team_code": "9999995",
+      "team_name": "외부사용자그룹"
+    },
+    {
+      "team_code": "3060433",
+      "team_name": "운송사업팀"
+    },
+    {
+      "team_code": "3060432",
+      "team_name": "운송지원팀"
+    },
+    {
+      "team_code": "3040513",
+      "team_name": "운영본부"
+    },
+    {
+      "team_code": "30602",
+      "team_name": "운영본부"
+    },
+    {
+      "team_code": "3040502",
+      "team_name": "운영센터"
+    },
+    {
+      "team_code": "60401",
+      "team_name": "운영팀"
+    },
+    {
+      "team_code": "30802",
+      "team_name": "운영파트"
+    },
+    {
+      "team_code": "307023",
+      "team_name": "운영파트"
+    },
+    {
+      "team_code": "3040521",
+      "team_name": "울산 FL정비팀"
+    },
+    {
+      "team_code": "304051803",
+      "team_name": "울산 운영관리파트"
+    },
+    {
+      "team_code": "3040514",
+      "team_name": "울산정비팀"
+    },
+    {
+      "team_code": "306042",
+      "team_name": "원가관리팀"
+    },
+    {
+      "team_code": "3040601",
+      "team_name": "유통사업팀"
+    },
+    {
+      "team_code": "3060131",
+      "team_name": "유통사업팀"
+    },
+    {
+      "team_code": "3040604",
+      "team_name": "유통파트"
+    },
+    {
+      "team_code": "304017",
+      "team_name": "인사이드세일즈팀"
+    },
+    {
+      "team_code": "30305",
+      "team_name": "인사팀"
+    },
+    {
+      "team_code": "307024",
+      "team_name": "인프라파트"
+    },
+    {
+      "team_code": "3080",
+      "team_name": "자산관리팀"
+    },
+    {
+      "team_code": "305032",
+      "team_name": "자산운영팀"
+    },
+    {
+      "team_code": "30201",
+      "team_name": "재무관리팀"
+    },
+    {
+      "team_code": "3020",
+      "team_name": "재무기획실"
+    },
+    {
+      "team_code": "3010",
+      "team_name": "전략기획실"
+    },
+    {
+      "team_code": "3060114",
+      "team_name": "전략영업팀"
+    },
+    {
+      "team_code": "30101",
+      "team_name": "전략팀"
+    },
+    {
+      "team_code": "301012",
+      "team_name": "전략파트"
+    },
+    {
+      "team_code": "nan",
+      "team_name": "전체사용자(아르바이트제외)"
+    },
+    {
+      "team_code": "30705",
+      "team_name": "정보보안팀"
+    },
+    {
+      "team_code": "30106",
+      "team_name": "정보전략팀"
+    },
+    {
+      "team_code": "30901",
+      "team_name": "준법감사팀"
+    },
+    {
+      "team_code": "3060123",
+      "team_name": "중부팀"
+    },
+    {
+      "team_code": "30405151",
+      "team_name": "중정비파트"
+    },
+    {
+      "team_code": "304043",
+      "team_name": "지원1팀"
+    },
+    {
+      "team_code": "305031",
+      "team_name": "지원2팀"
+    },
+    {
+      "team_code": "306041",
+      "team_name": "지원3팀"
+    },
+    {
+      "team_code": "301021",
+      "team_name": "진단파트"
+    },
+    {
+      "team_code": "30103",
+      "team_name": "채권관리팀"
+    },
+    {
+      "team_code": "301032",
+      "team_name": "채권관리파트"
+    },
+    {
+      "team_code": "3040515",
+      "team_name": "천안정비팀"
+    },
+    {
+      "team_code": "304051802",
+      "team_name": "청주 운영관리파트"
+    },
+    {
+      "team_code": "3040512",
+      "team_name": "청주정비팀"
+    },
+    {
+      "team_code": "30303",
+      "team_name": "총무팀"
+    },
+    {
+      "team_code": "50104",
+      "team_name": "충호남영업팀"
+    },
+    {
+      "team_code": "9999990",
+      "team_name": "컨텍센터"
+    },
+    {
+      "team_code": "100440",
+      "team_name": "토탈 베트남"
+    },
+    {
+      "team_code": "30107",
+      "team_name": "통합구매팀"
+    },
+    {
+      "team_code": "3060211",
+      "team_name": "특수회수팀"
+    },
+    {
+      "team_code": "306036",
+      "team_name": "패키징R&D팀"
+    },
+    {
+      "team_code": "304011",
+      "team_name": "평택파트"
+    },
+    {
+      "team_code": "304015",
+      "team_name": "플랫폼개발파트"
+    },
+    {
+      "team_code": "30404",
+      "team_name": "플랫폼사업본부"
+    },
+    {
+      "team_code": "30204",
+      "team_name": "플랫폼커뮤니케이션팀"
+    },
+    {
+      "team_code": "307022",
+      "team_name": "헬프데스크"
+    },
+    {
+      "team_code": "3040519",
+      "team_name": "혁신팀"
+    },
+    {
+      "team_code": "307032",
+      "team_name": "혁신파트"
+    },
+    {
+      "team_code": "30405171",
+      "team_name": "현장관리자고덕탕정"
+    },
+    {
+      "team_code": "304025",
+      "team_name": "호남파트"
+    },
+    {
+      "team_code": "3040103",
+      "team_name": "호남파트"
+    },
+    {
+      "team_code": "30202",
+      "team_name": "회계팀"
+    },
+    {
+      "team_code": "3060022",
+      "team_name": "회수운영팀"
+    },
+    {
+      "team_code": "303052",
+      "team_name": "휴직자"
+    }
   ]
 }

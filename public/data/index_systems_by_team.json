@@ -1,14 +1,1534 @@
-
 {
+  "100440": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "11070400": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "118630": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3001": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3002": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3003": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3004": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3005": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3010": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30101": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "301011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "301012": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30102": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "301021": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "301022": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30103": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "301031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "301032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30104": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30105": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30106": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30107": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "301071": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "301072": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "301073": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3020": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30201": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30202": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30204": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "302041": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3030": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30303": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "303031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30305": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "303052": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30401": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040101": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040102": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040103": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304014": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304015": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304017": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304018": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30403": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040301": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040302": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304033": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304034": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304035": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304037": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30404": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304041": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304042": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304043": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30405": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040502": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040503": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040504": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040505": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040511": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040512": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040513": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040514": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040515": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30405151": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040516": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040517": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30405171": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040518": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304051801": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304051802": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304051803": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040519": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040520": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040521": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040531": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040532": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040533": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040534": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30406": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040601": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040602": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040603": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3040604": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3050": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30501": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305012": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305013": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305014": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305016": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30502": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305021": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305022": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305023": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305024": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305026": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30503": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "305033": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305034": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30504": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305041": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305042": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305043": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "305051": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30505101": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3060022": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3060023": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060024": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060025": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060026": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060027": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060028": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060029": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060030": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060033": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060034": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060035": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060036": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060037": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060038": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060039": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060040": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060041": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060042": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060043": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060044": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060045": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060111": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060112": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060113": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060114": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060115": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060116": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306012": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060121": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060122": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060123": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060124": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060125": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060131": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30602": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060211": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060212": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30603": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "306031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "306033": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306035": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306036": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306037": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060371": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306038": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306039": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060392": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30604": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306041": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306042": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3060431": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3060432": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3060433": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306044": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30607": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30611": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "306114": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
   "3070": [
-    {"sys_code": "LEGO", "sys_name": "IAS(AJ차세대영업)"},
-    {"sys_code": "HRMS", "sys_name": "인사정보시스템"}
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
   ],
-  "2020": [
-    {"sys_code": "ERP", "sys_name": "통합 ERP 시스템"}
+  "307011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
   ],
-  "1010": [
-    {"sys_code": "GW", "sys_name": "그룹웨어"},
-    {"sys_code": "ASSET", "sys_name": "자산관리시스템"}
+  "30702": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "307021": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "307022": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "307023": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "307024": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30703": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "307032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30704": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30705": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30706": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3080": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30801": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30802": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30803": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30804": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "3090": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "30901": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "37": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "370100": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "370200": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "5": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "50101": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "50102": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "50104": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "601011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "603": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "60301": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "60302": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "60303": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "604": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "60401": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "604012": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "604014": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "604015": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "7": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "9999990": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "9999995": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "nan": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
+  "304022": [
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304025": [
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
   ]
 }
