@@ -1,320 +1,327 @@
 import json
 import re
 from pathlib import Path
-from typing import Any, Dict, List, Tuple, Optional
+from typing import Dict, List, Optional
 
 import pandas as pd
 
-# ============================================================
-# 설정 (너 환경 고정)
-# ============================================================
+# =========================
+# 설정
+# =========================
 REPO_DIR = Path(r"D:\works\GEN_AI\auth_chat\auth_chat_2")
+INPUT_XLSX = REPO_DIR / "IAS_Sales.xlsx"  # ← 파일명 맞춰줘
 
-# 입력 CSV 파일명(레포 안에 두는 걸 추천)
-# 예: D:\works\GEN_AI\auth_chat\auth_chat_2\input.csv
-INPUT_CSV = REPO_DIR / "input.csv"
+# 시트명
+SHEET_IAS_USER = "IAS_Sales"       # 유저별
+SHEET_IAS_TEAM = "IAS_sales_조직"  # 팀(조직)별
+SHEET_SAP = "SAP"                  # SAP 시트명 실제와 다르면 수정
 
-# 출력 경로 (요구사항 고정)
+# 출력 경로 (고정)
 OUT_BASE = REPO_DIR / "public" / "data"
 OUT_BY_TEAM = OUT_BASE / "by_team"
-OUT_BAD = OUT_BASE / "_bad_rows"
 
-# 테스트/안정화 옵션(필요 시만 사용)
-MAX_MENUS_PER_ROLE: Optional[int] = None  # 예: 300. None이면 제한 없음
+# IAS sys_name 통일(요구사항)
+IAS_SYS_NAME_FORCED = "IAS_Sales"
 
-# ============================================================
-# Robust JSON parsing
-# ============================================================
-# 탭/개행/CR은 별도로 처리하고, 그 외 제어문자만 제거
-_CTRL_CHARS = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
+# SAP auth_desc 생성 규칙
+SAP_DESC_TOPN = 3
 
-def _clean_for_json(s: str) -> str:
-    s2 = s.strip()
-    # CSV 이스케이프 흔한 패턴 보정
-    s2 = s2.replace('""', '"')
-    # 제어문자 제거(탭/개행/CR 제외)
-    s2 = _CTRL_CHARS.sub("", s2)
-    return s2
+# =========================
+# 유틸
+# =========================
+def norm_str(x) -> str:
+    if x is None:
+        return ""
+    s = str(x).strip()
+    s = s.replace("\r\n", "\n").replace("\r", "\n")
+    s = re.sub(r"\s+\n", "\n", s)
+    return s
 
-def parse_page_content(raw: str) -> Dict[str, Any]:
-    """
-    page_content 파싱을 최대한 통과시키기 위한 함수.
-    - contents/page_content에 실제 줄바꿈이 섞여 JSON이 깨지는 케이스
-    - CSV quote 이스케이프 잔여
-    - 제어문자 포함
-    """
-    if not isinstance(raw, str):
-        raise ValueError("page_content is not a string")
+def ensure_cols(df: pd.DataFrame, cols: List[str], sheet_name: str):
+    missing = [c for c in cols if c not in df.columns]
+    if missing:
+        raise ValueError(f"[{sheet_name}] 시트에 컬럼이 없습니다: {missing}\n현재 컬럼: {list(df.columns)}")
 
-    candidates = []
-
-    s = raw.strip()
-    candidates.append(s)
-
-    # 바깥 따옴표가 감싸는 형태 보정
-    if (s.startswith('"') and s.endswith('"')) or (s.startswith("'") and s.endswith("'")):
-        candidates.append(s[1:-1])
-
-    # "" -> " 치환 후보
-    candidates.append(s.replace('""', '"'))
-
-    last_err = None
-    for cand in candidates:
-        c = _clean_for_json(cand)
-
-        # 1) 기본
-        try:
-            return json.loads(c)
-        except json.JSONDecodeError as e:
-            last_err = e
-
-        # 2) strict=False (가능하면)
-        try:
-            return json.loads(c, strict=False)
-        except TypeError:
-            pass
-        except json.JSONDecodeError as e:
-            last_err = e
-
-        # 3) 실제 줄바꿈을 \n 문자열로 바꿔서 재시도
-        c2 = c.replace("\r\n", "\\n").replace("\n", "\\n").replace("\r", "\\n")
-        try:
-            return json.loads(c2)
-        except json.JSONDecodeError as e:
-            last_err = e
-
-        try:
-            return json.loads(c2, strict=False)
-        except TypeError:
-            pass
-        except json.JSONDecodeError as e:
-            last_err = e
-
-    preview = raw[:250].replace("\n", "\\n").replace("\r", "\\r")
-    raise ValueError(f"Failed to parse page_content JSON. preview={preview} ... last_err={last_err}")
-
-
-# ============================================================
-# Menu extraction (supports BOTH nested & flat schemas)
-# ============================================================
-def extract_menus(auth_obj: Dict[str, Any]) -> List[Dict[str, str]]:
-    """
-    지원 스키마 2가지:
-
-    (A) 평탄형:
-      auth_obj["menus"] = [
-        {"1level": "...", "2level": "...", "3level": "...", "3level_id": "..."},
-        ...
-      ]
-
-    (B) 중첩형:
-      auth_obj["menus"] = [
-        {"1level": "...", "2level_menus": [
-          {"2level_name": "...", "3level_menus": [{"3level": "...", "3level_id": "..."}, ...]},
-          ...
-        ]},
-        ...
-      ]
-    """
-    out: List[Dict[str, str]] = []
-    menus = auth_obj.get("menus", []) or []
-
-    for m in menus:
-        # 중첩형인지 체크
-        if "2level_menus" in m:
-            l1 = str(m.get("1level", "")).strip()
-            for m2 in (m.get("2level_menus", []) or []):
-                l2 = str(m2.get("2level_name", "")).strip()
-                for m3 in (m2.get("3level_menus", []) or []):
-                    l3 = str(m3.get("3level", "")).strip()
-                    mid = str(m3.get("3level_id", "")).strip()
-                    if not (l1 or l2 or l3 or mid):
-                        continue
-                    out.append({"path": f"{l1} > {l2} > {l3}", "menu_id": mid})
-        else:
-            # 평탄형
-            l1 = str(m.get("1level", "")).strip()
-            l2 = str(m.get("2level", "")).strip()
-            l3 = str(m.get("3level", "")).strip()
-            mid = str(m.get("3level_id", "")).strip()
-            if not (l1 or l2 or l3 or mid):
-                continue
-            out.append({"path": f"{l1} > {l2} > {l3}", "menu_id": mid})
-
-    # 중복 제거 + 정렬
-    seen = set()
+def build_sap_auth_desc(menu_names: List[str], topn: int = 3) -> str:
     uniq = []
-    for m in out:
-        k = (m["menu_id"], m["path"])
-        if k in seen:
+    seen = set()
+    for m in menu_names:
+        m = norm_str(m)
+        if not m:
             continue
-        seen.add(k)
+        if m in seen:
+            continue
+        seen.add(m)
         uniq.append(m)
 
-    uniq.sort(key=lambda x: (x["path"], x["menu_id"]))
+    if not uniq:
+        return "해당 권한은 여러 메뉴 접근 권한이 있습니다."
 
-    if MAX_MENUS_PER_ROLE is not None:
-        uniq = uniq[:MAX_MENUS_PER_ROLE]
+    sample = uniq[:topn]
+    return f"{', '.join(sample)} 등의 메뉴 접근 권한이 있습니다."
 
-    return uniq
+# =========================
+# 공통 변환(평탄 테이블 -> outputs)
+# =========================
+def rows_to_outputs(df: pd.DataFrame, is_sap: bool) -> Dict:
+    # 팀명 컬럼 우선순위: team_name2 > team_name
+    if "team_name2" in df.columns:
+        team_name_col = "team_name2"
+    elif "team_name" in df.columns:
+        team_name_col = "team_name"
+    else:
+        raise ValueError("팀명 컬럼(team_name2 또는 team_name)이 없습니다.")
 
+    df = df.copy()
 
-# ============================================================
-# Main processing
-# ============================================================
+    # 문자열 정리
+    df[team_name_col] = df[team_name_col].map(norm_str)
+    df["team_code"] = df["team_code"].map(norm_str)
+
+    df["sys_name"] = df["sys_name"].map(norm_str)
+    df["sys_code"] = df["sys_code"].map(norm_str)
+
+    df["auth_name"] = df["auth_name"].map(norm_str)
+    df["auth_code"] = df["auth_code"].map(norm_str)
+
+    if "auth_desc" in df.columns:
+        df["auth_desc"] = df["auth_desc"].map(norm_str)
+    else:
+        df["auth_desc"] = ""
+
+    df["1level"] = df["1level"].map(norm_str)
+    df["2level"] = df["2level"].map(norm_str)
+    df["3level"] = df["3level"].map(norm_str)
+    df["menu_id"] = df["menu_id"].map(norm_str)
+
+    # user 컬럼은 있어도 무시 (drop 안 해도 됨)
+
+    # 핵심 중복 제거: 같은 팀/시스템/권한/메뉴는 1개만
+    df = df.drop_duplicates(subset=["team_code", "sys_code", "auth_code", "menu_id"])
+
+    # index_teams
+    teams = (
+        df[[team_name_col, "team_code"]]
+        .drop_duplicates()
+        .rename(columns={team_name_col: "team_name"})
+    )
+    teams_records = (
+        teams.sort_values("team_name")[["team_code", "team_name"]]
+        .to_dict(orient="records")
+    )
+
+    # index_systems_by_team
+    systems_by_team: Dict[str, Dict[str, str]] = {}
+    for team_code, g in df.groupby("team_code"):
+        sysmap = {}
+        for _, r in g[["sys_code", "sys_name"]].drop_duplicates().iterrows():
+            sysmap[r["sys_code"]] = r["sys_name"]
+        systems_by_team[team_code] = [
+            {"sys_code": sc, "sys_name": sn}
+            for sc, sn in sorted(sysmap.items(), key=lambda x: x[1])
+        ]
+
+    # index_roles_by_team_sys
+    roles_by_team_sys: Dict[str, List[Dict[str, str]]] = {}
+    sap_menu_names_by_role: Dict[str, List[str]] = {}
+
+    for (team_code, sys_code), g in df.groupby(["team_code", "sys_code"]):
+        key = f"{team_code}|{sys_code}"
+        role_map = {}
+
+        for _, r in g[["auth_code", "auth_name", "auth_desc"]].drop_duplicates().iterrows():
+            ac = r["auth_code"]
+            role_map[ac] = {
+                "auth_code": ac,
+                "auth_name": r["auth_name"],
+                "auth_desc": r["auth_desc"],
+            }
+
+        roles_by_team_sys[key] = sorted(role_map.values(), key=lambda x: (x["auth_name"], x["auth_code"]))
+
+        if is_sap:
+            for auth_code, gg in g.groupby("auth_code"):
+                k2 = f"{team_code}|{sys_code}|{auth_code}"
+                sap_menu_names_by_role[k2] = gg["3level"].tolist()
+
+    # SAP auth_desc 자동 생성
+    if is_sap:
+        for key, role_list in roles_by_team_sys.items():
+            team_code, sys_code = key.split("|", 1)
+            for role in role_list:
+                if role.get("auth_desc"):
+                    continue
+                k2 = f"{team_code}|{sys_code}|{role['auth_code']}"
+                role["auth_desc"] = build_sap_auth_desc(sap_menu_names_by_role.get(k2, []), topn=SAP_DESC_TOPN)
+
+    # role_bundle_team_XXXX.jsonl
+    df["path"] = df["1level"] + " > " + df["2level"] + " > " + df["3level"]
+
+    bundles_by_team: Dict[str, Dict[str, Dict]] = {}
+    for team_code, g_team in df.groupby("team_code"):
+        team_name = g_team[team_name_col].iloc[0]
+        bundles_by_team.setdefault(team_code, {})
+
+        for (sys_code, auth_code), g in g_team.groupby(["sys_code", "auth_code"]):
+            meta = g[["sys_name", "auth_name", "auth_desc"]].iloc[0].to_dict()
+
+            menus = (
+                g[["path", "menu_id"]]
+                .drop_duplicates()
+                .sort_values(["path", "menu_id"])
+                .to_dict(orient="records")
+            )
+
+            bundle = {
+                "team_code": team_code,
+                "team_name": team_name,
+                "sys_code": sys_code,
+                "sys_name": meta["sys_name"],
+                "auth_code": auth_code,
+                "auth_name": meta["auth_name"],
+                "auth_desc": meta.get("auth_desc", ""),
+                "menus": menus,
+            }
+            bundles_by_team[team_code][f"{sys_code}|{auth_code}"] = bundle
+
+    return {
+        "teams_records": teams_records,
+        "systems_by_team": systems_by_team,
+        "roles_by_team_sys": roles_by_team_sys,
+        "bundles_by_team": bundles_by_team,
+    }
+
+# =========================
+# 출력 병합 (IAS + SAP)
+# =========================
+def merge_outputs(base: Dict, add: Dict) -> Dict:
+    # teams
+    team_map = {(t["team_code"], t["team_name"]) for t in base["teams_records"]}
+    for t in add["teams_records"]:
+        team_map.add((t["team_code"], t["team_name"]))
+    base["teams_records"] = [{"team_code": tc, "team_name": tn} for tc, tn in sorted(team_map, key=lambda x: x[1])]
+
+    # systems
+    for team_code, sys_list in add["systems_by_team"].items():
+        base["systems_by_team"].setdefault(team_code, [])
+        existing = {s["sys_code"]: s["sys_name"] for s in base["systems_by_team"][team_code]}
+        for s in sys_list:
+            existing[s["sys_code"]] = s["sys_name"]
+        base["systems_by_team"][team_code] = [{"sys_code": sc, "sys_name": sn} for sc, sn in sorted(existing.items(), key=lambda x: x[1])]
+
+    # roles
+    for key, roles in add["roles_by_team_sys"].items():
+        base["roles_by_team_sys"].setdefault(key, [])
+        existing = {r["auth_code"]: r for r in base["roles_by_team_sys"][key]}
+        for r in roles:
+            if r["auth_code"] in existing:
+                if not existing[r["auth_code"]].get("auth_desc") and r.get("auth_desc"):
+                    existing[r["auth_code"]]["auth_desc"] = r["auth_desc"]
+                if not existing[r["auth_code"]].get("auth_name") and r.get("auth_name"):
+                    existing[r["auth_code"]]["auth_name"] = r["auth_name"]
+            else:
+                existing[r["auth_code"]] = r
+        base["roles_by_team_sys"][key] = sorted(existing.values(), key=lambda x: (x["auth_name"], x["auth_code"]))
+
+    # bundles
+    for team_code, bundle_map in add["bundles_by_team"].items():
+        base["bundles_by_team"].setdefault(team_code, {})
+        for sys_auth, bundle in bundle_map.items():
+            if sys_auth not in base["bundles_by_team"][team_code]:
+                base["bundles_by_team"][team_code][sys_auth] = bundle
+            else:
+                existing = base["bundles_by_team"][team_code][sys_auth]
+                seen = {(m["menu_id"], m["path"]) for m in existing["menus"]}
+                for m in bundle["menus"]:
+                    k = (m["menu_id"], m["path"])
+                    if k not in seen:
+                        existing["menus"].append(m)
+                        seen.add(k)
+                existing["menus"].sort(key=lambda x: (x["path"], x["menu_id"]))
+                if not existing.get("auth_desc") and bundle.get("auth_desc"):
+                    existing["auth_desc"] = bundle["auth_desc"]
+
+    return base
+
+# =========================
+# main
+# =========================
 def main():
-    if not INPUT_CSV.exists():
-        raise FileNotFoundError(f"입력 CSV를 찾을 수 없음: {INPUT_CSV}")
-
     OUT_BASE.mkdir(parents=True, exist_ok=True)
     OUT_BY_TEAM.mkdir(parents=True, exist_ok=True)
-    OUT_BAD.mkdir(parents=True, exist_ok=True)
 
-    # UTF-8 BOM 대응 + NA 처리 방지(문자열 깨짐 예방)
-    df = pd.read_csv(
-        INPUT_CSV,
-        dtype=str,
-        encoding="utf-8-sig",
-        keep_default_na=False,
-        na_filter=False,
-    )
+    # 필수 컬럼(공통)
+    need_cols = ["sys_name", "sys_code", "auth_name", "auth_code", "team_code", "menu_id", "1level", "2level", "3level"]
 
-    required_cols = ["team_name", "team_code", "page_content"]
-    for c in required_cols:
-        if c not in df.columns:
-            raise ValueError(f"CSV에 필요한 컬럼이 없습니다: {c}. 현재 컬럼={list(df.columns)}")
+    # ===== IAS (유저/팀) 2개 시트 로드 후 합치기 =====
+    df_ias_user = pd.read_excel(INPUT_XLSX, sheet_name=SHEET_IAS_USER, dtype=str)
+    df_ias_team = pd.read_excel(INPUT_XLSX, sheet_name=SHEET_IAS_TEAM, dtype=str)
 
-    teams_map: Dict[str, str] = {}  # team_code -> team_name
-    systems_by_team: Dict[str, Dict[str, str]] = {}  # team_code -> {sys_code: sys_name}
-    roles_by_team_sys: Dict[str, Dict[str, Dict[str, str]]] = {}  # "team|sys" -> {auth_code: role}
+    ensure_cols(df_ias_user, need_cols, SHEET_IAS_USER)
+    ensure_cols(df_ias_team, need_cols, SHEET_IAS_TEAM)
 
-    # team_code -> {"sys|auth": bundle}
-    bundles_by_team: Dict[str, Dict[str, Dict[str, Any]]] = {}
+    # 합치기(유저/팀)
+    df_ias = pd.concat([df_ias_user, df_ias_team], ignore_index=True)
 
-    for idx, r in df.iterrows():
-        team_code = str(r["team_code"]).strip()
-        team_name = str(r["team_name"]).strip()
-        raw = r["page_content"]
+    # 유저 무시 (컬럼이 있으면 drop 해도 되고 안 해도 됨)
+    for col in ["user_name", "user_id", "end_date", "URL"]:
+        if col in df_ias.columns:
+            pass
 
-        if not team_code or not team_name:
-            continue
+    # IAS sys_name 통일
+    df_ias["sys_name"] = IAS_SYS_NAME_FORCED
 
-        teams_map[team_code] = team_name
+    # auth_desc는 IAS 쪽에 있으므로 있으면 유지, 없으면 빈 값
+    if "auth_desc" not in df_ias.columns:
+        df_ias["auth_desc"] = ""
 
-        try:
-            obj = parse_page_content(raw)
-        except Exception as e:
-            bad_path = OUT_BAD / f"bad_row_{idx}.txt"
-            bad_path.write_text(str(raw), encoding="utf-8", errors="replace")
-            raise ValueError(f"[ROW {idx}] page_content 파싱 실패. 덤프 파일: {bad_path}") from e
+    # ===== SAP 로드 =====
+    df_sap = pd.read_excel(INPUT_XLSX, sheet_name=SHEET_SAP, dtype=str)
+    ensure_cols(df_sap, need_cols, SHEET_SAP)
+    if "auth_desc" not in df_sap.columns:
+        df_sap["auth_desc"] = ""
 
-        systems = obj.get("systems", []) or []
-        for sys in systems:
-            sys_code = str(sys.get("sys_code", "")).strip()
-            sys_name = str(sys.get("sys_name", "")).strip()
-            if not sys_code:
-                continue
+    # ===== 변환 =====
+    out_ias = rows_to_outputs(df_ias, is_sap=False)
+    out_sap = rows_to_outputs(df_sap, is_sap=True)
 
-            systems_by_team.setdefault(team_code, {})
-            systems_by_team[team_code][sys_code] = sys_name
-
-            org_auth = sys.get("org_auth", []) or []
-            for auth in org_auth:
-                auth_code = str(auth.get("auth_code", "")).strip()
-                auth_name = str(auth.get("auth_name", "")).strip()
-                auth_desc = str(auth.get("auth_desc", "")).strip()
-
-                if not auth_code:
-                    continue
-
-                # index_roles_by_team_sys
-                team_sys_key = f"{team_code}|{sys_code}"
-                roles_by_team_sys.setdefault(team_sys_key, {})
-                roles_by_team_sys[team_sys_key][auth_code] = {
-                    "auth_code": auth_code,
-                    "auth_name": auth_name,
-                    "auth_desc": auth_desc
-                }
-
-                # role bundle (team별 JSONL)
-                menus = extract_menus(auth)
-
-                bundles_by_team.setdefault(team_code, {})
-                sys_auth_key = f"{sys_code}|{auth_code}"
-
-                if sys_auth_key not in bundles_by_team[team_code]:
-                    bundles_by_team[team_code][sys_auth_key] = {
-                        "team_code": team_code,
-                        "team_name": team_name,
-                        "sys_code": sys_code,
-                        "sys_name": sys_name,
-                        "auth_code": auth_code,
-                        "auth_name": auth_name,
-                        "auth_desc": auth_desc,
-                        "menus": menus
-                    }
-                else:
-                    # 같은 sys/auth가 중복될 경우 메뉴 합치기
-                    existing = bundles_by_team[team_code][sys_auth_key]
-                    seen = {(m["menu_id"], m["path"]) for m in existing["menus"]}
-                    for m in menus:
-                        k = (m["menu_id"], m["path"])
-                        if k not in seen:
-                            existing["menus"].append(m)
-                            seen.add(k)
-                    existing["menus"].sort(key=lambda x: (x["path"], x["menu_id"]))
-
-    # ------------------------------------------------------------
-    # 파일 생성 (요구 포맷/경로 고정)
-    # ------------------------------------------------------------
-
-    # 1) index_teams.json
-    index_teams = {
-        "teams": [{"team_code": tc, "team_name": tn}
-                  for tc, tn in sorted(teams_map.items(), key=lambda x: x[1])]
+    merged = {
+        "teams_records": out_ias["teams_records"],
+        "systems_by_team": out_ias["systems_by_team"],
+        "roles_by_team_sys": out_ias["roles_by_team_sys"],
+        "bundles_by_team": out_ias["bundles_by_team"],
     }
+    merged = merge_outputs(merged, out_sap)
+
+    # ===== 파일 쓰기 =====
     (OUT_BASE / "index_teams.json").write_text(
-        json.dumps(index_teams, ensure_ascii=False, indent=2),
+        json.dumps({"teams": merged["teams_records"]}, ensure_ascii=False, indent=2),
         encoding="utf-8"
     )
 
-    # 2) index_systems_by_team.json
-    index_systems: Dict[str, List[Dict[str, str]]] = {}
-    for tc, sysmap in systems_by_team.items():
-        index_systems[tc] = [{"sys_code": sc, "sys_name": sn}
-                             for sc, sn in sorted(sysmap.items(), key=lambda x: x[1])]
     (OUT_BASE / "index_systems_by_team.json").write_text(
-        json.dumps(index_systems, ensure_ascii=False, indent=2),
+        json.dumps(merged["systems_by_team"], ensure_ascii=False, indent=2),
         encoding="utf-8"
     )
-
-    # 3) index_roles_by_team_sys.json
-    index_roles: Dict[str, List[Dict[str, str]]] = {}
-    for k, rolemap in roles_by_team_sys.items():
-        roles_sorted = sorted(rolemap.values(), key=lambda x: (x.get("auth_name", ""), x.get("auth_code", "")))
-        index_roles[k] = roles_sorted
 
     (OUT_BASE / "index_roles_by_team_sys.json").write_text(
-        json.dumps(index_roles, ensure_ascii=False, indent=2),
+        json.dumps(merged["roles_by_team_sys"], ensure_ascii=False, indent=2),
         encoding="utf-8"
     )
 
-    # 4) role_bundle_team_<team_code>.jsonl
-    for tc, bundle_map in bundles_by_team.items():
-        out_path = OUT_BY_TEAM / f"role_bundle_team_{tc}.jsonl"
+    for team_code, bundle_map in merged["bundles_by_team"].items():
+        out_path = OUT_BY_TEAM / f"role_bundle_team_{team_code}.jsonl"
         rows = list(bundle_map.values())
         rows.sort(key=lambda b: (b["sys_name"], b["auth_name"], b["auth_code"]))
-
         with out_path.open("w", encoding="utf-8") as f:
             for row in rows:
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
-    print("✅ 전처리 완료. 생성된 파일:")
+    print("✅ 완료")
     print(f"- {OUT_BASE / 'index_teams.json'}")
     print(f"- {OUT_BASE / 'index_systems_by_team.json'}")
     print(f"- {OUT_BASE / 'index_roles_by_team_sys.json'}")
     print(f"- {OUT_BY_TEAM} / role_bundle_team_<team_code>.jsonl")
-    print(f"(파싱 실패 행이 있으면 {OUT_BAD} 폴더에 덤프됨)")
 
 if __name__ == "__main__":
     main()
