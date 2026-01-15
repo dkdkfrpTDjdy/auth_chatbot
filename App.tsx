@@ -133,7 +133,6 @@ const App: React.FC = () => {
   };
 
   const getFilteredMenus = () => {
-    // 중요: fullBundle에서 현재 선택된 시스템과 권한 코드에 일치하는 데이터를 찾습니다.
     const roleData = fullBundle.find(b => 
       b.auth_code === selectedRoleId && 
       b.sys_code === selectedSystem
@@ -152,7 +151,6 @@ const App: React.FC = () => {
   const groupMenus = (menus: Menu[]) => {
     const groups: Record<string, Menu[]> = {};
     menus.forEach(m => {
-      // "ADMIN > 시스템 관리 > 사용자 관리" -> "ADMIN" 추출
       const firstLevel = m.path.split('>')[0]?.trim() || '기타';
       if (!groups[firstLevel]) groups[firstLevel] = [];
       groups[firstLevel].push(m);
@@ -306,7 +304,6 @@ const App: React.FC = () => {
                           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>
                               <div className="flex items-center gap-2">
-                                <span className="bg-red-100 text-red-700 text-[10px] font-black px-2 py-0.5 rounded uppercase">Role Active</span>
                                 <h2 className="text-xl font-black text-gray-900 leading-none">
                                   {roles.find(r => r.auth_code === selectedRoleId)?.auth_name}
                                 </h2>
