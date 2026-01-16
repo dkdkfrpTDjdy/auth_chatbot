@@ -1,4 +1,10 @@
 {
+  "": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS_Sales"
+    }
+  ],
   "100440": [
     {
       "sys_code": "LEGO",
@@ -1508,12 +1514,6 @@
     }
   ],
   "9999995": [
-    {
-      "sys_code": "LEGO",
-      "sys_name": "IAS_Sales"
-    }
-  ],
-  "nan": [
     {
       "sys_code": "LEGO",
       "sys_name": "IAS_Sales"
