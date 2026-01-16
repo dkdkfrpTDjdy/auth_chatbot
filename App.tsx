@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Search, ChevronDown, Layout, MessageSquare, AlertCircle, RefreshCcw, Loader2, Home, ShieldCheck, Check, X, Layers, Copy, ClipboardCheck, Info, MousePointer2, UserCheck, PlusCircle, Send, CheckCircle2, ChevronUp } from 'lucide-react';
 import * as dataService from './services/dataService';
@@ -20,11 +19,13 @@ const cleanValue = (val: any): string => {
   return str;
 };
 
-const compareEtcLast = (a: string, b: string) => {
-  if (a === '기타' && b !== '기타') return 1;
-  if (a !== '기타' && b === '기타') return -1;
-  return a.localeCompare(b);
-};
+interface RoleWithMenus {
+  auth_name: string;
+  auth_code: string;
+  auth_desc: string;
+  matchedMenus?: string[];
+  allMenus?: string[];
+}
 
 const parseAuthLevels = (name: string) => {
   const raw = cleanValue(name);
@@ -162,7 +163,16 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
   );
 };
 
-// --- Main App Component ---
+const guideSteps = [
+  { icon: <UserCheck size={18} />, text: 'IAM 접속 및 로그인', url: 'https://iam.ajnetworks.co.kr' },
+  { icon: <PlusCircle size={18} />, text: '신청 > 애플리케이션 권한 신청' },
+  { icon: <MousePointer2 size={18} />, text: '역할 신청' },
+  { icon: <Search  size={18} />, text: '역할 명 검색' },
+  { icon: <Send size={18} />, text: '추가 > 다음' },
+  { icon: <CheckCircle2 size={18} />, text: '신청 사유 입력' },
+  { icon: <ShieldCheck size={18} />, text: '신청 완료' },
+];
+
 const App: React.FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<string>('');
@@ -184,6 +194,9 @@ const App: React.FC = () => {
   const [copyToast, setCopyToast] = useState<string | null>(null);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
 
+  const teamOptions = useMemo(() => teams.map(t => ({ value: t.team_code, label: t.team_name })), [teams]);
+  const systemOptions = useMemo(() => systems.map(s => ({ value: s.sys_code, label: s.sys_name })), [systems]);
+
   useEffect(() => {
     setLoading(true);
     dataService.fetchTeams()
@@ -192,7 +205,6 @@ const App: React.FC = () => {
         fetchedTeams.forEach(t => {
           const code = (t.team_code || '').trim();
           if (!code) return;
-          // 이름이 있으면 이름만, 없으면 코드만 표시 (요청대로 코드 포함 포맷 제거)
           const name = (t.team_name || '').trim() || code;
           const normalizedKey = normalize(code);
           if (!uniqueTeamsMap.has(normalizedKey)) {
@@ -223,12 +235,10 @@ const App: React.FC = () => {
 
   const unifiedRoles = useMemo(() => {
     const roleMap: Record<string, { groupLabel: string, desc: Set<string>, codes: Set<string>, lv3s: Set<string> }> = {};
-    
     fullBundle.forEach(b => {
       if (b.sys_code !== selectedSystem) return;
       const { groupKey, groupLabel, l3 } = parseAuthLevels(b.auth_name);
       const authDesc = cleanValue(b.auth_desc);
-      
       if (!roleMap[groupKey]) {
         roleMap[groupKey] = {
           groupLabel,
@@ -242,14 +252,13 @@ const App: React.FC = () => {
         if (l3) roleMap[groupKey].lv3s.add(l3);
       }
     });
-
     return Object.entries(roleMap).map(([groupKey, data]) => ({
       groupKey,
       auth_name: data.groupLabel,
       auth_desc: Array.from(data.desc).join(' / ') || '',
       auth_code: Array.from(data.codes).join(', '),
-      thirdLevels: Array.from(data.lv3s).sort(compareEtcLast)
-    })).sort((a, b) => compareEtcLast(a.auth_name, b.auth_name));
+      thirdLevels: Array.from(data.lv3s).sort(a => a === '기타' ? 1 : -1)
+    })).sort((a, b) => a.auth_name.localeCompare(b.auth_name));
   }, [fullBundle, selectedSystem]);
 
   const selectedGroup = useMemo(() => 
@@ -304,7 +313,7 @@ const App: React.FC = () => {
   }, [processedMenus]);
 
   const sortedL1NormKeys = useMemo(() => 
-    Object.keys(nestedMenus.tree).sort((a, b) => compareEtcLast(nestedMenus.l1LabelMap[a], nestedMenus.l1LabelMap[b])), 
+    Object.keys(nestedMenus.tree).sort((a, b) => nestedMenus.l1LabelMap[a].localeCompare(nestedMenus.l1LabelMap[b])), 
     [nestedMenus]
   );
 
@@ -349,60 +358,95 @@ const App: React.FC = () => {
   };
 
   const handleSearch = async () => {
-    if (!chatInput.trim() || !selectedTeam || !selectedSystem) return;
+    if (!chatInput.trim() || !selectedTeam) return;
+
     const userMsg: ChatMessage = { role: 'user', content: chatInput };
     setMessages(prev => [...prev, userMsg]);
+    const originalInput = chatInput;
     setChatInput('');
     setLoading(true);
+
     try {
-      const teamName = teams.find(t => t.team_code === selectedTeam)?.team_name || '';
-      const sysName = systems.find(s => s.sys_code === selectedSystem)?.sys_name || '';
-      const analysis = await analyzeIntent(userMsg.content, teamName, sysName);
-      const kwd = normalize(analysis.keyword);
-      const bundles = fullBundle.filter(b => b.sys_code === selectedSystem);
-      let resData: any = null;
-      if (analysis.type === 'ROLE_TO_MENU') {
-        const matches = bundles.filter(b => normalize(parseAuthLevels(b.auth_name).groupLabel).includes(kwd));
-        const seen = new Set<string>();
-        resData = matches.flatMap(b => b.menus).filter(m => {
-          const name = cleanValue(m.path.split('>').pop());
-          if (!hasKorean(name) || seen.has(normalize(name))) return false;
-          seen.add(normalize(name));
-          return true;
+      const currentTeamData = teams.find(t => t.team_code === selectedTeam);
+      const teamName = currentTeamData?.team_name || '현재 팀';
+      const sysName = systems.find(s => s.sys_code === selectedSystem)?.sys_name || '미선택';
+      
+      const analysis = await analyzeIntent(originalInput, teamName, sysName);
+      
+      // 검색용 키워드 목록 생성 (메인 키워드 + AI가 제시한 후보군)
+      const keywords = Array.from(new Set([
+        normalize(analysis.keyword),
+        ...(analysis.candidates || []).map(c => normalize(c))
+      ])).filter(k => k.length > 0);
+
+      // 선택된 시스템이 있으면 해당 시스템만, 없으면 팀 내 전체 시스템 검색
+      const bundles = fullBundle.filter(b => !selectedSystem || b.sys_code === selectedSystem);
+      const resultsMap = new Map<string, RoleWithMenus>();
+
+      bundles.forEach(b => {
+        const authInfo = parseAuthLevels(b.auth_name);
+        // 고유 키: 시스템코드 + 그룹라벨 + 권한코드
+        const roleKey = `${b.sys_code}|${authInfo.groupLabel}|${b.auth_code}`;
+        
+        // 키워드 목록 중 하나라도 매칭되는지 확인
+        const isMatch = keywords.some(kwd => 
+          normalize(b.team_name).includes(kwd) ||
+          normalize(b.sys_name).includes(kwd) ||
+          normalize(b.auth_name).includes(kwd) ||
+          normalize(b.auth_desc).includes(kwd)
+        );
+
+        // 메뉴 경로 매칭 (매칭된 메뉴들 수집)
+        const matchedMenus: string[] = [];
+        (b.menus || []).forEach(m => {
+          if (keywords.some(kwd => normalize(m.path).includes(kwd))) {
+            matchedMenus.push(m.path);
+          }
         });
-      } else if (analysis.type === 'MENU_TO_ROLE') {
-        const seen = new Set<string>();
-        resData = bundles.filter(b => b.menus.some(m => normalize(m.path).includes(kwd)))
-          .map(b => ({ auth_name: parseAuthLevels(b.auth_name).groupLabel, auth_code: b.auth_code }))
-          .filter(r => {
-            const n = normalize(r.auth_name);
-            if (seen.has(n)) return false;
-            seen.add(n);
-            return true;
-          });
-      } else if (analysis.type === 'ROLE_LIST') {
-        resData = unifiedRoles;
+
+        const hasMenuMatch = matchedMenus.length > 0;
+
+        if (analysis.type === 'ROLE_LIST' || isMatch || hasMenuMatch) {
+          if (!resultsMap.has(roleKey)) {
+            resultsMap.set(roleKey, {
+              auth_name: `${authInfo.groupLabel} [${b.sys_name}]`,
+              auth_code: b.auth_code,
+              auth_desc: cleanValue(b.auth_desc),
+              matchedMenus: matchedMenus,
+              allMenus: (analysis.type === 'ROLE_TO_MENU' || analysis.type === 'ROLE_LIST' || isMatch) ? b.menus.map(m => m.path) : []
+            });
+          } else {
+            const existing = resultsMap.get(roleKey)!;
+            if (hasMenuMatch) {
+              existing.matchedMenus = Array.from(new Set([...(existing.matchedMenus || []), ...matchedMenus]));
+            }
+          }
+        }
+      });
+
+      const finalData = Array.from(resultsMap.values());
+      const empty = finalData.length === 0;
+
+      let responseContent = analysis.message || '검색 결과입니다.';
+      if (empty) {
+        responseContent = `죄송합니다. ${teamName} 팀${selectedSystem ? `의 ${sysName} 시스템` : ''} 내에서 관련 정보를 찾지 못했습니다.`;
       }
-      setMessages(prev => [...prev, { role: 'assistant', content: analysis.message || '결과를 확인하세요.', data: resData }]);
-    } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: '분석 중 오류가 발생했습니다.' }]);
+
+      setMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: responseContent,
+          data: finalData
+        } as ChatMessage
+      ]);
+    } catch (e) {
+      console.error(e);
+      setMessages(prev => [...prev, { role: 'assistant', content: '데이터 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' }]);
     } finally {
       setLoading(false);
     }
   };
-
-  const teamOptions = useMemo(() => teams.map(t => ({ value: t.team_code, label: t.team_name })), [teams]);
-  const systemOptions = useMemo(() => systems.map(s => ({ value: s.sys_code, label: s.sys_name })), [systems]);
-
-  const guideSteps = [
-    { icon: <MousePointer2 size={16}/>, text: "AJ 포털 > IAM 신청", url: "https://iam.ajias.co.kr/" },
-    { icon: <Layers size={16}/>, text: "신청 > 애플리케이션 권한 신청" },
-    { icon: <UserCheck size={16}/>, text: "본인 신청 체크" },
-    { icon: <PlusCircle size={16}/>, text: "원하는 시스템 역할 신청" },
-    { icon: <Copy size={16}/>, text: "역할 명 입력" },
-    { icon: <Send size={16}/>, text: "신청사유 입력 후 다음" },
-    { icon: <CheckCircle2 size={16}/>, text: "승인 시 권한 부여 완료" },
-  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
@@ -426,14 +470,14 @@ const App: React.FC = () => {
 
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 space-y-6 animate-fade-in">
         <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 flex flex-col md:flex-row gap-6 items-end">
-          <SearchableSelect options={teamOptions} value={selectedTeam} onChange={setSelectedTeam} placeholder="팀 선택" label="My Team" icon={<Home size={14} className="text-red-600"/>} />
-          <SearchableSelect options={systemOptions} value={selectedSystem} onChange={setSelectedSystem} placeholder="시스템 선택" label="Target System" icon={<Layout size={14} className="text-red-600"/>} disabled={!selectedTeam} />
+          <SearchableSelect options={teamOptions} value={selectedTeam} onChange={setSelectedTeam} placeholder="팀 선택" label="Team" icon={<Home size={14} className="text-red-600"/>} />
+          <SearchableSelect options={systemOptions} value={selectedSystem} onChange={setSelectedSystem} placeholder="시스템 선택" label="System" icon={<Layout size={14} className="text-red-600"/>} disabled={!selectedTeam} />
           <button onClick={() => window.location.reload()} className="p-4 text-slate-400 hover:text-red-600 border border-slate-200 rounded-xl bg-white shadow-sm transition-all active:scale-95 mb-[2px]">
             <RefreshCcw size={20}/>
           </button>
         </section>
 
-        {selectedTeam && selectedSystem ? (
+        {selectedTeam ? (
           <div className="flex flex-col flex-1 space-y-6">
             <section className="bg-slate-900 text-white rounded-3xl overflow-hidden shadow-xl border border-slate-800 transition-all">
               <button onClick={() => setIsGuideOpen(!isGuideOpen)} className="w-full flex items-center justify-between p-5 hover:bg-slate-800/50 transition-colors">
@@ -459,12 +503,6 @@ const App: React.FC = () => {
                       return step.url ? <a key={idx} href={step.url} target="_blank" rel="noopener noreferrer" className="block outline-none">{stepContent}</a> : <div key={idx}>{stepContent}</div>;
                     })}
                   </div>
-                  <div className="mt-4 pt-4 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p className="text-[10px] text-slate-500 font-bold">* 권한 부여 후에도 메뉴가 보이지 않을 경우 IT운영팀 권한 담당자에게 문의 바랍니다.</p>
-                    <div className="flex items-center gap-4">
-                       <span className="text-[10px] px-3 py-1 rounded-full bg-white/10 text-slate-400 font-bold italic">담당: DX본부 IT운영팀</span>
-                    </div>
-                  </div>
                 </div>
               )}
             </section>
@@ -473,7 +511,7 @@ const App: React.FC = () => {
               <div className="flex items-center justify-between px-2">
                 <div className="flex items-center gap-2 text-slate-900 font-black text-sm uppercase tracking-tight">
                   <ClipboardCheck size={18} className="text-red-600" />
-                  신청 가능 권한 목록 <span className="text-xs text-slate-400 font-bold normal-case ml-2">(클릭하여 권한명 복사)</span>
+                  팀 권한 요약 <span className="text-xs text-slate-400 font-bold normal-case ml-2">(클릭하여 권한명 복사)</span>
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
@@ -503,13 +541,15 @@ const App: React.FC = () => {
               {activeTab === 'browse' ? (
                 <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
                   <div className="w-full md:w-80 border-r border-slate-100 bg-slate-50/50 p-5 flex flex-col gap-4 overflow-hidden">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">Primary Roles</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">시스템 역할 (Roles)</span>
                     <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-2">
-                      {unifiedRoles.map(r => (
+                      {unifiedRoles.length > 0 ? unifiedRoles.map(r => (
                         <button key={r.groupKey} onClick={() => setSelectedRoleGroupKey(r.groupKey)} className={`w-full text-left p-4 rounded-2xl border transition-all ${selectedRoleGroupKey === r.groupKey ? 'bg-red-600 border-red-600 text-white shadow-lg scale-[1.02]' : 'bg-white border-slate-200 text-slate-600 hover:bg-red-50/30'}`}>
                           <div className={`font-black text-sm ${r.auth_name === '기타' ? 'opacity-50 italic' : ''}`}>{r.auth_name}</div>
                         </button>
-                      ))}
+                      )) : (
+                        <div className="p-4 text-xs font-bold text-slate-400 text-center">시스템을 선택해 주세요.</div>
+                      )}
                     </div>
                   </div>
 
@@ -522,14 +562,11 @@ const App: React.FC = () => {
                               <h2 className="text-3xl font-black text-slate-900 tracking-tight">{selectedGroup?.auth_name}</h2>
                               <button onClick={() => handleCopyRole(selectedGroup?.auth_name || '')} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-colors border border-transparent hover:border-red-100"><Copy size={18} /></button>
                             </div>
-                            
-                            {/* 상세 권한 설명 노출 영역 - 간소화 (진한 회색 한 줄) */}
                             {selectedGroup?.auth_desc && (
                               <p className="text-slate-600 text-xs font-medium ml-1 leading-relaxed">
                                 {selectedGroup.auth_desc}
                               </p>
                             )}
-
                             <div className="flex flex-wrap gap-2 items-center">
                               {selectedGroup?.thirdLevels && selectedGroup.thirdLevels.length > 0 && selectedGroup.thirdLevels.map((lv3, idx) => (
                                 <span key={idx} className="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-tight border border-slate-200">{lv3}</span>
@@ -541,7 +578,6 @@ const App: React.FC = () => {
                             </div>
                           </div>
                         </div>
-                        
                         <div className="flex-1 overflow-y-auto p-8 space-y-6 bg-slate-50/30 custom-scrollbar">
                           {sortedL1NormKeys.length > 0 ? (
                             sortedL1NormKeys.map(l1Norm => {
@@ -563,7 +599,7 @@ const App: React.FC = () => {
                                   </button>
                                   {!isCollapsed && (
                                     <div className="space-y-8 animate-in fade-in slide-in-from-top-2 duration-300">
-                                      {Object.keys(l2Data).sort((a, b) => compareEtcLast(nestedMenus.l2LabelMap[a], nestedMenus.l2LabelMap[b])).map(l2Norm => (
+                                      {Object.keys(l2Data).sort((a, b) => nestedMenus.l2LabelMap[a].localeCompare(nestedMenus.l2LabelMap[b])).map(l2Norm => (
                                         <div key={l2Norm} className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
                                           <div className="px-6 py-4 bg-slate-50/50 border-b border-slate-50 flex items-center justify-between">
                                             <div className="flex items-center gap-3"><Layers size={14} className="text-red-500" /><h4 className={`text-xs font-black uppercase tracking-tight ${nestedMenus.l2LabelMap[l2Norm] === '기타' ? 'text-slate-400 italic' : 'text-slate-700'}`}>{nestedMenus.l2LabelMap[l2Norm]}</h4></div>
@@ -601,22 +637,15 @@ const App: React.FC = () => {
                   <div className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
                     {messages.length === 0 && (
                       <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
-                        <div className="p-6 bg-white rounded-full shadow-lg text-red-600 border border-red-100">
-                          <MessageSquare size={44} />
-                        </div>
-
+                        <div className="p-6 bg-white rounded-full shadow-lg text-red-600 border border-red-100"><MessageSquare size={44} /></div>
                         <p className="font-black text-slate-900 text-2xl">AI 스마트 검색</p>
-
-                        <p className="text-sm font-semibold text-slate-600">
-                          권한/메뉴 관련 질문을 자유롭게 입력해 주세요.
-                        </p>
-
+                        <p className="text-sm font-semibold text-slate-600">권한/메뉴 관련 질문을 입력해 주세요.</p>
                         <div className="mt-2 w-full max-w-md space-y-2">
                           <div className="bg-white border border-slate-200 rounded-xl px-4 py-3 text-left shadow-sm">
                             <ul className="mt-2 space-y-1 text-sm text-slate-600">
-                              <li>정보전략팀 신입인데 권한 뭐 신청해야 돼?</li>
-                              <li>IAS Sales에서 “견적” 메뉴 보려면 무슨 권한이 필요해?</li>
-                              <li>ROLE_ADMIN 신청하면 어떤 메뉴를 볼 수 있어?</li>
+                              <li>정보전략팀 메뉴 다 보여줘</li>
+                              <li>“견적” 메뉴 보려면 무슨 권한 필요해?</li>
+                              <li>ROLE_USER 신청하면 뭐 할 수 있어?</li>
                             </ul>
                           </div>
                         </div>
@@ -624,14 +653,51 @@ const App: React.FC = () => {
                     )}
                     {messages.map((m, i) => (
                       <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`}>
-                        <div className={`max-w-[85%] p-5 rounded-3xl shadow-md border ${m.role === 'user' ? 'bg-red-700 text-white rounded-br-none border-red-800' : 'bg-white text-slate-800 rounded-bl-none border-slate-100'}`}>
+                        <div className={`max-w-[90%] p-5 rounded-3xl shadow-md border ${m.role === 'user' ? 'bg-red-700 text-white rounded-br-none border-red-800' : 'bg-white text-slate-800 rounded-bl-none border-slate-100'}`}>
                           <p className="text-[15px] font-bold whitespace-pre-wrap">{m.content}</p>
                           {m.data && Array.isArray(m.data) && (m.data as any[]).length > 0 && (
-                            <div className="mt-4 pt-4 border-t border-black/5 grid grid-cols-1 gap-2">
-                              {(m.data as any[]).slice(0, 15).map((d: any, j: number) => (
-                                <div key={j} className="bg-black/5 p-3 rounded-xl text-[12px] font-black flex justify-between items-center">
-                                  <span>{d.path ? cleanValue(d.path.split('>').pop()) : d.auth_name}</span>
-                                  {d.auth_code && <span className="opacity-40 font-mono text-[10px]">[{d.auth_code}]</span>}
+                            <div className="mt-4 pt-4 border-t border-black/10 grid grid-cols-1 gap-4">
+                              {(m.data as any[]).map((d: any, j: number) => (
+                                <div key={j} className="bg-black/5 p-4 rounded-2xl flex flex-col gap-3">
+                                  <div className="flex justify-between items-start gap-4">
+                                    <div className="flex flex-col">
+                                      <div className="flex items-center gap-2">
+                                        <ShieldCheck size={14} className="text-red-600" />
+                                        <span className="text-[14px] font-black text-slate-900 leading-tight">{d.auth_name}</span>
+                                      </div>
+                                      {d.auth_desc && (
+                                        <span className="text-[11px] text-slate-500 font-medium leading-tight mt-1 ml-5">
+                                          {d.auth_desc}
+                                        </span>
+                                      )}
+                                    </div>
+                                    {d.auth_code && (
+                                      <span className="text-[10px] font-mono opacity-50 bg-black/10 px-2 py-0.5 rounded-md whitespace-nowrap">
+                                        [{d.auth_code}]
+                                      </span>
+                                    )}
+                                  </div>
+
+                                  {((d.matchedMenus && d.matchedMenus.length > 0) || (d.allMenus && d.allMenus.length > 0)) && (
+                                    <div className="flex flex-col gap-1.5 border-t border-black/5 pt-3 ml-5">
+                                      <div className="flex items-center gap-2 mb-1">
+                                        <Layers size={12} className="text-slate-400" />
+                                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">
+                                          {d.matchedMenus?.length ? 'Matched Menus' : 'Role Menus'}
+                                        </span>
+                                      </div>
+                                      <div className="flex flex-col gap-1">
+                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).slice(0, 10).map((path: string, k: number) => (
+                                          <div key={k} className="text-[11px] font-bold text-slate-700 bg-white/60 px-2.5 py-1.5 rounded-lg border border-white/40 shadow-sm leading-tight">
+                                            {path}
+                                          </div>
+                                        ))}
+                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).length > 10 && (
+                                          <span className="text-[10px] text-slate-400 font-bold ml-2 italic">외 {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).length - 10}개의 메뉴가 더 있습니다.</span>
+                                        )}
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
                               ))}
                             </div>
@@ -643,7 +709,7 @@ const App: React.FC = () => {
                   </div>
                   <div className="p-6 bg-white border-t border-slate-100">
                     <div className="max-w-4xl mx-auto relative group">
-                      <input type="text" value={chatInput} onChange={e => setChatInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} placeholder="질문을 입력하세요..." className="w-full pl-7 pr-16 py-5 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-[15px] font-bold shadow-inner focus:bg-white transition-all" />
+                      <input type="text" value={chatInput} onChange={e => setChatInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} placeholder="질문을 입력하세요 (예: 정보전략팀 메뉴 알려줘)" className="w-full pl-7 pr-16 py-5 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-[15px] font-bold shadow-inner focus:bg-white transition-all" />
                       <button onClick={handleSearch} className="absolute right-3 top-3 p-3 bg-red-700 text-white rounded-xl shadow-lg active:scale-95 disabled:opacity-50" disabled={loading || !chatInput.trim()}><Search size={22}/></button>
                     </div>
                   </div>
@@ -655,7 +721,7 @@ const App: React.FC = () => {
           <div className="bg-white rounded-3xl shadow-sm border border-slate-100 py-48 flex flex-col items-center justify-center text-center space-y-6 mt-10 animate-fade-in">
             <div className="p-10 bg-red-50 text-red-600 rounded-full animate-pulse shadow-inner"><ShieldCheck size={64} strokeWidth={1.5}/></div>
             <div className="space-y-2">
-              <p className="text-slate-500 font-bold text-lg leading-relaxed">팀과 시스템을 선택하여 <br/> <span className="text-red-600">권한과 메뉴</span>를 확인하세요.</p>
+              <p className="text-slate-500 font-bold text-lg leading-relaxed">팀을 선택하여 <br/> <span className="text-red-600">권한과 메뉴</span>를 확인하세요.</p>
             </div>
           </div>
         )}
