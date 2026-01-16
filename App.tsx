@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Search, ChevronDown, ChevronRight, Layout, MessageSquare, AlertCircle, RefreshCcw, Loader2, Home, ListFilter, ShieldCheck, Check, X, Layers, Copy, ClipboardCheck, Info, ExternalLink, MousePointer2, UserCheck, PlusCircle, Send, CheckCircle2, ChevronUp } from 'lucide-react';
+import { Search, ChevronDown, Layout, MessageSquare, AlertCircle, RefreshCcw, Loader2, Home, ShieldCheck, Check, X, Layers, Copy, ClipboardCheck, Info, MousePointer2, UserCheck, PlusCircle, Send, CheckCircle2, ChevronUp } from 'lucide-react';
 import * as dataService from './services/dataService';
 import { Team, System, Role, RoleBundle, ChatMessage, Menu } from './types';
 import { analyzeIntent } from './services/geminiService';
@@ -89,7 +89,8 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
 
   const filteredOptions = useMemo(() => 
     options.filter(opt =>
-      normalize(opt.label).includes(normalize(searchTerm))
+      normalize(opt.label).includes(normalize(searchTerm)) ||
+      normalize(opt.value).includes(normalize(searchTerm))
     ), [options, searchTerm]
   );
 
@@ -115,7 +116,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
         onClick={handleToggle}
       >
         <div className="flex items-center px-4 py-3.5">
-          <div className="flex-1 flex items-center">
+          <div className="flex-1 flex items-center overflow-hidden">
             {isOpen ? (
               <input
                 autoFocus
@@ -127,7 +128,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
                 onClick={(e) => e.stopPropagation()}
               />
             ) : (
-              <span className={`text-sm font-bold ${selectedOption ? 'text-slate-800' : 'text-slate-400'}`}>
+              <span className={`text-sm font-bold truncate ${selectedOption ? 'text-slate-800' : 'text-slate-400'}`}>
                 {selectedOption ? selectedOption.label : placeholder}
               </span>
             )}
@@ -147,7 +148,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
             {filteredOptions.length > 0 ? (
               filteredOptions.map((opt) => (
                 <div key={opt.value} className={`px-5 py-3 text-sm font-bold flex items-center justify-between cursor-pointer transition-colors ${value === opt.value ? 'bg-red-50 text-red-700' : 'text-slate-600 hover:bg-slate-50'}`} onClick={() => handleSelect(opt.value)}>
-                  {opt.label}
+                  <span>{opt.label}</span>
                   {value === opt.value && <Check size={14} />}
                 </div>
               ))
@@ -189,11 +190,13 @@ const App: React.FC = () => {
       .then(fetchedTeams => {
         const uniqueTeamsMap = new Map<string, Team>();
         fetchedTeams.forEach(t => {
-          const name = (t.team_name || '').trim();
-          if (!name) return;
-          const normalizedName = normalize(name);
-          if (!uniqueTeamsMap.has(normalizedName)) {
-            uniqueTeamsMap.set(normalizedName, { ...t, team_name: name });
+          const code = (t.team_code || '').trim();
+          if (!code) return;
+          // 이름이 있으면 이름만, 없으면 코드만 표시 (요청대로 코드 포함 포맷 제거)
+          const name = (t.team_name || '').trim() || code;
+          const normalizedKey = normalize(code);
+          if (!uniqueTeamsMap.has(normalizedKey)) {
+            uniqueTeamsMap.set(normalizedKey, { team_code: code, team_name: name });
           }
         });
         const deduped = Array.from(uniqueTeamsMap.values()).sort((a, b) => a.team_name.localeCompare(b.team_name, 'ko'));
@@ -243,7 +246,7 @@ const App: React.FC = () => {
     return Object.entries(roleMap).map(([groupKey, data]) => ({
       groupKey,
       auth_name: data.groupLabel,
-      auth_desc: Array.from(data.desc).join(' / ') || '', // '기타' 대신 빈 문자열 반환
+      auth_desc: Array.from(data.desc).join(' / ') || '',
       auth_code: Array.from(data.codes).join(', '),
       thirdLevels: Array.from(data.lv3s).sort(compareEtcLast)
     })).sort((a, b) => compareEtcLast(a.auth_name, b.auth_name));
@@ -393,7 +396,7 @@ const App: React.FC = () => {
 
   const guideSteps = [
     { icon: <MousePointer2 size={16}/>, text: "AJ 포털 > IAM 신청", url: "https://iam.ajias.co.kr/" },
-    { icon: <Layers size={16}/>, text: "애플리케이션 권한 신청" },
+    { icon: <Layers size={16}/>, text: "신청 > 애플리케이션 권한 신청" },
     { icon: <UserCheck size={16}/>, text: "본인 신청 체크" },
     { icon: <PlusCircle size={16}/>, text: "원하는 시스템 역할 신청" },
     { icon: <Copy size={16}/>, text: "역할 명 입력" },
@@ -407,16 +410,16 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-5">
             <div className="bg-white p-1.5 rounded-lg shadow-inner">
-              <img src={LOGO_PATH} alt="Logo" className="h-8 w-auto object-contain" onError={(e) => (e.target as any).src = 'https://picsum.photos/120/40?grayscale'} />
+              <img src={LOGO_PATH} alt="Logo" className="h-8 w-auto object-contain" onError={(e) => (e.target as any).src = 'https://cdn.imweb.me/thumbnail/20230807/71e6f8a836628.png'} />
             </div>
             <div>
-              <h1 className="text-xl font-black tracking-tighter leading-none text-white">권한/메뉴 안내 센터</h1>
-              <p className="text-[10px] font-bold opacity-60 mt-1 uppercase tracking-widest hidden sm:block">AJ Core Intelligence Division</p>
+              <h1 className="text-xl font-black tracking-tighter leading-none text-white">IAS 시스템 권한 안내 센터</h1>
+              <p className="text-[10px] font-bold opacity-60 mt-1 uppercase tracking-widest hidden sm:block">IAS System Auth Guidance Center</p>
             </div>
           </div>
           <div className="bg-white/10 px-3 py-1.5 rounded-full border border-white/20 hidden md:flex items-center gap-2">
             <ShieldCheck size={14} className="text-red-200" />
-            <span className="text-[10px] font-black uppercase tracking-tight">AJ System Trusted</span>
+            <span className="text-[10px] font-black uppercase tracking-tight">AJ네트웍스</span>
           </div>
         </div>
       </header>
@@ -459,7 +462,7 @@ const App: React.FC = () => {
                   <div className="mt-4 pt-4 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <p className="text-[10px] text-slate-500 font-bold">* 권한 부여 후에도 메뉴가 보이지 않을 경우 IT운영팀 권한 담당자에게 문의 바랍니다.</p>
                     <div className="flex items-center gap-4">
-                       <span className="text-[10px] px-3 py-1 rounded-full bg-white/10 text-slate-400 font-bold italic">담당자: IT운영팀 권한관리센터</span>
+                       <span className="text-[10px] px-3 py-1 rounded-full bg-white/10 text-slate-400 font-bold italic">담당: DX본부 IT운영팀</span>
                     </div>
                   </div>
                 </div>
@@ -520,19 +523,19 @@ const App: React.FC = () => {
                               <button onClick={() => handleCopyRole(selectedGroup?.auth_name || '')} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-colors border border-transparent hover:border-red-100"><Copy size={18} /></button>
                             </div>
                             
-                            {/* 상세 권한 설명 노출 영역 */}
-                            <div className="bg-red-50/50 p-5 rounded-2xl border border-red-100/50 shadow-sm">
-                                <p className="text-slate-700 font-bold text-[15px] leading-relaxed">
-                                    {selectedGroup?.auth_desc ? selectedGroup.auth_desc : `${selectedGroup?.auth_name} 권한에 대한 상세 설명이 등록되어 있지 않습니다.`}
-                                </p>
-                            </div>
+                            {/* 상세 권한 설명 노출 영역 - 간소화 (진한 회색 한 줄) */}
+                            {selectedGroup?.auth_desc && (
+                              <p className="text-slate-600 text-xs font-medium ml-1 leading-relaxed">
+                                {selectedGroup.auth_desc}
+                              </p>
+                            )}
 
                             <div className="flex flex-wrap gap-2 items-center">
                               {selectedGroup?.thirdLevels && selectedGroup.thirdLevels.length > 0 && selectedGroup.thirdLevels.map((lv3, idx) => (
                                 <span key={idx} className="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-tight border border-slate-200">{lv3}</span>
                               ))}
                               <div className="ml-auto relative w-full lg:w-80 mt-4 lg:mt-0">
-                                <input type="text" placeholder="메뉴 경로 검색..." value={menuFilter} onChange={e => setMenuFilter(e.target.value)} className="w-full pl-12 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold focus:ring-4 focus:ring-red-500/10 outline-none transition-all shadow-inner" />
+                                <input type="text" placeholder="메뉴 검색" value={menuFilter} onChange={e => setMenuFilter(e.target.value)} className="w-full pl-12 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold focus:ring-4 focus:ring-red-500/10 outline-none transition-all shadow-inner" />
                                 <Search className="absolute left-4 top-3.5 text-slate-400" size={18}/>
                               </div>
                             </div>
@@ -597,10 +600,26 @@ const App: React.FC = () => {
                 <div className="flex flex-col flex-1 bg-slate-50/50">
                   <div className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
                     {messages.length === 0 && (
-                      <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-40">
-                        <div className="p-8 bg-white rounded-full shadow-lg text-red-600"><MessageSquare size={48}/></div>
-                        <p className="font-black text-slate-900 text-xl">AI 스마트 검색</p>
-                        <p className="text-sm font-bold italic">계층 구조를 기반으로 권한과 메뉴를 분석합니다.</p>
+                      <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
+                        <div className="p-6 bg-white rounded-full shadow-lg text-red-600 border border-red-100">
+                          <MessageSquare size={44} />
+                        </div>
+
+                        <p className="font-black text-slate-900 text-2xl">AI 스마트 검색</p>
+
+                        <p className="text-sm font-semibold text-slate-600">
+                          권한/메뉴 관련 질문을 자유롭게 입력해 주세요.
+                        </p>
+
+                        <div className="mt-2 w-full max-w-md space-y-2">
+                          <div className="bg-white border border-slate-200 rounded-xl px-4 py-3 text-left shadow-sm">
+                            <ul className="mt-2 space-y-1 text-sm text-slate-600">
+                              <li>정보전략팀 신입인데 권한 뭐 신청해야 돼?</li>
+                              <li>IAS Sales에서 “견적” 메뉴 보려면 무슨 권한이 필요해?</li>
+                              <li>ROLE_ADMIN 신청하면 어떤 메뉴를 볼 수 있어?</li>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
                     )}
                     {messages.map((m, i) => (
@@ -636,15 +655,14 @@ const App: React.FC = () => {
           <div className="bg-white rounded-3xl shadow-sm border border-slate-100 py-48 flex flex-col items-center justify-center text-center space-y-6 mt-10 animate-fade-in">
             <div className="p-10 bg-red-50 text-red-600 rounded-full animate-pulse shadow-inner"><ShieldCheck size={64} strokeWidth={1.5}/></div>
             <div className="space-y-2">
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight">AJ Access Portal</h2>
-              <p className="text-slate-500 font-bold text-lg leading-relaxed">팀과 시스템을 선택하여 <br/> <span className="text-red-600">계층형 권한 구조</span>를 확인하세요.</p>
+              <p className="text-slate-500 font-bold text-lg leading-relaxed">팀과 시스템을 선택하여 <br/> <span className="text-red-600">권한과 메뉴</span>를 확인하세요.</p>
             </div>
           </div>
         )}
       </main>
 
       <footer className="p-10 text-center bg-white border-t border-slate-50 mt-10">
-        <p className="text-[11px] font-black text-slate-300 tracking-[0.5em] uppercase opacity-60">Copyright &copy; {new Date().getFullYear()} AJ Networks DX Division</p>
+        <p className="text-[11px] font-black text-slate-300 tracking-[0.5em] uppercase opacity-60">Copyright &copy; {new Date().getFullYear()} AJ네트웍스 전략기획실</p>
       </footer>
     </div>
   );
