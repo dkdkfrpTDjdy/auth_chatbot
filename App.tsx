@@ -19,6 +19,9 @@ const cleanValue = (val: any): string => {
   return str;
 };
 
+type IntentType = "ROLE_TO_MENU" | "MENU_TO_ROLE" | "ROLE_LIST" | "UNKNOWN";
+
+
 interface RoleWithMenus {
   auth_name: string;
   auth_code: string;
@@ -88,7 +91,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const filteredOptions = useMemo(() => 
+  const filteredOptions = useMemo(() =>
     options.filter(opt =>
       normalize(opt.label).includes(normalize(searchTerm)) ||
       normalize(opt.value).includes(normalize(searchTerm))
@@ -112,7 +115,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
       <label className="text-[11px] font-black text-slate-400 flex items-center gap-2 uppercase tracking-tight ml-1">
         {icon} {label}
       </label>
-      <div 
+      <div
         className={`relative group bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-sm ${isOpen ? 'ring-4 ring-red-500/10 border-red-500 bg-white' : 'hover:bg-white cursor-pointer'}`}
         onClick={handleToggle}
       >
@@ -167,7 +170,7 @@ const guideSteps = [
   { icon: <UserCheck size={18} />, text: 'IAM 접속 및 로그인', url: 'https://iam.ajnetworks.co.kr' },
   { icon: <PlusCircle size={18} />, text: '신청 > 애플리케이션 권한 신청' },
   { icon: <MousePointer2 size={18} />, text: '역할 신청' },
-  { icon: <Search  size={18} />, text: '역할 명 검색' },
+  { icon: <Search size={18} />, text: '역할 명 검색' },
   { icon: <Send size={18} />, text: '추가 > 다음' },
   { icon: <CheckCircle2 size={18} />, text: '신청 사유 입력' },
   { icon: <ShieldCheck size={18} />, text: '신청 완료' },
@@ -178,16 +181,16 @@ const App: React.FC = () => {
   const [selectedTeam, setSelectedTeam] = useState<string>('');
   const [systems, setSystems] = useState<System[]>([]);
   const [selectedSystem, setSelectedSystem] = useState<string>('');
-  
+
   const [loading, setLoading] = useState(false);
   const [bundleLoading, setBundleLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'browse' | 'chat'>('browse');
-  
+
   const [fullBundle, setFullBundle] = useState<RoleBundle[]>([]);
   const [selectedRoleGroupKey, setSelectedRoleGroupKey] = useState<string>('');
   const [menuFilter, setMenuFilter] = useState<string>('');
-  
+
   const [collapsedL1s, setCollapsedL1s] = useState<Set<string>>(new Set());
   const [chatInput, setChatInput] = useState<string>('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -220,12 +223,31 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (!selectedTeam) return;
+
+    setError(null);
     setBundleLoading(true);
-    dataService.fetchSystemsByTeam(selectedTeam).then(setSystems).catch(err => setError(err.message));
-    dataService.fetchRoleBundle(selectedTeam).then(setFullBundle).catch(() => setFullBundle([])).finally(() => setBundleLoading(false));
+
+    // 팀 전환 시 UI 상태 초기화
     setSelectedSystem('');
     setSelectedRoleGroupKey('');
     setCollapsedL1s(new Set());
+    setSystems([]);
+    setFullBundle([]);
+
+    Promise.all([
+      dataService.fetchSystemsByTeam(selectedTeam),
+      dataService.fetchRoleBundle(selectedTeam),
+    ])
+      .then(([sys, bundle]) => {
+        setSystems(sys);
+        setFullBundle(bundle);
+      })
+      .catch((err: any) => {
+        setError(err?.message || "데이터 로딩 중 오류가 발생했습니다.");
+        setSystems([]);
+        setFullBundle([]);
+      })
+      .finally(() => setBundleLoading(false));
   }, [selectedTeam]);
 
   useEffect(() => {
@@ -236,7 +258,7 @@ const App: React.FC = () => {
   const unifiedRoles = useMemo(() => {
     const roleMap: Record<string, { groupLabel: string, desc: Set<string>, codes: Set<string>, lv3s: Set<string> }> = {};
     fullBundle.forEach(b => {
-      if (b.sys_code !== selectedSystem) return;
+      if (selectedSystem && b.sys_code !== selectedSystem) return;
       const { groupKey, groupLabel, l3 } = parseAuthLevels(b.auth_name);
       const authDesc = cleanValue(b.auth_desc);
       if (!roleMap[groupKey]) {
@@ -261,15 +283,15 @@ const App: React.FC = () => {
     })).sort((a, b) => a.auth_name.localeCompare(b.auth_name));
   }, [fullBundle, selectedSystem]);
 
-  const selectedGroup = useMemo(() => 
-    unifiedRoles.find(r => r.groupKey === selectedRoleGroupKey), 
+  const selectedGroup = useMemo(() =>
+    unifiedRoles.find(r => r.groupKey === selectedRoleGroupKey),
     [unifiedRoles, selectedRoleGroupKey]
   );
 
   const processedMenus = useMemo(() => {
     if (!selectedRoleGroupKey) return [];
     const targetBundles = fullBundle.filter(b => {
-      if (b.sys_code !== selectedSystem) return false;
+      if (selectedSystem && b.sys_code !== selectedSystem) return false;
       const { groupKey } = parseAuthLevels(b.auth_name);
       return groupKey === selectedRoleGroupKey;
     });
@@ -284,7 +306,7 @@ const App: React.FC = () => {
       const l3 = parts[2] || parts[parts.length - 1] || '기타';
       const pathNorm = normalize(`${l1}|${l2}|${l3}`);
       if (seen.has(pathNorm)) return;
-      if (!hasKorean(l3)) return; 
+      if (!hasKorean(l3)) return;
       if (filterNorm && !normalize(m.path).includes(filterNorm)) return;
       seen.add(pathNorm);
       result.push({ ...m, l1, l2, l3 });
@@ -312,8 +334,8 @@ const App: React.FC = () => {
     return { tree, l1LabelMap, l2LabelMap };
   }, [processedMenus]);
 
-  const sortedL1NormKeys = useMemo(() => 
-    Object.keys(nestedMenus.tree).sort((a, b) => nestedMenus.l1LabelMap[a].localeCompare(nestedMenus.l1LabelMap[b])), 
+  const sortedL1NormKeys = useMemo(() =>
+    Object.keys(nestedMenus.tree).sort((a, b) => nestedMenus.l1LabelMap[a].localeCompare(nestedMenus.l1LabelMap[b])),
     [nestedMenus]
   );
 
@@ -360,9 +382,13 @@ const App: React.FC = () => {
   const handleSearch = async () => {
     if (!chatInput.trim() || !selectedTeam) return;
 
-    const userMsg: ChatMessage = { role: 'user', content: chatInput };
-    setMessages(prev => [...prev, userMsg]);
     const originalInput = chatInput;
+    const userMsg: ChatMessage = { role: 'user', content: originalInput };
+
+    // 1) 먼저 사용자 메시지 추가
+    setMessages(prev => [...prev, userMsg]);
+
+    // 2) 입력창/로딩 처리
     setChatInput('');
     setLoading(true);
 
@@ -370,66 +396,178 @@ const App: React.FC = () => {
       const currentTeamData = teams.find(t => t.team_code === selectedTeam);
       const teamName = currentTeamData?.team_name || '현재 팀';
       const sysName = systems.find(s => s.sys_code === selectedSystem)?.sys_name || '미선택';
-      
-      const analysis = await analyzeIntent(originalInput, teamName, sysName);
-      
-      // 검색용 키워드 목록 생성 (메인 키워드 + AI가 제시한 후보군)
-      const keywords = Array.from(new Set([
-        normalize(analysis.keyword),
-        ...(analysis.candidates || []).map(c => normalize(c))
-      ])).filter(k => k.length > 0);
 
-      // 선택된 시스템이 있으면 해당 시스템만, 없으면 팀 내 전체 시스템 검색
-      const bundles = fullBundle.filter(b => !selectedSystem || b.sys_code === selectedSystem);
-      const resultsMap = new Map<string, RoleWithMenus>();
+      // ✅ LLM 의도 분석
+      const analysis = await analyzeIntent(
+        originalInput,
+        `${teamName} (${selectedTeam})`,
+        selectedSystem ? `${sysName} (${selectedSystem})` : ""
+      );
 
-      bundles.forEach(b => {
-        const authInfo = parseAuthLevels(b.auth_name);
-        // 고유 키: 시스템코드 + 그룹라벨 + 권한코드
-        const roleKey = `${b.sys_code}|${authInfo.groupLabel}|${b.auth_code}`;
-        
-        // 키워드 목록 중 하나라도 매칭되는지 확인
-        const isMatch = keywords.some(kwd => 
-          normalize(b.team_name).includes(kwd) ||
-          normalize(b.sys_name).includes(kwd) ||
-          normalize(b.auth_name).includes(kwd) ||
-          normalize(b.auth_desc).includes(kwd)
-        );
+      // ✅ 0) 원문 기반 "권한 목록" 강제 판별 (짧은 질문 보호)
+      const trimmed = originalInput.trim();
+      const roleListOverride =
+        /^권한$/i.test(trimmed) ||
+        /권한\s*(만|만이라도|만\s*알려|만\s*보여)/.test(trimmed) ||
+        /권한\s*(목록|리스트|전체|뭐|뭐야|뭐있|뭐 있어)/.test(trimmed);
 
-        // 메뉴 경로 매칭 (매칭된 메뉴들 수집)
-        const matchedMenus: string[] = [];
-        (b.menus || []).forEach(m => {
-          if (keywords.some(kwd => normalize(m.path).includes(kwd))) {
-            matchedMenus.push(m.path);
-          }
-        });
+      // ✅ 1) 원문 기반 "전체/접근 가능 메뉴" 판별
+      const originalLower = trimmed.toLowerCase();
+      const wantsAllMenus =
+        /전체|모두|전부|다\s*보여|전부\s*보여|전체\s*메뉴|메뉴\s*전체|목록|리스트/.test(trimmed) ||
+        /(접근|사용|열람|조회)\s*(가능|가능한|할\s*수\s*있는|할수있는)\s*메뉴/.test(trimmed) ||
+        /(볼\s*수\s*있는)\s*메뉴/.test(trimmed) ||
+        /all\s*menu|all\s*menus/.test(originalLower);
 
-        const hasMenuMatch = matchedMenus.length > 0;
+      // ✅ 최종 타입 결정 (forcedType을 이후 전부 사용)
+      const forcedType: IntentType =
+        roleListOverride ? "ROLE_LIST" :
+        (wantsAllMenus ? "ROLE_TO_MENU" : (analysis.type as IntentType));
 
-        if (analysis.type === 'ROLE_LIST' || isMatch || hasMenuMatch) {
-          if (!resultsMap.has(roleKey)) {
-            resultsMap.set(roleKey, {
+      // ✅ 2) ROLE_LIST면 "권한만" 반환 (메뉴 조회/필터링 로직 자체를 타지 않음)
+      if (forcedType === "ROLE_LIST") {
+        const bundles = fullBundle.filter(b => !selectedSystem || b.sys_code === selectedSystem);
+
+        // 역할(권한)만 dedupe 해서 구성
+        const roleMap = new Map<string, RoleWithMenus>();
+        bundles.forEach(b => {
+          const authInfo = parseAuthLevels(b.auth_name);
+          const key = `${b.sys_code}|${authInfo.groupLabel}|${b.auth_code}`;
+
+          if (!roleMap.has(key)) {
+            roleMap.set(key, {
               auth_name: `${authInfo.groupLabel} [${b.sys_name}]`,
               auth_code: b.auth_code,
               auth_desc: cleanValue(b.auth_desc),
-              matchedMenus: matchedMenus,
-              allMenus: (analysis.type === 'ROLE_TO_MENU' || analysis.type === 'ROLE_LIST' || isMatch) ? b.menus.map(m => m.path) : []
+              matchedMenus: [],
+              allMenus: [], // ✅ ROLE_LIST에서는 항상 비움
             });
-          } else {
-            const existing = resultsMap.get(roleKey)!;
-            if (hasMenuMatch) {
-              existing.matchedMenus = Array.from(new Set([...(existing.matchedMenus || []), ...matchedMenus]));
+          }
+        });
+
+        const finalData = Array.from(roleMap.values());
+        const responseContent = `${teamName} 팀${selectedSystem ? ` / ${sysName}` : ""}의 권한 목록을 정리해드릴게요.`;
+
+        setMessages(prev => [
+          ...prev,
+          {
+            role: 'assistant',
+            content: responseContent,
+            data: finalData,
+            intentType: "ROLE_LIST",
+          } as any
+        ]);
+
+        return;
+      }
+
+      // ✅ 3) ROLE_TO_MENU / MENU_TO_ROLE 처리: 기존 검색 로직 유지
+      const rawTokens = [
+        analysis.keyword,
+        ...(analysis.candidates || []),
+        trimmed,
+      ];
+
+      // "권한/메뉴" 같은 범용어는 검색어 토큰에서 제거하되,
+      // ROLE_LIST는 위에서 return 처리했기 때문에 여기서는 문제 없음.
+      const stopwords = new Set([
+        "메뉴", "권한", "역할", "접근", "가능", "보여줘", "알려줘", "찾아줘",
+        "필요", "필요한", "어떻게", "뭐", "뭐야", "뭐뭐",
+        "전체", "모두", "전부", "다", "조회", "확인", "해줘", "해주세요", "주세요",
+        "부탁", "관련", "내", "우리", "팀", "시스템"
+      ]);
+
+      const keywords = Array.from(
+        new Set(
+          rawTokens
+            .flatMap(t => String(t || "").split(/[\s_\/\-.|]+/))
+            .map(t => t.trim())
+            .filter(t => t.length >= 2)
+            .filter(t => !stopwords.has(t))
+            .filter(t => !stopwords.has(normalize(t)))
+            .flatMap(t => {
+              const n = normalize(t);
+              return n && n !== t ? [t.toLowerCase(), n] : [t.toLowerCase()];
+            })
+        )
+      );
+
+      const runSearch = (bundlesInput: RoleBundle[]) => {
+        const resultsMap = new Map<string, RoleWithMenus>();
+
+        bundlesInput.forEach(b => {
+          const authInfo = parseAuthLevels(b.auth_name);
+          const roleKey = `${b.sys_code}|${authInfo.groupLabel}|${b.auth_code}`;
+
+          const isAllMode = wantsAllMenus;
+
+          const isMatch =
+            keywords.length > 0 &&
+            keywords.some(kwd =>
+              normalize(b.team_name).includes(kwd) ||
+              normalize(b.sys_name).includes(kwd) ||
+              normalize(b.auth_name).includes(kwd) ||
+              normalize(b.auth_desc).includes(kwd) ||
+              String(b.team_name || "").toLowerCase().includes(kwd) ||
+              String(b.sys_name || "").toLowerCase().includes(kwd)
+            );
+
+          const matchedMenus: string[] = [];
+          if (!isAllMode && keywords.length > 0) {
+            (b.menus || []).forEach(m => {
+              if (keywords.some(kwd => normalize(m.path).includes(kwd))) {
+                matchedMenus.push(m.path);
+              }
+            });
+          }
+
+          const hasMenuMatch = matchedMenus.length > 0;
+
+          const shouldInclude =
+            isAllMode ||
+            forcedType === "ROLE_LIST" || // (실제로 여기선 안 들어오지만 안전용)
+            isMatch ||
+            hasMenuMatch;
+
+          if (shouldInclude) {
+            if (!resultsMap.has(roleKey)) {
+              resultsMap.set(roleKey, {
+                auth_name: `${authInfo.groupLabel} [${b.sys_name}]`,
+                auth_code: b.auth_code,
+                auth_desc: cleanValue(b.auth_desc),
+                matchedMenus: isAllMode ? [] : matchedMenus,
+                allMenus:
+                  (isAllMode || forcedType === "ROLE_TO_MENU" || isMatch)
+                    ? (b.menus || []).map(m => m.path)
+                    : [],
+              });
+            } else {
+              const existing = resultsMap.get(roleKey)!;
+              if (!isAllMode && hasMenuMatch) {
+                existing.matchedMenus = Array.from(new Set([...(existing.matchedMenus || []), ...matchedMenus]));
+              }
             }
           }
-        }
-      });
+        });
 
-      const finalData = Array.from(resultsMap.values());
+        return Array.from(resultsMap.values());
+      };
+
+      const bundles = fullBundle.filter(b => !selectedSystem || b.sys_code === selectedSystem);
+      let finalData = runSearch(bundles);
+
+      if (finalData.length === 0 && selectedSystem) {
+        finalData = runSearch(fullBundle);
+      }
+
       const empty = finalData.length === 0;
 
-      let responseContent = analysis.message || '검색 결과입니다.';
+      let responseContent = analysis.message || "검색 결과입니다.";
+      if (wantsAllMenus) {
+        responseContent = `${teamName} 팀${selectedSystem ? ` / ${sysName}` : ""}에서 접근 가능한 메뉴를 정리해드릴게요.`;
+      }
       if (empty) {
-        responseContent = `죄송합니다. ${teamName} 팀${selectedSystem ? `의 ${sysName} 시스템` : ''} 내에서 관련 정보를 찾지 못했습니다.`;
+        responseContent = `죄송합니다. ${teamName} 팀${selectedSystem ? `의 ${sysName} 시스템` : ""} 내에서 관련 정보를 찾지 못했습니다.`;
       }
 
       setMessages(prev => [
@@ -437,16 +575,21 @@ const App: React.FC = () => {
         {
           role: 'assistant',
           content: responseContent,
-          data: finalData
-        } as ChatMessage
+          data: finalData,
+          intentType: forcedType,
+        } as any
       ]);
     } catch (e) {
       console.error(e);
-      setMessages(prev => [...prev, { role: 'assistant', content: '데이터 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' }]);
+      setMessages(prev => [
+        ...prev,
+        { role: 'assistant', content: '데이터 분석 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' }
+      ]);
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f8fafc]">
@@ -470,12 +613,26 @@ const App: React.FC = () => {
 
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 space-y-6 animate-fade-in">
         <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 flex flex-col md:flex-row gap-6 items-end">
-          <SearchableSelect options={teamOptions} value={selectedTeam} onChange={setSelectedTeam} placeholder="팀 선택" label="Team" icon={<Home size={14} className="text-red-600"/>} />
-          <SearchableSelect options={systemOptions} value={selectedSystem} onChange={setSelectedSystem} placeholder="시스템 선택" label="System" icon={<Layout size={14} className="text-red-600"/>} disabled={!selectedTeam} />
+          <SearchableSelect options={teamOptions} value={selectedTeam} onChange={setSelectedTeam} placeholder="팀 선택" label="Team" icon={<Home size={14} className="text-red-600" />} />
+          <SearchableSelect options={systemOptions} value={selectedSystem} onChange={setSelectedSystem} placeholder="시스템 선택" label="System" icon={<Layout size={14} className="text-red-600" />} disabled={!selectedTeam} />
           <button onClick={() => window.location.reload()} className="p-4 text-slate-400 hover:text-red-600 border border-slate-200 rounded-xl bg-white shadow-sm transition-all active:scale-95 mb-[2px]">
-            <RefreshCcw size={20}/>
+            <RefreshCcw size={20} />
           </button>
         </section>
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-2xl font-bold text-sm flex items-center gap-2">
+            <AlertCircle size={16} />
+            {error}
+          </div>
+        )}
+
+        {bundleLoading && (
+          <div className="bg-white border border-slate-200 p-4 rounded-2xl font-bold text-sm flex items-center gap-2 text-slate-600">
+            <Loader2 className="animate-spin" size={16} />
+            데이터를 불러오는 중입니다...
+          </div>
+        )}
 
         {selectedTeam ? (
           <div className="flex flex-col flex-1 space-y-6">
@@ -487,7 +644,7 @@ const App: React.FC = () => {
                   </div>
                   <span className="text-sm font-black uppercase tracking-tight">권한 신청 방법 (IAM 이용 가이드)</span>
                 </div>
-                {isGuideOpen ? <ChevronUp size={20} className="text-slate-400"/> : <ChevronDown size={20} className="text-slate-400"/>}
+                {isGuideOpen ? <ChevronUp size={20} className="text-slate-400" /> : <ChevronDown size={20} className="text-slate-400" />}
               </button>
               {isGuideOpen && (
                 <div className="px-6 pb-6 animate-in slide-in-from-top-2 duration-300">
@@ -548,7 +705,9 @@ const App: React.FC = () => {
                           <div className={`font-black text-sm ${r.auth_name === '기타' ? 'opacity-50 italic' : ''}`}>{r.auth_name}</div>
                         </button>
                       )) : (
-                        <div className="p-4 text-xs font-bold text-slate-400 text-center">시스템을 선택해 주세요.</div>
+                        <div className="p-4 text-xs font-bold text-slate-400 text-center">
+                          {bundleLoading ? "데이터를 불러오는 중입니다..." : "권한 데이터가 없습니다."}
+                        </div>
                       )}
                     </div>
                   </div>
@@ -573,7 +732,7 @@ const App: React.FC = () => {
                               ))}
                               <div className="ml-auto relative w-full lg:w-80 mt-4 lg:mt-0">
                                 <input type="text" placeholder="메뉴 검색" value={menuFilter} onChange={e => setMenuFilter(e.target.value)} className="w-full pl-12 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold focus:ring-4 focus:ring-red-500/10 outline-none transition-all shadow-inner" />
-                                <Search className="absolute left-4 top-3.5 text-slate-400" size={18}/>
+                                <Search className="absolute left-4 top-3.5 text-slate-400" size={18} />
                               </div>
                             </div>
                           </div>
@@ -626,7 +785,7 @@ const App: React.FC = () => {
                       </>
                     ) : (
                       <div className="flex-1 flex flex-col items-center justify-center opacity-10 space-y-6">
-                        <Layout size={100} strokeWidth={1}/>
+                        <Layout size={100} strokeWidth={1} />
                         <p className="font-black text-2xl uppercase tracking-tighter">Select a role to inspect</p>
                       </div>
                     )}
@@ -643,9 +802,8 @@ const App: React.FC = () => {
                         <div className="mt-2 w-full max-w-md space-y-2">
                           <div className="bg-white border border-slate-200 rounded-xl px-4 py-3 text-left shadow-sm">
                             <ul className="mt-2 space-y-1 text-sm text-slate-600">
-                              <li>정보전략팀 메뉴 다 보여줘</li>
-                              <li>“견적” 메뉴 보려면 무슨 권한 필요해?</li>
-                              <li>ROLE_USER 신청하면 뭐 할 수 있어?</li>
+                              <li>우리 팀 접근 가능 메뉴 보여줘</li>
+                              <li>우리 팀 권한으로 “견적” 메뉴 접근 가능할까?</li>
                             </ul>
                           </div>
                         </div>
@@ -678,7 +836,8 @@ const App: React.FC = () => {
                                     )}
                                   </div>
 
-                                  {((d.matchedMenus && d.matchedMenus.length > 0) || (d.allMenus && d.allMenus.length > 0)) && (
+                                  {(m as any).intentType !== "ROLE_LIST" &&
+                                    ((d.matchedMenus && d.matchedMenus.length > 0) || (d.allMenus && d.allMenus.length > 0)) && (
                                     <div className="flex flex-col gap-1.5 border-t border-black/5 pt-3 ml-5">
                                       <div className="flex items-center gap-2 mb-1">
                                         <Layers size={12} className="text-slate-400" />
@@ -687,7 +846,7 @@ const App: React.FC = () => {
                                         </span>
                                       </div>
                                       <div className="flex flex-col gap-1">
-                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).slice(0, 10).map((path: string, k: number) => (
+                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).slice(0, 20).map((path: string, k: number) => (
                                           <div key={k} className="text-[11px] font-bold text-slate-700 bg-white/60 px-2.5 py-1.5 rounded-lg border border-white/40 shadow-sm leading-tight">
                                             {path}
                                           </div>

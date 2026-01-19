@@ -32,14 +32,17 @@ export interface RoleBundle {
 }
 
 export interface SearchResult {
-  type: 'ROLE_TO_MENU' | 'MENU_TO_ROLE' | 'ROLE_LIST' | 'UNKNOWN';
+  type: IntentType;
   keyword: string;
   candidates?: string[];
   message?: string;
 }
 
+export type IntentType = "ROLE_TO_MENU" | "MENU_TO_ROLE" | "ROLE_LIST" | "UNKNOWN";
+
 export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
   data?: any;
+  intentType?: IntentType;
 }
