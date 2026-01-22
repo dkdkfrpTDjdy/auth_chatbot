@@ -10,7 +10,6 @@ const LOGO_PATH = dataService.getAssetPath('assets/logo.png');
 
 const normalize = (text: string) => (text || '').toLowerCase().replace(/\s+/g, '').trim();
 const hasKorean = (text: string) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text || '');
-
 const cleanValue = (val: any): string => {
   if (val === null || val === undefined) return '기타';
   const str = String(val).trim();
@@ -18,23 +17,117 @@ const cleanValue = (val: any): string => {
   if (lower === 'nan' || lower === 'null' || str === '') return '기타';
   return str;
 };
-
+const isIASSales = (sysName: string) => cleanValue(sysName) === 'IAS_Sales';
 type IntentType = "ROLE_TO_MENU" | "MENU_TO_ROLE" | "ROLE_LIST" | "UNKNOWN";
-
-
-interface RoleWithMenus {
+type UnifiedRole = {
+  groupKey: string;
   auth_name: string;
-  auth_code: string;
   auth_desc: string;
-  matchedMenus?: string[];
-  allMenus?: string[];
+  auth_code: string;
+  copy_auth_name: string;
+  sys_name: string;
+  thirdLevels: string[];
+};
+
+
+// RoleWithMenus 수정
+interface RoleWithMenus {
+  role_key: string;
+  sys_name: string;
+
+  auth_name: string; // 표시용(이미 IAS_Sales 스왑 반영된 값이 들어올 수도 있음)
+  auth_code: string; // 표시용 코드 자리
+  auth_desc: string; // 표시용 설명 자리
+
+  matchedMenus?: Menu[]; // ✅ Menu 객체로 변경
+  allMenus?: Menu[];     // ✅ Menu 객체로 변경
 }
 
-const parseAuthLevels = (name: string) => {
-  const raw = cleanValue(name);
-  if (raw === '기타') {
-    return { l1: '기타', l2: '', l3: '', groupKey: '기타', groupLabel: '기타' };
+const splitPathParts = (path: string) =>
+  String(path || '')
+    .split('>')
+    .map(p => cleanValue(p))
+    .map(p => (p === '기타' ? '' : p)); // '기타'는 빈 값 취급
+
+const isNullishPart = (p: string) => !p || /^null$/i.test(p);
+
+const menuSortKey = (m: Menu) => {
+  const parts = splitPathParts(m.path);
+
+  // 채워진 레벨 수(많을수록 우선)
+  const filledCount = parts.filter(p => !isNullishPart(p)).length;
+
+  // 앞에서부터 연속으로 채워진 레벨 수(“마감 > 금융리스 > ...” 같은 정합한 경로 우선)
+  let prefixFilled = 0;
+  for (let i = 0; i < parts.length; i++) {
+    if (isNullishPart(parts[i])) break;
+    prefixFilled++;
   }
+
+  // 완전 빈/깨진(> > ...) 여부: 앞부분부터 비어 있으면 뒤로
+  const leadingNull = isNullishPart(parts[0]) ? 1 : 0;
+
+  // 언어 우선
+  const keyText = `${cleanValue(m.path)} ${cleanValue(m.menu_id)}`;
+  const isKor = hasKorean(keyText) ? 0 : 1; // 0=한글, 1=영문
+
+  const pathForCompare = cleanValue(m.path);
+
+  return { isKor, leadingNull, prefixFilled, filledCount, pathForCompare };
+};
+
+// ✅ 요구 정렬: 한글 → (선두 null 아님) → prefixFilled desc → filledCount desc → localeCompare
+const sortMenusKoreanFirst = (menus: Menu[]) => {
+  const uniq = new Map<string, Menu>();
+  menus.forEach(m => {
+    const id = cleanValue(m.menu_id);
+    if (!id) return;
+    if (!uniq.has(id)) uniq.set(id, m);
+  });
+
+  const arr = Array.from(uniq.values());
+
+  arr.sort((a, b) => {
+    const A = menuSortKey(a);
+    const B = menuSortKey(b);
+
+    if (A.isKor !== B.isKor) return A.isKor - B.isKor;
+    if (A.leadingNull !== B.leadingNull) return A.leadingNull - B.leadingNull; // null 앞은 뒤로
+    if (A.prefixFilled !== B.prefixFilled) return B.prefixFilled - A.prefixFilled;
+    if (A.filledCount !== B.filledCount) return B.filledCount - A.filledCount;
+
+    // 같은 그룹 내 정렬
+    const locale = A.isKor === 0 ? 'ko' : 'en';
+    return A.pathForCompare.localeCompare(B.pathForCompare, locale);
+  });
+
+  return arr;
+};
+
+
+  // “더 보여줘” 페이지네이션 상태
+  type MenuPagingState = {
+    role_key: string;
+    sortedMenus: Menu[];
+    offset: number;
+
+    // ✅ 더 보여줘에서도 role 카드에 표시할 메타
+    auth_name: string;
+    auth_code: string;
+    auth_desc: string;
+    sys_name: string;
+  };
+
+
+  const isMoreRequest = (text: string) =>
+    /더\s*보여|다음\s*20|그\s*다음|계속\s*보여|추가\s*로\s*보여/i.test(text);
+
+
+  const parseAuthLevels = (name: string) => {
+    const raw = cleanValue(name);
+    if (raw === '기타') {
+      return { l1: '기타', l2: '', l3: '', groupKey: '기타', groupLabel: '기타' };
+    }
 
   const parts = raw.split('>').map(p => p.trim());
   let primaryPart = parts[0] || '기타';
@@ -199,6 +292,7 @@ const App: React.FC = () => {
 
   const teamOptions = useMemo(() => teams.map(t => ({ value: t.team_code, label: t.team_name })), [teams]);
   const systemOptions = useMemo(() => systems.map(s => ({ value: s.sys_code, label: s.sys_name })), [systems]);
+  const [menuPagingMap, setMenuPagingMap] = useState<Record<string, MenuPagingState>>({});
 
   useEffect(() => {
     setLoading(true);
@@ -255,32 +349,77 @@ const App: React.FC = () => {
     setCollapsedL1s(new Set());
   }, [selectedSystem]);
 
+  // (App.tsx) unifiedRoles 수정
   const unifiedRoles = useMemo(() => {
-    const roleMap: Record<string, { groupLabel: string, desc: Set<string>, codes: Set<string>, lv3s: Set<string> }> = {};
+    const roleMap: Record<
+      string,
+      {
+        groupLabel: string;
+        sys_name: string;
+        desc: Set<string>;          // 원래 auth_desc(한글 설명) 모음
+        codes: Set<string>;         // 원래 auth_code(숫자/코드) 모음
+        authNameCodes: Set<string>; // 원래 auth_name(ROLE_...) 모음 (IAS_Sales 표시용)
+        lv3s: Set<string>;
+      }
+    > = {};
+
     fullBundle.forEach(b => {
       if (selectedSystem && b.sys_code !== selectedSystem) return;
+
       const { groupKey, groupLabel, l3 } = parseAuthLevels(b.auth_name);
       const authDesc = cleanValue(b.auth_desc);
+      const authCode = cleanValue(b.auth_code);
+      const authNameCode = cleanValue(b.auth_name);
+
       if (!roleMap[groupKey]) {
         roleMap[groupKey] = {
           groupLabel,
+          sys_name: cleanValue(b.sys_name),
           desc: new Set(authDesc !== '기타' ? [authDesc] : []),
-          codes: new Set([cleanValue(b.auth_code)]),
-          lv3s: new Set(l3 ? [l3] : [])
+          codes: new Set([authCode]),
+          authNameCodes: new Set([authNameCode]),
+          lv3s: new Set(l3 ? [l3] : []),
         };
       } else {
         if (authDesc !== '기타') roleMap[groupKey].desc.add(authDesc);
-        roleMap[groupKey].codes.add(cleanValue(b.auth_code));
+        roleMap[groupKey].codes.add(authCode);
+        roleMap[groupKey].authNameCodes.add(authNameCode);
         if (l3) roleMap[groupKey].lv3s.add(l3);
       }
     });
-    return Object.entries(roleMap).map(([groupKey, data]) => ({
-      groupKey,
-      auth_name: data.groupLabel,
-      auth_desc: Array.from(data.desc).join(' / ') || '',
-      auth_code: Array.from(data.codes).join(', '),
-      thirdLevels: Array.from(data.lv3s).sort(a => a === '기타' ? 1 : -1)
-    })).sort((a, b) => a.auth_name.localeCompare(b.auth_name));
+
+    return Object.entries(roleMap)
+      .map(([groupKey, data]) => {
+        const ias = isIASSales(data.sys_name);
+
+        const joinedDesc = Array.from(data.desc).join(' / ') || '';
+        const joinedAuthNameCodes = Array.from(data.authNameCodes).join(', '); // 원래 auth_name(ROLE_...) 모음
+        const joinedAuthCodes = Array.from(data.codes).join(', ');             // 원래 auth_code 모음
+
+        // ✅ IAS_Sales: auth_desc(=joinedDesc)를 우선 보여주되, 비어있으면 auth_name(ROLE_...)로 fallback
+        const isDescUsable = cleanValue(joinedDesc) !== '기타' && joinedDesc.trim().length > 0;
+        const displayName = ias ? (isDescUsable ? joinedDesc : joinedAuthNameCodes) : data.groupLabel;
+
+        return {
+          groupKey,
+
+          // ✅ 화면 “권한명 자리”
+          auth_name: displayName,
+
+          // ✅ 화면 설명 줄(필요하면 ROLE 코드 보여주기)
+          auth_desc: ias ? joinedAuthNameCodes : joinedDesc,
+
+          // ✅ 상단 코드 영역은 원래 auth_code 유지 (시스템 상관 없이)
+          auth_code: joinedAuthCodes,
+
+          // ✅ “팀 권한 요약” 복사용: 시스템 상관 없이 항상 원래 auth_name(ROLE_...) 복사
+          copy_auth_name: joinedAuthNameCodes,
+
+          sys_name: data.sys_name,
+          thirdLevels: Array.from(data.lv3s).sort(a => (a === '기타' ? 1 : -1)),
+        };
+      })
+      .sort((a, b) => a.auth_name.localeCompare(b.auth_name, 'ko'));
   }, [fullBundle, selectedSystem]);
 
   const selectedGroup = useMemo(() =>
@@ -382,7 +521,63 @@ const App: React.FC = () => {
   const handleSearch = async () => {
     if (!chatInput.trim() || !selectedTeam) return;
 
-    const originalInput = chatInput;
+    const originalInput = chatInput.trim();
+
+    // ✅ 0) "더 보여줘" 요청이면 LLM/검색 재실행 없이, 캐시된 정렬 목록에서 다음 20개 출력
+    if (isMoreRequest(originalInput) && Object.keys(menuPagingMap).length > 0) {
+      const userMsg: ChatMessage = { role: 'user', content: originalInput };
+      setMessages(prev => [...prev, userMsg]);
+
+      // 권한별 다음 20개 만들기
+      const nextData: any[] = [];
+      let anyAdded = false;
+
+      const nextMap: Record<string, MenuPagingState> = { ...menuPagingMap };
+
+      Object.values(menuPagingMap).forEach(paging => {
+        const start = paging.offset;
+        const page = paging.sortedMenus.slice(start, start + 20);
+
+        if (page.length > 0) {
+          anyAdded = true;
+          
+          nextData.push({
+            role_key: paging.role_key,
+            sys_name: paging.sys_name,
+            auth_name: paging.auth_name,
+            auth_code: paging.auth_code,
+            auth_desc: paging.auth_desc,
+            matchedMenus: [],
+            allMenus: page,
+          });
+
+          // 다음 offset
+          nextMap[paging.role_key] = { ...paging, offset: start + 20 };
+        }
+      });
+
+      if (!anyAdded) {
+        setMessages(prev => [...prev, { role: 'assistant', content: '더 이상 메뉴가 없습니다.' }]);
+        setChatInput('');
+        return;
+      }
+
+      setMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content: '권한별로 다음 20개씩 보여드릴게요.',
+          data: nextData,
+          intentType: "ROLE_TO_MENU",
+        } as any
+      ]);
+
+      setMenuPagingMap(nextMap);
+      setChatInput('');
+      return;
+    }
+
+
     const userMsg: ChatMessage = { role: 'user', content: originalInput };
 
     // 1) 먼저 사용자 메시지 추가
@@ -430,23 +625,42 @@ const App: React.FC = () => {
 
         // 역할(권한)만 dedupe 해서 구성
         const roleMap = new Map<string, RoleWithMenus>();
+
         bundles.forEach(b => {
           const authInfo = parseAuthLevels(b.auth_name);
           const key = `${b.sys_code}|${authInfo.groupLabel}|${b.auth_code}`;
 
           if (!roleMap.has(key)) {
+            const sysNameClean = cleanValue(b.sys_name);
+            const ias = isIASSales(sysNameClean);
+
+            const roleNameRaw = cleanValue(b.auth_name); // ROLE_XXX
+            const roleDescRaw = cleanValue(b.auth_desc); // 설명
+
+            // ✅ IAS_Sales: title(auth_name)은 설명 우선, 없으면 ROLE_XXX
+            const displayName = ias
+              ? (roleDescRaw !== '기타' && roleDescRaw.trim().length > 0 ? roleDescRaw : roleNameRaw)
+              : `${authInfo.groupLabel} [${sysNameClean}]`;
+
+            // ✅ IAS_Sales: desc(auth_desc)에는 ROLE_XXX를 노출
+            const displayDesc = ias ? roleNameRaw : roleDescRaw;
+
             roleMap.set(key, {
-              auth_name: `${authInfo.groupLabel} [${b.sys_name}]`,
-              auth_code: b.auth_code,
-              auth_desc: cleanValue(b.auth_desc),
+              role_key: key,
+              sys_name: sysNameClean,
+              auth_name: displayName,
+              auth_code: cleanValue(b.auth_code),
+              auth_desc: displayDesc,
               matchedMenus: [],
-              allMenus: [], // ✅ ROLE_LIST에서는 항상 비움
+              allMenus: [], // ROLE_LIST에서는 비움
             });
           }
         });
 
         const finalData = Array.from(roleMap.values());
-        const responseContent = `${teamName} 팀${selectedSystem ? ` / ${sysName}` : ""}의 권한 목록을 정리해드릴게요.`;
+
+        const responseContent =
+          `${teamName} 팀${selectedSystem ? ` / ${sysName}` : ""}의 권한 목록을 정리해드릴게요.`;
 
         setMessages(prev => [
           ...prev,
@@ -461,12 +675,13 @@ const App: React.FC = () => {
         return;
       }
 
+
       // ✅ 3) ROLE_TO_MENU / MENU_TO_ROLE 처리: 기존 검색 로직 유지
       const rawTokens = [
         analysis.keyword,
         ...(analysis.candidates || []),
-        trimmed,
-      ];
+        ...trimmed.split(/[\s_\/\-.|]+/).map(s => s.trim()),
+      ].filter(Boolean);
 
       // "권한/메뉴" 같은 범용어는 검색어 토큰에서 제거하되,
       // ROLE_LIST는 위에서 return 처리했기 때문에 여기서는 문제 없음.
@@ -512,41 +727,57 @@ const App: React.FC = () => {
               String(b.sys_name || "").toLowerCase().includes(kwd)
             );
 
-          const matchedMenus: string[] = [];
+          // ✅ matchedMenus: Menu[] 로 수집
+          const matchedMenus: Menu[] = [];
           if (!isAllMode && keywords.length > 0) {
             (b.menus || []).forEach(m => {
               if (keywords.some(kwd => normalize(m.path).includes(kwd))) {
-                matchedMenus.push(m.path);
+                matchedMenus.push(m);
               }
             });
           }
 
           const hasMenuMatch = matchedMenus.length > 0;
 
-          const shouldInclude =
-            isAllMode ||
-            forcedType === "ROLE_LIST" || // (실제로 여기선 안 들어오지만 안전용)
-            isMatch ||
-            hasMenuMatch;
+          const shouldInclude = isAllMode || isMatch || hasMenuMatch;
+          if (!shouldInclude) return;
 
-          if (shouldInclude) {
-            if (!resultsMap.has(roleKey)) {
-              resultsMap.set(roleKey, {
-                auth_name: `${authInfo.groupLabel} [${b.sys_name}]`,
-                auth_code: b.auth_code,
-                auth_desc: cleanValue(b.auth_desc),
-                matchedMenus: isAllMode ? [] : matchedMenus,
-                allMenus:
-                  (isAllMode || forcedType === "ROLE_TO_MENU" || isMatch)
-                    ? (b.menus || []).map(m => m.path)
-                    : [],
-              });
-            } else {
-              const existing = resultsMap.get(roleKey)!;
-              if (!isAllMode && hasMenuMatch) {
-                existing.matchedMenus = Array.from(new Set([...(existing.matchedMenus || []), ...matchedMenus]));
-              }
-            }
+          // ✅ 최초 생성
+          if (!resultsMap.has(roleKey)) {
+            const sysNameClean = cleanValue(b.sys_name);
+            const ias = isIASSales(sysNameClean);
+
+            const roleNameRaw = cleanValue(b.auth_name); // ROLE_XXX
+            const roleDescRaw = cleanValue(b.auth_desc); // 설명
+
+            const displayName = ias
+              ? (roleDescRaw !== '기타' && roleDescRaw.trim().length > 0 ? roleDescRaw : roleNameRaw)
+              : `${authInfo.groupLabel} [${sysNameClean}]`;
+
+            const displayDesc = ias ? roleNameRaw : roleDescRaw;
+
+            resultsMap.set(roleKey, {
+              role_key: roleKey,
+              sys_name: sysNameClean,
+              auth_name: displayName,
+              auth_code: cleanValue(b.auth_code),
+              auth_desc: displayDesc,
+              matchedMenus: isAllMode ? [] : matchedMenus,
+              allMenus:
+                (isAllMode || forcedType === "ROLE_TO_MENU" || isMatch)
+                  ? (b.menus || [])
+                  : [],
+            });
+            return;
+          }
+
+          // ✅ 기존 roleKey에 matchedMenus 누적(키워드 모드에서만)
+          const existing = resultsMap.get(roleKey)!;
+          if (!isAllMode && hasMenuMatch) {
+            const merged = [...(existing.matchedMenus || []), ...matchedMenus];
+            const uniq = new Map<string, Menu>();
+            merged.forEach(m => uniq.set(cleanValue(m.menu_id), m));
+            existing.matchedMenus = Array.from(uniq.values());
           }
         });
 
@@ -570,6 +801,47 @@ const App: React.FC = () => {
         responseContent = `죄송합니다. ${teamName} 팀${selectedSystem ? `의 ${sysName} 시스템` : ""} 내에서 관련 정보를 찾지 못했습니다.`;
       }
 
+      // ✅ ROLE_TO_MENU + wantsAllMenus(=우리팀 접근 가능 메뉴)면 권한별 20개씩 + pagingMap 저장
+      if (forcedType === "ROLE_TO_MENU" && wantsAllMenus && finalData.length > 0) {
+        const nextMap: Record<string, MenuPagingState> = {};
+
+        finalData = finalData.map(role => {
+          const base = role.allMenus || [];
+          const sortedAll = sortMenusKoreanFirst(base);
+          const firstPage = sortedAll.slice(0, 20);
+
+          // UI에는 20개만
+          role.allMenus = firstPage;
+          const baseDesc = cleanValue(role.auth_desc);
+          const descForUi =
+            baseDesc !== '기타' && baseDesc.trim().length > 0
+              ? baseDesc
+              : ''; // '기타'면 공백 처리
+
+          const ruleLine = '/ 메뉴 규칙: 한글(가나다) → 영문(A-Z), 권한별 20개씩 표시';
+          const mergedDesc = descForUi ? `${descForUi}\n${ruleLine}` : ruleLine;
+          // pagingMap에 권한별 전체 정렬본 + 다음 offset 저장
+          nextMap[role.role_key] = {
+            role_key: role.role_key,
+            sortedMenus: sortedAll,
+            offset: 20,
+            auth_name: role.auth_name,
+            auth_code: role.auth_code,
+            auth_desc: mergedDesc,
+            sys_name: role.sys_name,
+          };
+
+          // (선택) 첫 페이지에도 규칙 문구 넣기
+          role.auth_desc = mergedDesc;
+
+          return role;
+        });
+
+        setMenuPagingMap(nextMap);
+      }
+
+
+      // ✅ 기존 그대로 유지
       setMessages(prev => [
         ...prev,
         {
@@ -579,6 +851,7 @@ const App: React.FC = () => {
           intentType: forcedType,
         } as any
       ]);
+
     } catch (e) {
       console.error(e);
       setMessages(prev => [
@@ -673,13 +946,23 @@ const App: React.FC = () => {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                 {unifiedRoles.map((role) => (
-                  <button key={role.groupKey} onClick={() => handleCopyRole(role.auth_name)} className="relative group bg-slate-50 hover:bg-red-50 border border-slate-100 hover:border-red-200 p-3 rounded-xl transition-all text-left flex flex-col gap-1 overflow-hidden">
+                  <button
+                    key={role.groupKey}
+                    onClick={() => handleCopyRole((role as any).copy_auth_name || role.auth_name)} // ✅ 여기 변경
+                    className="relative group bg-slate-50 hover:bg-red-50 border border-slate-100 hover:border-red-200 p-3 rounded-xl transition-all text-left flex flex-col gap-1 overflow-hidden"
+                  >
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-black text-slate-400 group-hover:text-red-400 uppercase tracking-tighter truncate w-[70%]">{role.auth_code}</span>
+                      <span className="text-[10px] font-black text-slate-400 group-hover:text-red-400 uppercase tracking-tighter truncate w-[70%]">
+                        {role.auth_code}
+                      </span>
                       <Copy size={12} className="text-slate-300 group-hover:text-red-400" />
                     </div>
-                    <span className="text-xs font-black text-slate-700 group-hover:text-red-700 truncate">{role.auth_name}</span>
-                    {copyToast === role.auth_name && (
+
+                    <span className="text-xs font-black text-slate-700 group-hover:text-red-700 truncate">
+                      {role.auth_name}
+                    </span>
+
+                    {copyToast === (role as any).copy_auth_name && ( // ✅ 이 비교는 그대로 두면 됨
                       <div className="absolute inset-0 bg-red-600/90 flex items-center justify-center animate-in fade-in duration-200">
                         <span className="text-white text-[10px] font-black tracking-widest uppercase">복사됨</span>
                       </div>
@@ -764,10 +1047,21 @@ const App: React.FC = () => {
                                             <div className="flex items-center gap-3"><Layers size={14} className="text-red-500" /><h4 className={`text-xs font-black uppercase tracking-tight ${nestedMenus.l2LabelMap[l2Norm] === '기타' ? 'text-slate-400 italic' : 'text-slate-700'}`}>{nestedMenus.l2LabelMap[l2Norm]}</h4></div>
                                             <span className="text-[10px] font-bold text-slate-400">{l2Data[l2Norm].length} Items</span>
                                           </div>
-                                          <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                          <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
                                             {l2Data[l2Norm].map((m, i) => (
-                                              <div key={i} className={`menu-card p-4 rounded-2xl flex items-center justify-center text-center min-h-[70px] border transition-all ${m.l3 === '기타' ? 'bg-slate-50/30 border-slate-100 grayscale-[0.5]' : 'bg-white border-slate-100 shadow-sm hover:border-red-200 hover:shadow-md'}`}>
-                                                <span className={`text-sm font-bold break-keep leading-snug ${m.l3 === '기타' ? 'text-slate-400 italic' : 'text-slate-800'}`}>{m.l3}</span>
+                                              <div
+                                                key={i}
+                                                className={`menu-card p-3 rounded-2xl flex items-center justify-center text-center min-h-[44px] border transition-all ${
+                                                  m.l3 === '기타'
+                                                    ? 'bg-slate-50/30 border-slate-100 grayscale-[0.5]'
+                                                    : 'bg-white border-slate-100 shadow-sm hover:border-red-200 hover:shadow-md'
+                                                }`}
+                                              >
+                                                <span className={`text-sm font-bold break-keep leading-tight ${
+                                                  m.l3 === '기타' ? 'text-slate-400 italic' : 'text-slate-800'
+                                                }`}>
+                                                  {m.l3}
+                                                </span>
                                               </div>
                                             ))}
                                           </div>
@@ -846,13 +1140,15 @@ const App: React.FC = () => {
                                         </span>
                                       </div>
                                       <div className="flex flex-col gap-1">
-                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).slice(0, 20).map((path: string, k: number) => (
-                                          <div key={k} className="text-[11px] font-bold text-slate-700 bg-white/60 px-2.5 py-1.5 rounded-lg border border-white/40 shadow-sm leading-tight">
-                                            {path}
+                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus)?.slice(0, 20).map((menu: Menu, k: number) => (
+                                          <div key={cleanValue(menu.menu_id) || k} className="text-[11px] font-bold text-slate-700 bg-white/60 px-2.5 py-1.5 rounded-lg border border-white/40 shadow-sm leading-tight">
+                                            <span className="opacity-60 mr-2">{k + 1}.</span>
+                                            <span>{cleanValue(menu.path)}</span>
+                                            <span className="ml-2 font-mono opacity-60">({cleanValue(menu.menu_id)})</span>
                                           </div>
                                         ))}
-                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).length > 10 && (
-                                          <span className="text-[10px] text-slate-400 font-bold ml-2 italic">외 {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).length - 10}개의 메뉴가 더 있습니다.</span>
+                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).length > 20 && (
+                                          <span className="text-[10px] text-slate-400 font-bold ml-2 italic">외 {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).length - 20}개의 메뉴가 더 있습니다.</span>
                                         )}
                                       </div>
                                     </div>
