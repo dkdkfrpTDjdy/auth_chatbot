@@ -62,3 +62,27 @@ export async function fetchRoleBundle(teamCode: string): Promise<RoleBundle[]> {
   }
   return items;
 }
+
+
+/**
+ * 메뉴 리스트를 한글 우선 가나다순으로 정렬하고 20개씩 페이징합니다.
+ */
+export function getPagedMenus(menus: any[], page: number = 0): any[] {
+  const sorted = [...menus].sort((a, b) => {
+    const nameA = a.menu_name || "";
+    const nameB = b.menu_name || "";
+    
+    // 한글 여부 체크 (정규식)
+    const isKoA = /[ㄱ-ㅎ|가-힣]/.test(nameA);
+    const isKoB = /[ㄱ-ㅎ|가-힣]/.test(nameB);
+
+    if (isKoA && !isKoB) return -1; // 한글이 앞으로
+    if (!isKoA && isKoB) return 1;  // 영어가 뒤로
+    
+    // 같은 언어끼리는 사전순
+    return nameA.localeCompare(nameB, 'ko');
+  });
+
+  // 20개씩 자르기 (0페이지: 0~19, 1페이지: 20~39)
+  return sorted.slice(page * 20, (page + 1) * 20);
+}

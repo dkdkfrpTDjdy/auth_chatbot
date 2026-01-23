@@ -40,6 +40,28 @@ export async function analyzeIntent(
 function fallbackAnalysis(query: string): SearchResult {
   const q = String(query || "").replace(/\s/g, "");
 
+// 1. 페이지네이션(더 보여줘) 처리 추가
+  if (q.includes("더보여") || q.includes("다음") || q.includes("나머지")) {
+    return {
+      type: "ROLE_TO_MENU", // 기존 조회 의도 유지
+      keyword: "CONTINUE",   // 연속 호출임을 알리는 키워드 (UI에서 활용)
+      message: "다음 20개 메뉴를 더 찾아볼게요. 추가로 보려면 '다음 20개 더 보여줘'라고 입력해 주세요.",
+      candidates: [],
+      confidence: 0.9,
+    } as any;
+  }
+
+  // 2. UI 최적화 요청 처리 추가
+  if (q.includes("크다") || q.includes("줄여") || q.includes("많이보")) {
+    return {
+      type: "UNKNOWN",
+      keyword: "",
+      message: "한  화면에 더 많이 보실 수 있게 카드 높이와 여백을 줄이는 최적화 모드를 제안해 드릴까요?",
+      candidates: [],
+      confidence: 0.8,
+    } as any;
+  }
+
   if (!q) {
     return { type: "UNKNOWN", keyword: "", message: "질문을 입력해 주세요.", candidates: [], confidence: 0.2 } as any;
   }
