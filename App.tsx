@@ -7,7 +7,6 @@ import { analyzeIntent } from './services/geminiService';
 const LOGO_PATH = dataService.getAssetPath('assets/logo.png');
 
 // --- 유틸리티 및 데이터 전처리 함수 ---
-
 const normalize = (text: string) => (text || '').toLowerCase().replace(/\s+/g, '').trim();
 const hasKorean = (text: string) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text || '');
 const cleanValue = (val: any): string => {
@@ -17,6 +16,64 @@ const cleanValue = (val: any): string => {
   if (lower === 'nan' || lower === 'null' || str === '') return '기타';
   return str;
 };
+
+
+const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const HighlightedText: React.FC<{ text: string; keyword: string }> = ({ text, keyword }) => {
+  const kw = (keyword || "").trim();
+  if (!kw) return <>{text}</>;
+
+  const re = new RegExp(`(${escapeRegExp(kw)})`, "gi");
+  const parts = String(text).split(re);
+
+  return (
+    <>
+      {parts.map((part, idx) => {
+        const isHit = part.toLowerCase() === kw.toLowerCase();
+        return isHit ? (
+          <span
+            key={idx}
+            className="font-black text-[#c8102e]"
+          >
+            {part}
+          </span>
+        ) : (
+          <span key={idx}>{part}</span>
+        );
+      })}
+    </>
+  );
+};
+
+const buildBreadcrumb = (m: any) => {
+  const parts = [m.l1, m.l2, m.l3].map(cleanValue).filter(v => v && v !== '기타');
+  return parts.join(' > ');
+};
+
+const sanitizeKoreanDesc = (input: any): string => {
+  let s = cleanValue(input);
+  if (!s || s === '기타') return '';
+
+  // (1) 불필요 구문이 나오면 그 앞까지만 남김 (가장 강력)
+  // 예: "계약관리 을 위한 역할입니다." -> "계약관리"
+  // 예: "계약관리 을 위한 역할, 입니다" -> "계약관리"
+  s = s.replace(/\s*(을|를)\s*위한\s*역할.*$/u, '');
+
+  // (2) 혹시 남아있을 수 있는 꼬리 표현 추가 제거
+  s = s
+    .replace(/\s*,\s*입니다\.?\s*$/g, '')              // ", 입니다"
+    .replace(/\s*입니다\.?\s*$/g, '')                  // "입니다"
+    .replace(/\s*(을|를)\s*위한\s*역할입니다\.?\s*$/g, '') // "을/를 위한 역할입니다"
+    .replace(/\s*위한\s*역할입니다\.?\s*$/g, '')        // "위한 역할입니다"
+    .replace(/\s*역할입니다\.?\s*$/g, '');              // "역할입니다"
+
+  // 공백 정리
+  s = s.replace(/\s+/g, ' ').trim();
+
+  return s && s !== '기타' ? s : '';
+};
+
 const isIASSales = (sysName: string) => cleanValue(sysName) === 'IAS_Sales';
 type IntentType = "ROLE_TO_MENU" | "MENU_TO_ROLE" | "ROLE_LIST" | "UNKNOWN";
 type UnifiedRole = {
@@ -41,6 +98,8 @@ interface RoleWithMenus {
 
   matchedMenus?: Menu[]; // ✅ Menu 객체로 변경
   allMenus?: Menu[];     // ✅ Menu 객체로 변경
+  totalMenus?: number; // ✅ 추가
+
 }
 
 const splitPathParts = (path: string) =>
@@ -116,11 +175,13 @@ const sortMenusKoreanFirst = (menus: Menu[]) => {
     auth_code: string;
     auth_desc: string;
     sys_name: string;
+    totalMenus?: number; // ✅ 추가
+
   };
 
 
   const isMoreRequest = (text: string) =>
-    /더\s*보여|다음\s*20|그\s*다음|계속\s*보여|추가\s*로\s*보여/i.test(text);
+    /더\s*보여|다음\s*20|그\s*다음|계속\s*보여|추가\s*로\s*보여|더\s*있|더\s*있어|더\s*있나|더\s*있을까|더\s*있을까요|계속|계속\s*해|계속\s*줘|이어\s*서|이어서|다음|다음\s*꺼|다음\s*것/i.test(text);
 
 
   const parseAuthLevels = (name: string) => {
@@ -266,16 +327,46 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
 };
 
 const guideSteps = [
-  { icon: <UserCheck size={18} />, text: 'IAM 접속 및 로그인', url: 'https://iam.ajnetworks.co.kr' },
-  { icon: <PlusCircle size={18} />, text: '신청 > 애플리케이션 권한 신청' },
-  { icon: <MousePointer2 size={18} />, text: '역할 신청' },
-  { icon: <Search size={18} />, text: '역할 명 검색' },
-  { icon: <Send size={18} />, text: '추가 > 다음' },
-  { icon: <CheckCircle2 size={18} />, text: '신청 사유 입력' },
-  { icon: <ShieldCheck size={18} />, text: '신청 완료' },
+  { iconKey: 'UserCheck', text: 'IAM 접속 및 로그인', url: 'https://iam.ajnetworks.co.kr', keyword: 'iam.ajnetworks.co.kr' },
+  { iconKey: 'PlusCircle', text: '신청 > 애플리케이션 권한 신청', keyword: '신청 > 애플리케이션 권한 신청' },
+  { iconKey: 'MousePointer2', text: '역할 신청', keyword: '역할 신청' },
+  { iconKey: 'Search', text: '역할 명 검색', keyword: '역할 명 검색' },
+  { iconKey: 'Send', text: '추가 > 다음', keyword: '추가 > 다음' },
+  { iconKey: 'CheckCircle2', text: '신청 사유 입력', keyword: '신청 사유 입력' },
+  { iconKey: 'ShieldCheck', text: '신청 완료', keyword: '신청 완료' },
 ];
 
+const guideIconMap: Record<string, React.ReactNode> = {
+  UserCheck: <UserCheck size={18} />,
+  PlusCircle: <PlusCircle size={18} />,
+  MousePointer2: <MousePointer2 size={18} />,
+  Search: <Search size={18} />,
+  Send: <Send size={18} />,
+  CheckCircle2: <CheckCircle2 size={18} />,
+  ShieldCheck: <ShieldCheck size={18} />,
+};
+
 const App: React.FC = () => {
+
+  const isGuideQuestion = (text: string) => {
+    const t = normalize(text);
+
+    // 대표 질문 키워드
+    const baseHits =
+      t.includes(normalize("권한신청")) ||
+      t.includes(normalize("권한 신청")) ||
+      t.includes(normalize("신청 방법")) ||
+      t.includes(normalize("어떻게 신청")) ||
+      t.includes(normalize("iam 신청")) ||
+      t.includes(normalize("iam에서 신청")) ||
+      t.includes(normalize("역할 신청"));
+
+    // guideSteps의 문구가 직접 들어와도 가이드로 처리
+    const stepHits = guideSteps.some(s => normalize(s.keyword || s.text).includes(t) || t.includes(normalize(s.keyword || s.text)));
+
+    return baseHits || stepHits;
+  };
+
   const [teams, setTeams] = useState<Team[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<string>('');
   const [systems, setSystems] = useState<System[]>([]);
@@ -290,12 +381,11 @@ const App: React.FC = () => {
   const [selectedRoleGroupKey, setSelectedRoleGroupKey] = useState<string>('');
   const [menuFilter, setMenuFilter] = useState<string>('');
 
-  const [collapsedL1s, setCollapsedL1s] = useState<Set<string>>(new Set());
   const [chatInput, setChatInput] = useState<string>('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [copyToast, setCopyToast] = useState<string | null>(null);
   const [isGuideOpen, setIsGuideOpen] = useState(false);
-
+  const [activeL1Norm, setActiveL1Norm] = useState<string>('');
   const teamOptions = useMemo(() => teams.map(t => ({ value: t.team_code, label: t.team_name })), [teams]);
   const systemOptions = useMemo(() => systems.map(s => ({ value: s.sys_code, label: s.sys_name })), [systems]);
   const [menuPagingMap, setMenuPagingMap] = useState<Record<string, MenuPagingState>>({});
@@ -330,7 +420,7 @@ const App: React.FC = () => {
     // 팀 전환 시 UI 상태 초기화
     setSelectedSystem('');
     setSelectedRoleGroupKey('');
-    setCollapsedL1s(new Set());
+    setActiveL1Norm('');
     setSystems([]);
     setFullBundle([]);
 
@@ -352,8 +442,13 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setSelectedRoleGroupKey('');
-    setCollapsedL1s(new Set());
+    setActiveL1Norm('');
   }, [selectedSystem]);
+
+  useEffect(() => {
+    setActiveL1Norm('');
+  }, [selectedRoleGroupKey]);
+
 
   // (App.tsx) unifiedRoles 수정
   const unifiedRoles = useMemo(() => {
@@ -373,7 +468,7 @@ const App: React.FC = () => {
       if (selectedSystem && b.sys_code !== selectedSystem) return;
 
       const { groupKey, groupLabel, l3 } = parseAuthLevels(b.auth_name);
-      const authDesc = cleanValue(b.auth_desc);
+      const authDescRaw = sanitizeKoreanDesc(b.auth_desc);
       const authCode = cleanValue(b.auth_code);
       const authNameCode = cleanValue(b.auth_name);
 
@@ -381,13 +476,13 @@ const App: React.FC = () => {
         roleMap[groupKey] = {
           groupLabel,
           sys_name: cleanValue(b.sys_name),
-          desc: new Set(authDesc !== '기타' ? [authDesc] : []),
+          desc: new Set(authDescRaw !== '기타' ? [authDescRaw] : []),
           codes: new Set([authCode]),
           authNameCodes: new Set([authNameCode]),
           lv3s: new Set(l3 ? [l3] : []),
         };
       } else {
-        if (authDesc !== '기타') roleMap[groupKey].desc.add(authDesc);
+        if (authDescRaw) roleMap[groupKey].desc.add(authDescRaw);
         roleMap[groupKey].codes.add(authCode);
         roleMap[groupKey].authNameCodes.add(authNameCode);
         if (l3) roleMap[groupKey].lv3s.add(l3);
@@ -397,7 +492,9 @@ const App: React.FC = () => {
     return Object.entries(roleMap)
       .map(([groupKey, data]) => {
         const ias = isIASSales(data.sys_name);
-
+        const descArr = Array.from(data.desc)
+          .map(sanitizeKoreanDesc)
+          .filter(Boolean);
         const joinedDesc = Array.from(data.desc).join(' / ') || '';
         const joinedAuthNameCodes = Array.from(data.authNameCodes).join(', '); // 원래 auth_name(ROLE_...) 모음
         const joinedAuthCodes = Array.from(data.codes).join(', ');             // 원래 auth_code 모음
@@ -506,14 +603,12 @@ const App: React.FC = () => {
     [nestedMenus]
   );
 
-  const toggleL1Collapse = (l1Norm: string) => {
-    setCollapsedL1s(prev => {
-      const next = new Set(prev);
-      if (next.has(l1Norm)) next.delete(l1Norm);
-      else next.add(l1Norm);
-      return next;
-    });
-  };
+  useEffect(() => {
+    if (!selectedRoleGroupKey) return;
+    if (!sortedL1NormKeys || sortedL1NormKeys.length === 0) return;
+    setActiveL1Norm(prev => (prev ? prev : sortedL1NormKeys[0]));
+  }, [selectedRoleGroupKey, sortedL1NormKeys]);
+
 
   const handleCopyRole = (text: string) => {
     if (!text) return;
@@ -551,6 +646,35 @@ const App: React.FC = () => {
 
     const originalInput = chatInput.trim();
 
+    // ✅ 권한신청 방법 질문이면: LLM 안 타고 가이드 카드만 바로 출력
+    if (isGuideQuestion(originalInput)) {
+      const userMsg: ChatMessage = { role: 'user', content: originalInput };
+
+      setMessages(prev => [
+        ...prev,
+        userMsg, // ✅ 사용자 질문 카드도 반드시 추가
+        { role: 'assistant', content: '권한 신청 방법은 아래 순서대로 진행하시면 됩니다.' },
+        {
+          role: 'assistant',
+          content: '',
+          data: [
+            {
+              auth_name: "권한 신청 방법 (IAM 이용 가이드)",
+              auth_desc: guideSteps.map((s, idx) => `${idx + 1}. ${s.text}`).join('\n'),
+              auth_code: '',
+              allMenus: [],
+              matchedMenus: [],
+              guideSteps: guideSteps, // ✅ UI에서 카드로 그릴 수 있게 같이 전달
+            }
+          ],
+          intentType: "ROLE_LIST",
+        } as any
+      ]);
+
+      setChatInput('');
+      return;
+    }
+
     // ✅ 0) "더 보여줘" 요청이면 LLM/검색 재실행 없이, 캐시된 정렬 목록에서 다음 20개 출력
     if (isMoreRequest(originalInput) && Object.keys(menuPagingMap).length > 0) {
       const userMsg: ChatMessage = { role: 'user', content: originalInput };
@@ -577,6 +701,7 @@ const App: React.FC = () => {
             auth_desc: paging.auth_desc,
             matchedMenus: [],
             allMenus: page,
+            totalMenus: paging.totalMenus ?? paging.sortedMenus.length, // ✅ 추가
           });
 
           // 다음 offset
@@ -663,15 +788,12 @@ const App: React.FC = () => {
             const ias = isIASSales(sysNameClean);
 
             const roleNameRaw = cleanValue(b.auth_name); // ROLE_XXX
-            const roleDescRaw = cleanValue(b.auth_desc); // 설명
+            const roleDescSan = sanitizeKoreanDesc(b.auth_desc);
 
-            // ✅ IAS_Sales: title(auth_name)은 설명 우선, 없으면 ROLE_XXX
             const displayName = ias
-              ? (roleDescRaw !== '기타' && roleDescRaw.trim().length > 0 ? roleDescRaw : roleNameRaw)
+              ? (roleDescSan ? roleDescSan : roleNameRaw)
               : `${authInfo.groupLabel} [${sysNameClean}]`;
-
-            // ✅ IAS_Sales: desc(auth_desc)에는 ROLE_XXX를 노출
-            const displayDesc = ias ? roleNameRaw : roleDescRaw;
+            const displayDesc = ias ? roleNameRaw : roleDescSan; // (IAS는 desc에 ROLE_XXX 노출 유지)
 
             roleMap.set(key, {
               role_key: key,
@@ -735,6 +857,8 @@ const App: React.FC = () => {
         )
       );
 
+      // RoleWithMenus에 totalMenus 추가되어 있어야 함 (아래 2번 참고)
+
       const runSearch = (bundlesInput: RoleBundle[]) => {
         const resultsMap = new Map<string, RoleWithMenus>();
 
@@ -755,7 +879,6 @@ const App: React.FC = () => {
               String(b.sys_name || "").toLowerCase().includes(kwd)
             );
 
-          // ✅ matchedMenus: Menu[] 로 수집
           const matchedMenus: Menu[] = [];
           if (!isAllMode && keywords.length > 0) {
             (b.menus || []).forEach(m => {
@@ -766,7 +889,6 @@ const App: React.FC = () => {
           }
 
           const hasMenuMatch = matchedMenus.length > 0;
-
           const shouldInclude = isAllMode || isMatch || hasMenuMatch;
           if (!shouldInclude) return;
 
@@ -775,14 +897,16 @@ const App: React.FC = () => {
             const sysNameClean = cleanValue(b.sys_name);
             const ias = isIASSales(sysNameClean);
 
-            const roleNameRaw = cleanValue(b.auth_name); // ROLE_XXX
-            const roleDescRaw = cleanValue(b.auth_desc); // 설명
+            const roleNameRaw = cleanValue(b.auth_name);
+            const roleDescRaw = cleanValue(b.auth_desc);
 
             const displayName = ias
               ? (roleDescRaw !== '기타' && roleDescRaw.trim().length > 0 ? roleDescRaw : roleNameRaw)
               : `${authInfo.groupLabel} [${sysNameClean}]`;
 
             const displayDesc = ias ? roleNameRaw : roleDescRaw;
+
+            const all = (b.menus || []);
 
             resultsMap.set(roleKey, {
               role_key: roleKey,
@@ -791,12 +915,11 @@ const App: React.FC = () => {
               auth_code: cleanValue(b.auth_code),
               auth_desc: displayDesc,
               matchedMenus: isAllMode ? [] : matchedMenus,
-              allMenus:
-                (isAllMode || forcedType === "ROLE_TO_MENU" || isMatch)
-                  ? (b.menus || [])
-                  : [],
+              allMenus: (isAllMode || forcedType === "ROLE_TO_MENU" || isMatch) ? all : [],
+              totalMenus: all.length, // ✅ 추가
             });
-            return;
+
+            return; // ✅ 여기서 forEach(b) 한 바퀴 종료
           }
 
           // ✅ 기존 roleKey에 matchedMenus 누적(키워드 모드에서만)
@@ -812,6 +935,7 @@ const App: React.FC = () => {
         return Array.from(resultsMap.values());
       };
 
+
       const bundles = fullBundle.filter(b => !selectedSystem || b.sys_code === selectedSystem);
       let finalData = runSearch(bundles);
 
@@ -823,7 +947,7 @@ const App: React.FC = () => {
 
       let responseContent = analysis.message || "검색 결과입니다.";
       if (wantsAllMenus) {
-        responseContent = `${teamName} 팀${selectedSystem ? ` / ${sysName}` : ""}에서 접근 가능한 메뉴를 정리해드릴게요.`;
+        responseContent = `${teamName} 팀${selectedSystem ? " / " + sysName : ""}에서 접근 가능한 메뉴를 정리해드릴게요.`;
       }
       if (empty) {
         responseContent = `죄송합니다. ${teamName} 팀${selectedSystem ? `의 ${sysName} 시스템` : ""} 내에서 관련 정보를 찾지 못했습니다.`;
@@ -837,7 +961,8 @@ const App: React.FC = () => {
           const base = role.allMenus || [];
           const sortedAll = sortMenusKoreanFirst(base);
           const firstPage = sortedAll.slice(0, 20);
-
+          role.allMenus = firstPage;
+          role.totalMenus = sortedAll.length;
           // UI에는 20개만
           role.allMenus = firstPage;
           const baseDesc = cleanValue(role.auth_desc);
@@ -857,6 +982,7 @@ const App: React.FC = () => {
             auth_code: role.auth_code,
             auth_desc: mergedDesc,
             sys_name: role.sys_name,
+            totalMenus: sortedAll.length, // ✅ 추가
           };
 
           // (선택) 첫 페이지에도 규칙 문구 넣기
@@ -902,12 +1028,8 @@ const App: React.FC = () => {
             </div>
             <div>
               <h1 className="text-xl font-black tracking-tighter leading-none text-white">IAS 시스템 권한 안내 센터</h1>
-              <p className="text-[10px] font-bold opacity-60 mt-1 uppercase tracking-widest hidden sm:block">IAS System Auth Guidance Center</p>
+              <p className="text-[10px] font-bold opacity-60 mt-1 uppercase tracking-widest hidden sm:block">IAS Access & Permissions Guide Center</p>
             </div>
-          </div>
-          <div className="bg-white/10 px-3 py-1.5 rounded-full border border-white/20 hidden md:flex items-center gap-2">
-            <ShieldCheck size={14} className="text-red-200" />
-            <span className="text-[10px] font-black uppercase tracking-tight">AJ네트웍스</span>
           </div>
         </div>
       </header>
@@ -987,7 +1109,7 @@ const App: React.FC = () => {
                     </div>
 
                     <span className="text-xs font-black text-slate-700 group-hover:text-red-700 truncate">
-                      {role.auth_name}
+                      {(role as any).summary_auth_name || role.auth_name}
                     </span>
 
                     {copyToast === (role as any).copy_auth_name && ( // ✅ 이 비교는 그대로 두면 됨
@@ -1008,134 +1130,208 @@ const App: React.FC = () => {
             <div className="bg-white rounded-3xl shadow-xl border border-slate-200 flex-1 overflow-hidden min-h-[600px] flex flex-col">
               {activeTab === 'browse' ? (
                 <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+                  {/* 좌측 Roles */}
                   <div className="w-full md:w-80 border-r border-slate-100 bg-slate-50/50 p-5 flex flex-col gap-4 overflow-hidden">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">시스템 역할 (Roles)</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">
+                      시스템 역할 (Roles)
+                    </span>
+
                     <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-2">
-                      {unifiedRoles.length > 0 ? unifiedRoles.map(r => (
-                        <button key={r.groupKey} onClick={() => setSelectedRoleGroupKey(r.groupKey)} className={`w-full text-left p-4 rounded-2xl border transition-all ${selectedRoleGroupKey === r.groupKey ? 'bg-red-600 border-red-600 text-white shadow-lg scale-[1.02]' : 'bg-white border-slate-200 text-slate-600 hover:bg-red-50/30'}`}>
-                          <div className={`font-black text-sm ${r.auth_name === '기타' ? 'opacity-50 italic' : ''}`}>{r.auth_name}</div>
-                        </button>
-                      )) : (
+                      {unifiedRoles.length > 0 ? (
+                        unifiedRoles.map((r) => (
+                          <button
+                            key={r.groupKey}
+                            onClick={() => setSelectedRoleGroupKey(r.groupKey)}
+                            className={`w-full text-left p-4 rounded-2xl border transition-all ${
+                              selectedRoleGroupKey === r.groupKey
+                                ? 'bg-red-600 border-red-600 text-white shadow-lg scale-[1.02]'
+                                : 'bg-white border-slate-200 text-slate-600 hover:bg-red-50/30'
+                            }`}
+                          >
+                            <div className={`font-black text-sm ${r.auth_name === '기타' ? 'opacity-50 italic' : ''}`}>
+                              {r.auth_name}
+                            </div>
+                          </button>
+                        ))
+                      ) : (
                         <div className="p-4 text-xs font-bold text-slate-400 text-center">
-                          {bundleLoading ? "데이터를 불러오는 중입니다..." : "권한 데이터가 없습니다."}
+                          {bundleLoading ? '데이터를 불러오는 중입니다...' : '권한 데이터가 없습니다.'}
                         </div>
                       )}
                     </div>
                   </div>
 
+                  {/* 우측 상세 */}
                   <div className="flex-1 flex flex-col bg-white overflow-hidden">
                     {selectedRoleGroupKey ? (
                       <>
                         <div className="p-8 border-b border-slate-50 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                           <div className="space-y-4 w-full">
                             <div className="flex items-center gap-3">
-                              <h2 className="text-3xl font-black text-slate-900 tracking-tight">{selectedGroup?.auth_name}</h2>
-                              <button onClick={() => handleCopyRole(selectedGroup?.auth_name || '')} className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-colors border border-transparent hover:border-red-100"><Copy size={18} /></button>
+                              <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+                                {selectedGroup?.auth_name}
+                              </h2>
+                              <button
+                                onClick={() => handleCopyRole(selectedGroup?.auth_name || '')}
+                                className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-colors border border-transparent hover:border-red-100"
+                              >
+                                <Copy size={18} />
+                              </button>
                             </div>
+
                             {selectedGroup?.auth_desc && (
                               <p className="text-slate-600 text-xs font-medium ml-1 leading-relaxed">
                                 {selectedGroup.auth_desc}
                               </p>
                             )}
+
                             <div className="flex flex-wrap gap-2 items-center">
-                              {selectedGroup?.thirdLevels && selectedGroup.thirdLevels.length > 0 && selectedGroup.thirdLevels.map((lv3, idx) => (
-                                <span key={idx} className="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-tight border border-slate-200">{lv3}</span>
+                              {selectedGroup?.thirdLevels?.map((lv3, idx) => (
+                                <span
+                                  key={idx}
+                                  className="px-3 py-1 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-tight border border-slate-200"
+                                >
+                                  {lv3}
+                                </span>
                               ))}
+
                               <div className="ml-auto relative w-full lg:w-80 mt-4 lg:mt-0">
-                                <input type="text" placeholder="메뉴 검색" value={menuFilter} onChange={e => setMenuFilter(e.target.value)} className="w-full pl-12 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold focus:ring-4 focus:ring-red-500/10 outline-none transition-all shadow-inner" />
+                                <input
+                                  type="text"
+                                  placeholder="메뉴 검색"
+                                  value={menuFilter}
+                                  onChange={(e) => setMenuFilter(e.target.value)}
+                                  className="w-full pl-12 pr-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold focus:ring-4 focus:ring-red-500/10 outline-none transition-all shadow-inner"
+                                />
                                 <Search className="absolute left-4 top-3.5 text-slate-400" size={18} />
                               </div>
                             </div>
                           </div>
                         </div>
                         <div className="flex-1 overflow-y-auto p-5 space-y-6 bg-slate-50/30 custom-scrollbar">
-                          {sortedL1NormKeys.length > 0 ? (
-                            sortedL1NormKeys.map(l1Norm => {
-                              const isCollapsed = collapsedL1s.has(l1Norm);
-                              const l1Label = nestedMenus.l1LabelMap[l1Norm];
-                              const l2Data = nestedMenus.tree[l1Norm];
-                              const totalItems = Object.values(l2Data).reduce((sum, items) => sum + items.length, 0);
-                              return (
-                                <div key={l1Norm} className="space-y-4">
-                                  <button onClick={() => toggleL1Collapse(l1Norm)} className="w-full flex items-center gap-4 group hover:opacity-80 transition-all">
-                                    <div className={`h-[2px] flex-1 transition-all ${isCollapsed ? 'bg-slate-200' : 'bg-red-200'}`}></div>
-                                    <div className="flex items-center gap-3 px-2">
-                                      <div className={`p-1 rounded-lg transition-all ${isCollapsed ? 'bg-slate-100 text-slate-400' : 'bg-red-50 text-red-600'}`}>
-                                        <ChevronDown size={14} className={`transition-transform duration-300 ${isCollapsed ? '-rotate-90' : ''}`} />
+                          {menuFilter.trim().length > 0 ? (
+                            // ✅ 검색 결과 화면 (브레드크럼 + 하이라이트)
+                            <div className="space-y-3">
+                              {processedMenus.length > 0 ? (
+                                processedMenus
+                                  .slice()
+                                  .sort((a, b) => buildBreadcrumb(a).localeCompare(buildBreadcrumb(b), 'ko'))
+                                  .map((m, idx) => {
+                                    const crumb = buildBreadcrumb(m);
+                                    return (
+                                      <div
+                                        key={`${cleanValue(m.menu_id) || idx}`}
+                                        className="bg-white border border-slate-200 rounded-2xl px-4 py-3 shadow-sm"
+                                      >
+                                        <div className="text-[13px] font-bold text-slate-800 leading-relaxed">
+                                          <HighlightedText text={crumb} keyword={menuFilter} />
+                                        </div>
                                       </div>
-                                      <h3 className={`text-sm font-black uppercase tracking-widest whitespace-nowrap ${l1Label === '기타' ? 'text-slate-400 italic' : 'text-slate-900'}`}>{l1Label}<span className="ml-3 text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-500 group-hover:bg-red-100 group-hover:text-red-600 transition-colors">{totalItems}</span></h3>
-                                    </div>
-                                    <div className={`h-[2px] flex-1 transition-all ${isCollapsed ? 'bg-slate-200' : 'bg-red-200'}`}></div>
-                                  </button>
-                                  {!isCollapsed && (
-                                    <div className="space-y-4">
-                                      {Object.keys(l2Data)
+                                    );
+                                  })
+                              ) : (
+                                <div className="text-center py-24 text-slate-400 font-bold">
+                                  검색 결과가 없습니다.
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            // ✅ 기본 탭 화면 (기존 UI 그대로)
+                            <>
+                              {sortedL1NormKeys.length > 0 ? (
+                                <div className="space-y-6">
+                                  {/* 1레벨 탭 */}
+                                  <div className="flex flex-wrap gap-2">
+                                    {sortedL1NormKeys.map((l1Norm) => {
+                                      const label = nestedMenus.l1LabelMap[l1Norm];
+                                      const active = l1Norm === activeL1Norm;
+
+                                      return (
+                                        <button
+                                          key={l1Norm}
+                                          onClick={() => setActiveL1Norm(l1Norm)}
+                                          className={[
+                                            'px-4 py-2 font-bold rounded-full border text-sm transition-all',
+                                            active
+                                              ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                                              : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50',
+                                          ].join(' ')}
+                                        >
+                                          {label}
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+
+                                  {/* 선택된 1레벨의 2/3레벨만 표시 */}
+                                  {activeL1Norm && nestedMenus.tree[activeL1Norm] ? (
+                                    <div className="space-y-5">
+                                      {Object.keys(nestedMenus.tree[activeL1Norm])
                                         .sort((a, b) => {
                                           const A = sortLabelWithKoreanEtcEnglish(nestedMenus.l2LabelMap[a]);
                                           const B = sortLabelWithKoreanEtcEnglish(nestedMenus.l2LabelMap[b]);
-
                                           if (A.etcRank !== B.etcRank) return A.etcRank - B.etcRank;
                                           if (A.langRank !== B.langRank) return A.langRank - B.langRank;
                                           const locale = A.langRank === 0 ? 'ko' : 'en';
                                           return A.text.localeCompare(B.text, locale);
                                         })
                                         .map((l2Norm) => {
-                                          const label = nestedMenus.l2LabelMap[l2Norm];
-                                          const items = l2Data[l2Norm] || [];
-                                          if (items.length === 0) return null;
+                                          const items = nestedMenus.tree[activeL1Norm][l2Norm];
+                                          const l2Label = nestedMenus.l2LabelMap[l2Norm];
 
                                           return (
-                                            <div key={l2Norm} className="border border-slate-100 rounded-2xl bg-white overflow-hidden">
-                                              {/* L2 헤더 */}
-                                              <div className="px-6 py-4 bg-slate-100 border-b border-slate-150 flex items-center justify-between">
-                                                <div className="flex items-center gap-3">
-                                                  <Layers size={14} className="text-red-500" />
-                                                  <h4
-                                                    className={`text-xs font-black uppercase tracking-tight ${
-                                                      nestedMenus.l2LabelMap[l2Norm] === '기타'
-                                                        ? 'text-slate-400 italic'
-                                                        : 'text-slate-700'
-                                                    }`}
-                                                  >
-                                                    {nestedMenus.l2LabelMap[l2Norm]}
-                                                  </h4>
-                                                </div>
-
-                                                <span className="text-[10px] text-slate-400">
-                                                  {l2Data[l2Norm].length} Items
-                                                </span>
+                                            <div key={l2Norm} className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+                                              <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between bg-transparent">
+                                                <div className="text-sm font-bold text-slate-800">{l2Label}</div>
                                               </div>
-                                              {/* 5열 컴팩트 그리드 */}
-                                              <div className="p-3">
-                                                <div className="grid grid-cols-5 gap-2">
-                                                  {items.map((m, i) => (
-                                                    <div
-                                                      key={`${cleanValue(m.menu_id) || i}`}
-                                                      className="px-3 py-2 rounded-xl border border-slate-100 bg-white text-[12px] text-slate-700 leading-tight flex items-center justify-center text-center"
-                                                      title={m.l3}
-                                                    >
-                                                      <span className="break-keep">{m.l3}</span>
-                                                    </div>
-                                                  ))}
+
+                                              <div className="px-4 py-3">
+                                                <div className="flex flex-wrap gap-2">
+                                                  {items
+                                                    .slice()
+                                                    .sort((a, b) => cleanValue(a.l3).localeCompare(cleanValue(b.l3), 'ko'))
+                                                    .map((m, i) => (
+                                                      <span
+                                                        key={`${cleanValue(m.menu_id) || i}`}
+                                                        title={m.l3}
+                                                        className={[
+                                                          "inline-flex items-center",
+                                                          "px-3 py-1.5",
+                                                          "rounded-full",
+                                                          "border border-slate-200",
+                                                          "bg-white",
+                                                          "text-[12px] text-slate-700",
+                                                          "leading-none",
+                                                          "shadow-sm",
+                                                          "max-w-full"
+                                                        ].join(" ")}
+                                                      >
+                                                        <span className="break-keep">{m.l3}</span>
+                                                      </span>
+                                                    ))}
                                                 </div>
                                               </div>
                                             </div>
                                           );
                                         })}
                                     </div>
-                                  )}
+                                  ) : null}
                                 </div>
-                              );
-                            })
-                          ) : (
-                            <div className="text-center py-40 opacity-20 font-black text-xl">데이터가 존재하지 않습니다.</div>
+                              ) : (
+                                <div className="text-center py-40 opacity-20 font-black text-xl">
+                                  데이터가 존재하지 않습니다.
+                                </div>
+                              )}
+                            </>
                           )}
                         </div>
                       </>
                     ) : (
                       <div className="flex-1 flex flex-col items-center justify-center opacity-10 space-y-6">
                         <Layout size={100} strokeWidth={1} />
-                        <p className="font-black text-2xl uppercase tracking-tighter">Select a role to inspect</p>
+                        <p className="font-black text-2xl uppercase tracking-tighter">
+                          Select a role to inspect
+                        </p>
                       </div>
                     )}
                   </div>
@@ -1145,69 +1341,143 @@ const App: React.FC = () => {
                   <div className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
                     {messages.length === 0 && (
                       <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
-                        <div className="p-6 bg-white rounded-full shadow-lg text-red-600 border border-red-100"><MessageSquare size={44} /></div>
+                        <div className="p-6 bg-white rounded-full shadow-lg text-red-600 border border-red-100">
+                          <MessageSquare size={44} />
+                        </div>
                         <p className="font-black text-slate-900 text-2xl">AI 스마트 검색</p>
                         <p className="text-sm font-semibold text-slate-600">권한/메뉴 관련 질문을 입력해 주세요.</p>
                         <div className="mt-2 w-full max-w-md space-y-2">
                           <div className="bg-white border border-slate-200 rounded-xl px-4 py-3 text-left shadow-sm">
                             <ul className="mt-2 space-y-1 text-sm text-slate-600">
                               <li>우리 팀 접근 가능 메뉴 보여줘</li>
-                              <li>우리 팀 권한으로 “견적” 메뉴 접근 가능할까?</li>
+                              <li>우리 팀 권한으로 견적 메뉴 접근 가능할까?</li>
                             </ul>
                           </div>
                         </div>
                       </div>
                     )}
+
                     {messages.map((m, i) => (
-                      <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`}>
-                        <div className={`max-w-[90%] p-5 rounded-3xl shadow-md border ${m.role === 'user' ? 'bg-red-700 text-white rounded-br-none border-red-800' : 'bg-white text-slate-800 rounded-bl-none border-slate-100'}`}>
+                      <div
+                        key={i}
+                        className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`}
+                      >
+                        <div
+                          className={`max-w-[90%] p-5 rounded-3xl shadow-md border ${
+                            m.role === 'user'
+                              ? 'bg-red-700 text-white rounded-br-none border-red-800'
+                              : 'bg-white text-slate-800 rounded-bl-none border-slate-100'
+                          }`}
+                        >
                           <p className="text-[15px] font-bold whitespace-pre-wrap">{m.content}</p>
+
                           {m.data && Array.isArray(m.data) && (m.data as any[]).length > 0 && (
                             <div className="mt-4 pt-4 border-t border-black/10 grid grid-cols-1 gap-4">
                               {(m.data as any[]).map((d: any, j: number) => (
                                 <div key={j} className="bg-black/5 p-4 rounded-2xl flex flex-col gap-3">
                                   <div className="flex justify-between items-start gap-4">
                                     <div className="flex flex-col">
-                                      <div className="flex items-center gap-2">
-                                        <ShieldCheck size={14} className="text-red-600" />
-                                        <span className="text-[14px] font-black text-slate-900 leading-tight">{d.auth_name}</span>
-                                      </div>
-                                      {d.auth_desc && (
+                                      {/* ✅ 가이드 카드 (권한 신청 방법) */}
+                                      {d.guideSteps && Array.isArray(d.guideSteps) && d.guideSteps.length > 0 ? (
+                                        <div className="bg-white/70 border border-white/40 rounded-2xl p-4 w-full">
+                                          <div className="text-[12px] font-black text-slate-900 mb-3">
+                                            {d.auth_name || "권한 신청 방법"}
+                                          </div>
+                                          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+                                            {d.guideSteps.map((step: any, idx: number) => {
+                                              const stepContent = (
+                                                <div
+                                                  className={`flex flex-col items-center text-center p-3 rounded-2xl border transition-all bg-white ${
+                                                    step.url ? "hover:bg-red-50 hover:border-red-200 cursor-pointer" : "border-slate-100"
+                                                  }`}
+                                                >
+                                                  <div className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center text-[10px] font-black mb-2 text-white">
+                                                    {idx + 1}
+                                                  </div>
+
+                                                  <div className="text-red-600 mb-1">
+                                                    {guideIconMap[step.iconKey] || <Info size={18} />}
+                                                  </div>
+
+                                                  <span className="text-[10px] font-bold tracking-tighter text-slate-600 leading-tight break-keep">
+                                                    {step.text}
+                                                  </span>
+                                                </div>
+                                              );
+
+                                              return step.url ? (
+                                                <a
+                                                  key={idx}
+                                                  href={step.url}
+                                                  target="_blank"
+                                                  rel="noopener noreferrer"
+                                                  className="block outline-none"
+                                                >
+                                                  {stepContent}
+                                                </a>
+                                              ) : (
+                                                <div key={idx}>{stepContent}</div>
+                                              );
+                                            })}
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        /* ✅ 일반 권한 카드 */
+                                        <div className="flex items-center gap-2">
+                                          <ShieldCheck size={14} className="text-red-600" />
+                                          <span className="text-[14px] font-black text-slate-900 leading-tight">
+                                            {d.auth_name}
+                                          </span>
+                                        </div>
+                                      )}
+                                      {!(d.guideSteps && Array.isArray(d.guideSteps) && d.guideSteps.length > 0) && d.auth_desc && (
                                         <span className="text-[11px] text-slate-500 font-medium leading-tight mt-1 ml-5">
                                           {d.auth_desc}
                                         </span>
                                       )}
                                     </div>
-                                    {d.auth_code && (
-                                      <span className="text-[10px] font-mono opacity-50 bg-black/10 px-2 py-0.5 rounded-md whitespace-nowrap">
-                                        [{d.auth_code}]
-                                      </span>
-                                    )}
                                   </div>
+                                  {(m as any).intentType !== 'ROLE_LIST' &&
+                                    ((d.matchedMenus && d.matchedMenus.length > 0) ||
+                                      (d.allMenus && d.allMenus.length > 0)) && (
+                                      <div className="flex flex-col gap-1.5 border-t border-black/5 pt-3 ml-5">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <Layers size={12} className="text-slate-400" />
+                                          <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">
+                                            {d.matchedMenus?.length ? 'Matched Menus' : 'Role Menus'}
+                                          </span>
+                                        </div>
+                                        <div className="flex flex-col gap-1">
+                                          {(() => {
+                                            const list = (d.matchedMenus?.length ? d.matchedMenus : d.allMenus) || [];
+                                            const shown = list.slice(0, 20);
 
-                                  {(m as any).intentType !== "ROLE_LIST" &&
-                                    ((d.matchedMenus && d.matchedMenus.length > 0) || (d.allMenus && d.allMenus.length > 0)) && (
-                                    <div className="flex flex-col gap-1.5 border-t border-black/5 pt-3 ml-5">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <Layers size={12} className="text-slate-400" />
-                                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">
-                                          {d.matchedMenus?.length ? 'Matched Menus' : 'Role Menus'}
-                                        </span>
+                                            const total = (typeof d.totalMenus === "number" ? d.totalMenus : list.length);
+                                            const remaining = Math.max(0, total - shown.length);
+
+                                            return (
+                                              <>
+                                                {shown.map((menu: Menu, k: number) => (
+                                                  <div
+                                                    key={cleanValue(menu.menu_id) || k}
+                                                    className="text-[11px] font-bold text-slate-700 bg-white/60 px-2.5 py-1.5 rounded-lg border border-white/40 shadow-sm leading-tight"
+                                                  >
+                                                    <span className="opacity-60 mr-2">{k + 1}.</span>
+                                                    <span>{cleanValue(menu.path)}</span>
+                                                  </div>
+                                                ))}
+
+                                                {remaining > 0 && (
+                                                  <div className="text-[10px] text-slate-400 font-bold ml-2">
+                                                    외 {remaining}개의 메뉴가 남아 있습니다. 
+                                                  </div>
+                                                )}
+                                              </>
+                                            );
+                                          })()}
+                                        </div>
                                       </div>
-                                      <div className="flex flex-col gap-1">
-                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus)?.slice(0, 20).map((menu: Menu, k: number) => (
-                                          <div key={cleanValue(menu.menu_id) || k} className="text-[11px] font-bold text-slate-700 bg-white/60 px-2.5 py-1.5 rounded-lg border border-white/40 shadow-sm leading-tight">
-                                            <span className="opacity-60 mr-2">{k + 1}.</span>
-                                            <span>{cleanValue(menu.path)}</span>
-                                            <span className="ml-2 font-mono opacity-60">({cleanValue(menu.menu_id)})</span>
-                                          </div>
-                                        ))}
-                                        {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).length > 20 && (
-                                          <span className="text-[10px] text-slate-400 font-bold ml-2 italic">외 {(d.matchedMenus?.length ? d.matchedMenus : d.allMenus).length - 20}개의 메뉴가 더 있습니다.</span>
-                                        )}
-                                      </div>
-                                    </div>
-                                  )}
+                                    )}
                                 </div>
                               ))}
                             </div>
@@ -1215,12 +1485,33 @@ const App: React.FC = () => {
                         </div>
                       </div>
                     ))}
-                    {loading && <div className="flex justify-start animate-pulse"><div className="bg-white p-4 rounded-3xl shadow-sm font-black text-[10px] text-slate-400 uppercase tracking-widest">Processing Data...</div></div>}
+
+                    {loading && (
+                      <div className="flex justify-start animate-pulse">
+                        <div className="bg-white p-4 rounded-3xl shadow-sm font-black text-[10px] text-slate-400 uppercase tracking-widest">
+                          Processing Data...
+                        </div>
+                      </div>
+                    )}
                   </div>
+
                   <div className="p-6 bg-white border-t border-slate-100">
                     <div className="max-w-4xl mx-auto relative group">
-                      <input type="text" value={chatInput} onChange={e => setChatInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch()} placeholder="질문을 입력하세요 (예: 정보전략팀 메뉴 알려줘)" className="w-full pl-7 pr-16 py-5 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-[15px] font-bold shadow-inner focus:bg-white transition-all" />
-                      <button onClick={handleSearch} className="absolute right-3 top-3 p-3 bg-red-700 text-white rounded-xl shadow-lg active:scale-95 disabled:opacity-50" disabled={loading || !chatInput.trim()}><Search size={22}/></button>
+                      <input
+                        type="text"
+                        value={chatInput}
+                        onChange={(e) => setChatInput(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                        placeholder="질문을 입력하세요 (권한 관련 질문만 가능함)"
+                        className="w-full pl-7 pr-16 py-5 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-[15px] font-bold shadow-inner focus:bg-white transition-all"
+                      />
+                      <button
+                        onClick={handleSearch}
+                        className="absolute right-3 top-3 p-3 bg-red-700 text-white rounded-xl shadow-lg active:scale-95 disabled:opacity-50"
+                        disabled={loading || !chatInput.trim()}
+                      >
+                        <Search size={22} />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1238,7 +1529,7 @@ const App: React.FC = () => {
       </main>
 
       <footer className="p-10 text-center bg-white border-t border-slate-50 mt-10">
-        <p className="text-[11px] font-black text-slate-300 tracking-[0.5em] uppercase opacity-60">Copyright &copy; {new Date().getFullYear()} AJ네트웍스 전략기획실</p>
+        <p className="text-[11px] font-black text-slate-300 tracking-[0.5em] uppercase opacity-60">Copyright &copy; {new Date().getFullYear()} AJ네트웍스 전략기획실 정보전략팀</p>
       </footer>
     </div>
   );
