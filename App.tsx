@@ -125,30 +125,36 @@ const sortMenusKoreanFirst = (menus: Menu[]) => {
 
   const parseAuthLevels = (name: string) => {
     const raw = cleanValue(name);
+
     if (raw === '기타') {
       return { l1: '기타', l2: '', l3: '', groupKey: '기타', groupLabel: '기타' };
     }
 
-  const parts = raw.split('>').map(p => p.trim());
-  let primaryPart = parts[0] || '기타';
-  let l3 = parts.slice(1).join(' > ').trim();
-  l3 = cleanValue(l3) === '기타' ? '' : cleanValue(l3);
+    const parts = raw.split('>').map(p => p.trim());
+    let primaryPart = parts[0] || '기타';
 
-  const m = primaryPart.match(/^(.+?)\s*[\(\[]\s*(.+?)\s*[\)\]]\s*$/);
-  let l1, l2;
-  if (m) {
-    l1 = cleanValue(m[1]);
-    l2 = cleanValue(m[2]);
-  } else {
-    l1 = cleanValue(primaryPart);
-    l2 = '';
-  }
+    let l3 = parts.slice(1).join(' > ').trim();
+    l3 = cleanValue(l3) === '기타' ? '' : cleanValue(l3);
 
-  const groupLabel = l2 && l2 !== '기타' ? `${l1}(${l2})` : l1;
-  const groupKey = normalize(`${l1}||${l2}`);
+    const m = primaryPart.match(/^(.+?)\s*[\(\[]\s*(.+?)\s*[\)\]]\s*$/);
 
-  return { l1, l2, l3, groupKey, groupLabel };
-};
+    let l1: string;
+    let l2: string;
+
+    if (m) {
+      l1 = cleanValue(m[1]);
+      l2 = cleanValue(m[2]);
+    } else {
+      l1 = cleanValue(primaryPart);
+      l2 = '';
+    }
+
+    const groupLabel = l2 && l2 !== '기타' ? `${l1}(${l2})` : l1;
+    const groupKey = normalize(`${l1}||${l2}`);
+
+    return { l1, l2, l3, groupKey, groupLabel };
+  };
+
 
 // --- SearchableSelect Component ---
 interface Option {
@@ -473,8 +479,30 @@ const App: React.FC = () => {
     return { tree, l1LabelMap, l2LabelMap };
   }, [processedMenus]);
 
+  const sortLabelWithKoreanEtcEnglish = (label: string) => {
+    const v = cleanValue(label);
+    const isEtc = v === '기타';
+
+    // 기타는 최후순위
+    const etcRank = isEtc ? 2 : 0;
+
+    // 한글 우선(0), 영어/기타 외(1)
+    const langRank = hasKorean(v) ? 0 : 1;
+
+    // etcRank가 최우선: 기타는 무조건 맨 뒤
+    return { etcRank, langRank, text: v };
+  };
+
   const sortedL1NormKeys = useMemo(() =>
-    Object.keys(nestedMenus.tree).sort((a, b) => nestedMenus.l1LabelMap[a].localeCompare(nestedMenus.l1LabelMap[b])),
+    Object.keys(nestedMenus.tree).sort((a, b) => {
+      const A = sortLabelWithKoreanEtcEnglish(nestedMenus.l1LabelMap[a]);
+      const B = sortLabelWithKoreanEtcEnglish(nestedMenus.l1LabelMap[b]);
+
+      if (A.etcRank !== B.etcRank) return A.etcRank - B.etcRank; // 기타 맨 뒤
+      if (A.langRank !== B.langRank) return A.langRank - B.langRank; // 한글 먼저
+      const locale = A.langRank === 0 ? 'ko' : 'en';
+      return A.text.localeCompare(B.text, locale);
+    }),
     [nestedMenus]
   );
 
@@ -1020,7 +1048,7 @@ const App: React.FC = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="flex-1 overflow-y-auto p-8 space-y-6 bg-slate-50/30 custom-scrollbar">
+                        <div className="flex-1 overflow-y-auto p-5 space-y-6 bg-slate-50/30 custom-scrollbar">
                           {sortedL1NormKeys.length > 0 ? (
                             sortedL1NormKeys.map(l1Norm => {
                               const isCollapsed = collapsedL1s.has(l1Norm);
@@ -1040,33 +1068,60 @@ const App: React.FC = () => {
                                     <div className={`h-[2px] flex-1 transition-all ${isCollapsed ? 'bg-slate-200' : 'bg-red-200'}`}></div>
                                   </button>
                                   {!isCollapsed && (
-                                    <div className="space-y-8 animate-in fade-in slide-in-from-top-2 duration-300">
-                                      {Object.keys(l2Data).sort((a, b) => nestedMenus.l2LabelMap[a].localeCompare(nestedMenus.l2LabelMap[b])).map(l2Norm => (
-                                        <div key={l2Norm} className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden">
-                                          <div className="px-6 py-4 bg-slate-50/50 border-b border-slate-50 flex items-center justify-between">
-                                            <div className="flex items-center gap-3"><Layers size={14} className="text-red-500" /><h4 className={`text-xs font-black uppercase tracking-tight ${nestedMenus.l2LabelMap[l2Norm] === '기타' ? 'text-slate-400 italic' : 'text-slate-700'}`}>{nestedMenus.l2LabelMap[l2Norm]}</h4></div>
-                                            <span className="text-[10px] font-bold text-slate-400">{l2Data[l2Norm].length} Items</span>
-                                          </div>
-                                          <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-                                            {l2Data[l2Norm].map((m, i) => (
-                                              <div
-                                                key={i}
-                                                className={`menu-card p-3 rounded-2xl flex items-center justify-center text-center min-h-[44px] border transition-all ${
-                                                  m.l3 === '기타'
-                                                    ? 'bg-slate-50/30 border-slate-100 grayscale-[0.5]'
-                                                    : 'bg-white border-slate-100 shadow-sm hover:border-red-200 hover:shadow-md'
-                                                }`}
-                                              >
-                                                <span className={`text-sm font-bold break-keep leading-tight ${
-                                                  m.l3 === '기타' ? 'text-slate-400 italic' : 'text-slate-800'
-                                                }`}>
-                                                  {m.l3}
+                                    <div className="space-y-4">
+                                      {Object.keys(l2Data)
+                                        .sort((a, b) => {
+                                          const A = sortLabelWithKoreanEtcEnglish(nestedMenus.l2LabelMap[a]);
+                                          const B = sortLabelWithKoreanEtcEnglish(nestedMenus.l2LabelMap[b]);
+
+                                          if (A.etcRank !== B.etcRank) return A.etcRank - B.etcRank;
+                                          if (A.langRank !== B.langRank) return A.langRank - B.langRank;
+                                          const locale = A.langRank === 0 ? 'ko' : 'en';
+                                          return A.text.localeCompare(B.text, locale);
+                                        })
+                                        .map((l2Norm) => {
+                                          const label = nestedMenus.l2LabelMap[l2Norm];
+                                          const items = l2Data[l2Norm] || [];
+                                          if (items.length === 0) return null;
+
+                                          return (
+                                            <div key={l2Norm} className="border border-slate-100 rounded-2xl bg-white overflow-hidden">
+                                              {/* L2 헤더 */}
+                                              <div className="px-6 py-4 bg-slate-100 border-b border-slate-150 flex items-center justify-between">
+                                                <div className="flex items-center gap-3">
+                                                  <Layers size={14} className="text-red-500" />
+                                                  <h4
+                                                    className={`text-xs font-black uppercase tracking-tight ${
+                                                      nestedMenus.l2LabelMap[l2Norm] === '기타'
+                                                        ? 'text-slate-400 italic'
+                                                        : 'text-slate-700'
+                                                    }`}
+                                                  >
+                                                    {nestedMenus.l2LabelMap[l2Norm]}
+                                                  </h4>
+                                                </div>
+
+                                                <span className="text-[10px] text-slate-400">
+                                                  {l2Data[l2Norm].length} Items
                                                 </span>
                                               </div>
-                                            ))}
-                                          </div>
-                                        </div>
-                                      ))}
+                                              {/* 5열 컴팩트 그리드 */}
+                                              <div className="p-3">
+                                                <div className="grid grid-cols-5 gap-2">
+                                                  {items.map((m, i) => (
+                                                    <div
+                                                      key={`${cleanValue(m.menu_id) || i}`}
+                                                      className="px-3 py-2 rounded-xl border border-slate-100 bg-white text-[12px] text-slate-700 leading-tight flex items-center justify-center text-center"
+                                                      title={m.l3}
+                                                    >
+                                                      <span className="break-keep">{m.l3}</span>
+                                                    </div>
+                                                  ))}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          );
+                                        })}
                                     </div>
                                   )}
                                 </div>
