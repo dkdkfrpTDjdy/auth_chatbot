@@ -1,11 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
+import path from "path";
 import { GoogleGenAI, Type } from "@google/genai";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+app.get("/api/health", (_req, res) => res.json({ ok: true }));
 
 type IntentType = "ROLE_TO_MENU" | "MENU_TO_ROLE" | "ROLE_LIST" | "UNKNOWN";
 
@@ -141,7 +144,19 @@ app.post("/api/analyze-intent", async (req, res) => {
   }
 });
 
-const port = Number(process.env.API_PORT || 3001);
+
+// ✅ Serve Vite production build (dist/) from the same origin
+const distPath = path.join(process.cwd(), "dist");
+app.use(express.static(distPath));
+
+// ✅ SPA fallback (prevents refresh 404). Keep /api/* as API-only.
+app.get("*", (req, res) => {
+  if (req.path.startsWith("/api/")) {
+    return res.status(404).json({ error: "Not Found" });
+  }
+  return res.sendFile(path.join(distPath, "index.html"));
+});
+const port = Number(process.env.PORT || process.env.API_PORT || 3001);
 app.listen(port, "0.0.0.0", () => {
   console.log(`API listening on http://0.0.0.0:${port}`);
 });

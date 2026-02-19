@@ -74,6 +74,33 @@ const sanitizeKoreanDesc = (input: any): string => {
   return s && s !== '기타' ? s : '';
 };
 
+
+const SAP_MODULE_LABEL: Record<string, string> = {
+  FI: '재무회계',
+  CO: '관리회계',
+  SD: '영업/유통',
+  MM: '자재관리',
+  PP: '생산계획',
+  PM: '설비보전',
+  QM: '품질관리',
+  HR: '인사관리',
+  HCM: '인사관리',
+  LE: '물류실행',
+  BW: 'BI/분석',
+};
+
+const withModuleDesc = (code: string) => {
+  const c = cleanValue(code).toUpperCase();
+  return SAP_MODULE_LABEL[c] ? `${c} (${SAP_MODULE_LABEL[c]})` : c;
+};
+
+const stripModulePrefix = (name: string) =>
+  name.replace(/^\[(FI|CO|SD|MM|PP|PM|QM|HR|HCM|LE|BW)\]\s*/i, '').trim();
+
+const stripAllModulePrefixes = (text: string) =>
+  String(text || '').replace(/\[(FI|CO|SD|MM|PP|PM|QM|HR|HCM|LE|BW)\]\s*/gi, '').trim();
+
+
 const isIASSales = (sysName: string) => cleanValue(sysName) === 'IAS_Sales';
 type IntentType = "ROLE_TO_MENU" | "MENU_TO_ROLE" | "ROLE_LIST" | "UNKNOWN";
 type UnifiedRole = {
@@ -327,7 +354,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
 };
 
 const guideSteps = [
-  { iconKey: 'UserCheck', text: 'IAM 접속 및 로그인', url: 'https://iam.ajnetworks.co.kr', keyword: 'iam.ajnetworks.co.kr' },
+  { iconKey: 'Home', text: 'AJ포털 접속 > IT신청 > IAM', url: 'https://portal.ajnet.co.kr/', keyword: 'AJ포털 IT신청 IAM' },
   { iconKey: 'PlusCircle', text: '신청 > 애플리케이션 권한 신청', keyword: '신청 > 애플리케이션 권한 신청' },
   { iconKey: 'MousePointer2', text: '역할 신청', keyword: '역할 신청' },
   { iconKey: 'Search', text: '역할 명 검색', keyword: '역할 명 검색' },
@@ -337,6 +364,8 @@ const guideSteps = [
 ];
 
 const guideIconMap: Record<string, React.ReactNode> = {
+  
+  Home: <Home size={18} />,
   UserCheck: <UserCheck size={18} />,
   PlusCircle: <PlusCircle size={18} />,
   MousePointer2: <MousePointer2 size={18} />,
@@ -345,6 +374,35 @@ const guideIconMap: Record<string, React.ReactNode> = {
   CheckCircle2: <CheckCircle2 size={18} />,
   ShieldCheck: <ShieldCheck size={18} />,
 };
+
+
+const IAM_PORTAL_HINT = {
+  title: 'IAM(권한관리) 안내',
+  desc: 'IAM(Identity & Access Management)은 AJ포털에서 IT신청 메뉴를 통해 접속하여 시스템/애플리케이션 권한을 신청·승인·관리하는 권한관리 시스템입니다.',
+};
+
+// SAP 모듈 설명(목록조회용)
+const SAP_MODULE_DESC: Record<string, string> = {
+  FI: '재무회계',
+  CO: '관리회계',
+  SD: '영업/유통',
+  MM: '자재관리',
+  PP: '생산계획',
+  PM: '설비보전',
+  QM: '품질관리',
+  HR: '인사관리',
+  HCM: '인사관리',
+  LE: '물류실행',
+  BW: 'BI/분석',
+  BI: 'BI/분석',
+};
+
+const formatSapModuleLabel = (label: string) => {
+  const key = cleanValue(label).toUpperCase();
+  const desc = SAP_MODULE_DESC[key];
+  return desc ? `${key} (${desc})` : label;
+};
+
 
 const App: React.FC = () => {
 
@@ -388,6 +446,15 @@ const App: React.FC = () => {
   const [activeL1Norm, setActiveL1Norm] = useState<string>('');
   const teamOptions = useMemo(() => teams.map(t => ({ value: t.team_code, label: t.team_name })), [teams]);
   const systemOptions = useMemo(() => systems.map(s => ({ value: s.sys_code, label: s.sys_name })), [systems]);
+
+const selectedSystemName = useMemo(() => {
+  const sys = systems.find(s => s.sys_code === selectedSystem);
+  return sys?.sys_name || '';
+}, [systems, selectedSystem]);
+
+const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [selectedSystemName]);
+
+
   const [menuPagingMap, setMenuPagingMap] = useState<Record<string, MenuPagingState>>({});
 
   useEffect(() => {
@@ -496,12 +563,13 @@ const App: React.FC = () => {
           .map(sanitizeKoreanDesc)
           .filter(Boolean);
         const joinedDesc = Array.from(data.desc).join(' / ') || '';
+        const joinedDescClean = stripAllModulePrefixes(joinedDesc);
         const joinedAuthNameCodes = Array.from(data.authNameCodes).join(', '); // 원래 auth_name(ROLE_...) 모음
         const joinedAuthCodes = Array.from(data.codes).join(', ');             // 원래 auth_code 모음
 
         // ✅ IAS_Sales: auth_desc(=joinedDesc)를 우선 보여주되, 비어있으면 auth_name(ROLE_...)로 fallback
-        const isDescUsable = cleanValue(joinedDesc) !== '기타' && joinedDesc.trim().length > 0;
-        const displayName = ias ? (isDescUsable ? joinedDesc : joinedAuthNameCodes) : data.groupLabel;
+        const isDescUsable = cleanValue(joinedDescClean) !== '기타' && joinedDescClean.trim().length > 0;
+        const displayName = ias ? (isDescUsable ? joinedDescClean : joinedAuthNameCodes) : data.groupLabel;
 
         return {
           groupKey,
@@ -510,7 +578,7 @@ const App: React.FC = () => {
           auth_name: displayName,
 
           // ✅ 화면 설명 줄(필요하면 ROLE 코드 보여주기)
-          auth_desc: ias ? joinedAuthNameCodes : joinedDesc,
+          auth_desc: ias ? joinedAuthNameCodes : joinedDescClean,
 
           // ✅ 상단 코드 영역은 원래 auth_code 유지 (시스템 상관 없이)
           auth_code: joinedAuthCodes,
@@ -654,7 +722,7 @@ const App: React.FC = () => {
         ...prev,
         userMsg, // ✅ 사용자 질문 카드도 반드시 추가
         { role: 'assistant', content: '권한 신청 방법은 아래 순서대로 진행하시면 됩니다.' },
-        {
+        { 
           role: 'assistant',
           content: '',
           data: [
@@ -664,7 +732,7 @@ const App: React.FC = () => {
               auth_code: '',
               allMenus: [],
               matchedMenus: [],
-              guideSteps: guideSteps, // ✅ UI에서 카드로 그릴 수 있게 같이 전달
+              guideSteps: guideSteps, 
             }
           ],
           intentType: "ROLE_LIST",
@@ -788,7 +856,7 @@ const App: React.FC = () => {
             const ias = isIASSales(sysNameClean);
 
             const roleNameRaw = cleanValue(b.auth_name); // ROLE_XXX
-            const roleDescSan = sanitizeKoreanDesc(b.auth_desc);
+            const roleDescSan = stripAllModulePrefixes(sanitizeKoreanDesc(b.auth_desc));
 
             const displayName = ias
               ? (roleDescSan ? roleDescSan : roleNameRaw)
@@ -898,7 +966,7 @@ const App: React.FC = () => {
             const ias = isIASSales(sysNameClean);
 
             const roleNameRaw = cleanValue(b.auth_name);
-            const roleDescRaw = cleanValue(b.auth_desc);
+            const roleDescRaw = stripAllModulePrefixes(cleanValue(b.auth_desc));
 
             const displayName = ias
               ? (roleDescRaw !== '기타' && roleDescRaw.trim().length > 0 ? roleDescRaw : roleNameRaw)
@@ -1024,7 +1092,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-5">
             <div className="bg-white p-1.5 rounded-lg shadow-inner">
-              <img src={LOGO_PATH} alt="Logo" className="h-8 w-auto object-contain" onError={(e) => (e.target as any).src = 'https://cdn.imweb.me/thumbnail/20230807/71e6f8a836628.png'} />
+              <img src={LOGO_PATH} alt="Logo" className="h-8 w-auto object-contain" onError={(e) => (e.target as any).src = 'data:image/png;base64,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'} />
             </div>
             <div>
               <h1 className="text-xl font-black tracking-tighter leading-none text-white">IAS 시스템 권한 안내 센터</h1>
@@ -1071,12 +1139,20 @@ const App: React.FC = () => {
               </button>
               {isGuideOpen && (
                 <div className="px-6 pb-6 animate-in slide-in-from-top-2 duration-300">
-                  <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+                  
+<div className="mb-2 px-4 py-2 rounded-2xl border border-white/10 bg-white/5">
+  <div className="text-[12px] font-black text-white mb-1">{IAM_PORTAL_HINT.title}</div>
+  <div className="text-[11px] font-semibold text-slate-300 leading-relaxed break-keep">
+    {IAM_PORTAL_HINT.desc}
+  </div>
+</div>
+
+<div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
                     {guideSteps.map((step, idx) => {
                       const stepContent = (
                         <div className={`flex flex-col items-center text-center p-3 bg-white/5 rounded-2xl border border-white/5 transition-all ${step.url ? 'hover:bg-red-600/20 hover:border-red-600/40 cursor-pointer shadow-md' : 'hover:bg-white/10'}`}>
                           <div className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center text-[10px] font-black mb-2 shadow-lg">{idx + 1}</div>
-                          <div className="text-red-400 mb-1">{step.icon}</div>
+                          <div className="text-red-400 mb-1">{guideIconMap[step.iconKey] || <Info size={18} />}</div>
                           <span className="text-[10px] font-bold tracking-tighter text-slate-300 leading-tight break-keep">{step.text}</span>
                         </div>
                       );
@@ -1122,19 +1198,22 @@ const App: React.FC = () => {
               </div>
             </section>
 
-            <div className="flex bg-slate-200/50 p-1.5 rounded-2xl w-fit shadow-inner">
-              <button onClick={() => setActiveTab('browse')} className={`px-8 py-2.5 rounded-xl font-black text-sm transition-all ${activeTab === 'browse' ? 'bg-white text-red-700 shadow-lg' : 'text-slate-500'}`}>목록 조회</button>
-              <button onClick={() => setActiveTab('chat')} className={`px-8 py-2.5 rounded-xl font-black text-sm transition-all ${activeTab === 'chat' ? 'bg-white text-red-700 shadow-lg' : 'text-slate-500'}`}>AI 검색</button>
-            </div>
-
             <div className="bg-white rounded-3xl shadow-xl border border-slate-200 flex-1 overflow-hidden min-h-[600px] flex flex-col">
-              {activeTab === 'browse' ? (
+              
                 <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
-                  {/* 좌측 Roles */}
+
+{/* 좌측 Roles */}
                   <div className="w-full md:w-80 border-r border-slate-100 bg-slate-50/50 p-5 flex flex-col gap-4 overflow-hidden">
                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">
                       시스템 역할 (Roles)
                     </span>
+
+{isSapSystemSelected && (
+  <div className="px-2">
+    
+  </div>
+)}
+
 
                     <div className="flex-1 overflow-y-auto custom-scrollbar space-y-2 pr-2">
                       {unifiedRoles.length > 0 ? (
@@ -1172,7 +1251,7 @@ const App: React.FC = () => {
                                 {selectedGroup?.auth_name}
                               </h2>
                               <button
-                                onClick={() => handleCopyRole(selectedGroup?.auth_name || '')}
+                                onClick={() => handleCopyRole(selectedGroup?.copy_auth_name ?? selectedGroup?.auth_name ?? '')}
                                 className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition-colors border border-transparent hover:border-red-100"
                               >
                                 <Copy size={18} />
@@ -1181,7 +1260,7 @@ const App: React.FC = () => {
 
                             {selectedGroup?.auth_desc && (
                               <p className="text-slate-600 text-xs font-medium ml-1 leading-relaxed">
-                                {selectedGroup.auth_desc}
+                                {stripAllModulePrefixes(selectedGroup.auth_desc)}
                               </p>
                             )}
 
@@ -1257,7 +1336,7 @@ const App: React.FC = () => {
                                               : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50',
                                           ].join(' ')}
                                         >
-                                          {label}
+                                          {formatSapModuleLabel(label)}
                                         </button>
                                       );
                                     })}
@@ -1282,7 +1361,7 @@ const App: React.FC = () => {
                                           return (
                                             <div key={l2Norm} className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
                                               <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-between bg-transparent">
-                                                <div className="text-sm font-bold text-slate-800">{l2Label}</div>
+                                                <div className="text-sm font-bold text-slate-800">{withModuleDesc(l2Label)}</div>
                                               </div>
 
                                               <div className="px-4 py-3">
@@ -1293,7 +1372,7 @@ const App: React.FC = () => {
                                                     .map((m, i) => (
                                                       <span
                                                         key={`${cleanValue(m.menu_id) || i}`}
-                                                        title={m.l3}
+                                                        title={stripModulePrefix(m.l3)}
                                                         className={[
                                                           "inline-flex items-center",
                                                           "px-3 py-1.5",
@@ -1306,7 +1385,7 @@ const App: React.FC = () => {
                                                           "max-w-full"
                                                         ].join(" ")}
                                                       >
-                                                        <span className="break-keep">{m.l3}</span>
+                                                        <span className="break-keep">{stripModulePrefix(m.l3)}</span>
                                                       </span>
                                                     ))}
                                                 </div>
@@ -1328,194 +1407,15 @@ const App: React.FC = () => {
                       </>
                     ) : (
                       <div className="flex-1 flex flex-col items-center justify-center opacity-10 space-y-6">
-                        <Layout size={100} strokeWidth={1} />
+                        <Layout size={50} strokeWidth={1} />
                         <p className="font-black text-2xl uppercase tracking-tighter">
-                          Select a role to inspect
+                          권한별 접근 가능한 메뉴가 노출됩니다.
                         </p>
                       </div>
                     )}
                   </div>
                 </div>
-              ) : (
-                <div className="flex flex-col flex-1 bg-slate-50/50">
-                  <div className="flex-1 overflow-y-auto p-8 space-y-8 custom-scrollbar">
-                    {messages.length === 0 && (
-                      <div className="h-full flex flex-col items-center justify-center text-center space-y-4">
-                        <div className="p-6 bg-white rounded-full shadow-lg text-red-600 border border-red-100">
-                          <MessageSquare size={44} />
-                        </div>
-                        <p className="font-black text-slate-900 text-2xl">AI 스마트 검색</p>
-                        <p className="text-sm font-semibold text-slate-600">권한/메뉴 관련 질문을 입력해 주세요.</p>
-                        <div className="mt-2 w-full max-w-md space-y-2">
-                          <div className="bg-white border border-slate-200 rounded-xl px-4 py-3 text-left shadow-sm">
-                            <ul className="mt-2 space-y-1 text-sm text-slate-600">
-                              <li>우리 팀 접근 가능 메뉴 보여줘</li>
-                              <li>우리 팀 권한으로 견적 메뉴 접근 가능할까?</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {messages.map((m, i) => (
-                      <div
-                        key={i}
-                        className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`}
-                      >
-                        <div
-                          className={`max-w-[90%] p-5 rounded-3xl shadow-md border ${
-                            m.role === 'user'
-                              ? 'bg-red-700 text-white rounded-br-none border-red-800'
-                              : 'bg-white text-slate-800 rounded-bl-none border-slate-100'
-                          }`}
-                        >
-                          <p className="text-[15px] font-bold whitespace-pre-wrap">{m.content}</p>
-
-                          {m.data && Array.isArray(m.data) && (m.data as any[]).length > 0 && (
-                            <div className="mt-4 pt-4 border-t border-black/10 grid grid-cols-1 gap-4">
-                              {(m.data as any[]).map((d: any, j: number) => (
-                                <div key={j} className="bg-black/5 p-4 rounded-2xl flex flex-col gap-3">
-                                  <div className="flex justify-between items-start gap-4">
-                                    <div className="flex flex-col">
-                                      {/* ✅ 가이드 카드 (권한 신청 방법) */}
-                                      {d.guideSteps && Array.isArray(d.guideSteps) && d.guideSteps.length > 0 ? (
-                                        <div className="bg-white/70 border border-white/40 rounded-2xl p-4 w-full">
-                                          <div className="text-[12px] font-black text-slate-900 mb-3">
-                                            {d.auth_name || "권한 신청 방법"}
-                                          </div>
-                                          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
-                                            {d.guideSteps.map((step: any, idx: number) => {
-                                              const stepContent = (
-                                                <div
-                                                  className={`flex flex-col items-center text-center p-3 rounded-2xl border transition-all bg-white ${
-                                                    step.url ? "hover:bg-red-50 hover:border-red-200 cursor-pointer" : "border-slate-100"
-                                                  }`}
-                                                >
-                                                  <div className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center text-[10px] font-black mb-2 text-white">
-                                                    {idx + 1}
-                                                  </div>
-
-                                                  <div className="text-red-600 mb-1">
-                                                    {guideIconMap[step.iconKey] || <Info size={18} />}
-                                                  </div>
-
-                                                  <span className="text-[10px] font-bold tracking-tighter text-slate-600 leading-tight break-keep">
-                                                    {step.text}
-                                                  </span>
-                                                </div>
-                                              );
-
-                                              return step.url ? (
-                                                <a
-                                                  key={idx}
-                                                  href={step.url}
-                                                  target="_blank"
-                                                  rel="noopener noreferrer"
-                                                  className="block outline-none"
-                                                >
-                                                  {stepContent}
-                                                </a>
-                                              ) : (
-                                                <div key={idx}>{stepContent}</div>
-                                              );
-                                            })}
-                                          </div>
-                                        </div>
-                                      ) : (
-                                        /* ✅ 일반 권한 카드 */
-                                        <div className="flex items-center gap-2">
-                                          <ShieldCheck size={14} className="text-red-600" />
-                                          <span className="text-[14px] font-black text-slate-900 leading-tight">
-                                            {d.auth_name}
-                                          </span>
-                                        </div>
-                                      )}
-                                      {!(d.guideSteps && Array.isArray(d.guideSteps) && d.guideSteps.length > 0) && d.auth_desc && (
-                                        <span className="text-[11px] text-slate-500 font-medium leading-tight mt-1 ml-5">
-                                          {d.auth_desc}
-                                        </span>
-                                      )}
-                                    </div>
-                                  </div>
-                                  {(m as any).intentType !== 'ROLE_LIST' &&
-                                    ((d.matchedMenus && d.matchedMenus.length > 0) ||
-                                      (d.allMenus && d.allMenus.length > 0)) && (
-                                      <div className="flex flex-col gap-1.5 border-t border-black/5 pt-3 ml-5">
-                                        <div className="flex items-center gap-2 mb-1">
-                                          <Layers size={12} className="text-slate-400" />
-                                          <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">
-                                            {d.matchedMenus?.length ? 'Matched Menus' : 'Role Menus'}
-                                          </span>
-                                        </div>
-                                        <div className="flex flex-col gap-1">
-                                          {(() => {
-                                            const list = (d.matchedMenus?.length ? d.matchedMenus : d.allMenus) || [];
-                                            const shown = list.slice(0, 20);
-
-                                            const total = (typeof d.totalMenus === "number" ? d.totalMenus : list.length);
-                                            const remaining = Math.max(0, total - shown.length);
-
-                                            return (
-                                              <>
-                                                {shown.map((menu: Menu, k: number) => (
-                                                  <div
-                                                    key={cleanValue(menu.menu_id) || k}
-                                                    className="text-[11px] font-bold text-slate-700 bg-white/60 px-2.5 py-1.5 rounded-lg border border-white/40 shadow-sm leading-tight"
-                                                  >
-                                                    <span className="opacity-60 mr-2">{k + 1}.</span>
-                                                    <span>{cleanValue(menu.path)}</span>
-                                                  </div>
-                                                ))}
-
-                                                {remaining > 0 && (
-                                                  <div className="text-[10px] text-slate-400 font-bold ml-2">
-                                                    외 {remaining}개의 메뉴가 남아 있습니다. 
-                                                  </div>
-                                                )}
-                                              </>
-                                            );
-                                          })()}
-                                        </div>
-                                      </div>
-                                    )}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-
-                    {loading && (
-                      <div className="flex justify-start animate-pulse">
-                        <div className="bg-white p-4 rounded-3xl shadow-sm font-black text-[10px] text-slate-400 uppercase tracking-widest">
-                          Processing Data...
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="p-6 bg-white border-t border-slate-100">
-                    <div className="max-w-4xl mx-auto relative group">
-                      <input
-                        type="text"
-                        value={chatInput}
-                        onChange={(e) => setChatInput(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                        placeholder="질문을 입력하세요 (권한 관련 질문만 가능함)"
-                        className="w-full pl-7 pr-16 py-5 bg-slate-50 border border-slate-200 rounded-2xl outline-none text-[15px] font-bold shadow-inner focus:bg-white transition-all"
-                      />
-                      <button
-                        onClick={handleSearch}
-                        className="absolute right-3 top-3 p-3 bg-red-700 text-white rounded-xl shadow-lg active:scale-95 disabled:opacity-50"
-                        disabled={loading || !chatInput.trim()}
-                      >
-                        <Search size={22} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
+              
             </div>
           </div>
         ) : (

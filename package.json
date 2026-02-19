@@ -1,9 +1,11 @@
 {
-  "name": "사내-권한-및-메뉴-안내-앱",
+  "name": "
+  ",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "tsx services/index.ts",
     "dev": "concurrently \"npm:dev:api\" \"npm:dev:web\"",
     "dev:web": "vite",
     "dev:api": "tsx server/index.ts",
@@ -16,14 +18,14 @@
     "@google/genai": "^1.36.0",
     "lucide-react": "^0.562.0",
     "express": "^4.19.2",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
-    "concurrently": "^9.0.1",
-    "tsx": "^4.19.2"
+    "concurrently": "^9.0.1"
   }
 }
