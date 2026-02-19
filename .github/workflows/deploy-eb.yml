@@ -36,4 +36,5 @@ jobs:
           environment_name: "e-xxpzdsc8gk"
           region: "ap-southeast-2"
           version_label: "github-${{ github.sha }}"
+          use_existing_version_if_available: true
           deployment_package: deploy.zip
