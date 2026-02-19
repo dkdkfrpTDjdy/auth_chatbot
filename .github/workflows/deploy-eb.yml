@@ -1,0 +1,39 @@
+name: Deploy to Elastic Beanstalk
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build (Vite)
+        run: npm run build
+
+      - name: Make deploy.zip
+        run: |
+          zip -r deploy.zip dist services package.json package-lock.json
+
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: "ajnet-support-authbot"
+          environment_name: "e-xxpzdsc8gk"
+          region: "ap-southeast-2"
+          version_label: "github-${{ github.sha }}"
+          deployment_package: deploy.zip
