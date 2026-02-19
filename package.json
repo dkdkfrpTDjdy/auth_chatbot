@@ -1,31 +1,33 @@
 {
-  "name": "
-  ",
+  "name": "auth_chatbot",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "start": "tsx services/index.ts",
     "dev": "concurrently \"npm:dev:api\" \"npm:dev:web\"",
     "dev:web": "vite",
-    "dev:api": "tsx server/index.ts",
+    "dev:api": "tsx services/index.ts",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "^1.36.0",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1",
+    "lucide-react": "^0.562.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "@google/genai": "^1.36.0",
-    "lucide-react": "^0.562.0",
-    "express": "^4.19.2",
-    "dotenv": "^16.4.5",
     "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.0.1",
     "typescript": "~5.8.2",
-    "vite": "^6.2.0",
-    "concurrently": "^9.0.1"
+    "vite": "^6.2.0"
   }
 }
