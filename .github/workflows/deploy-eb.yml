@@ -23,9 +23,52 @@ jobs:
       - name: Build (Vite)
         run: npm run build
 
-      - name: Make deploy.zip
+      - name: Make deploy.zip (EB safe paths)
+        shell: bash
         run: |
-          zip -r deploy.zip dist services package.json package-lock.json
+          python - <<'PY'
+          import os, zipfile
+      
+          EXCLUDE_DIRS = {".git", ".github", "node_modules"}
+          EXCLUDE_FILES_PREFIX = {".env"}  # .env, .env.local 등 제외
+          OUT = "deploy.zip"
+      
+          def should_skip_file(rel):
+              base = os.path.basename(rel)
+              if base == OUT:
+                  return True
+              if base.startswith(".env"):
+                  return True
+              return False
+      
+          with zipfile.ZipFile(OUT, "w", compression=zipfile.ZIP_DEFLATED) as z:
+              for root, dirs, files in os.walk("."):
+                  # 제외 디렉토리 제거
+                  dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
+                  for f in files:
+                      full = os.path.join(root, f)
+                      rel = os.path.relpath(full, ".")
+                      if should_skip_file(rel):
+                          continue
+                      # zip 안 경로는 무조건 "/" 사용 (EB unzip 경고 방지)
+                      arc = rel.replace(os.sep, "/")
+                      z.write(full, arc)
+      
+          print("Created", OUT)
+          PY
+      
+      - name: Verify deploy.zip has no backslashes
+        shell: bash
+        run: |
+          python - <<'PY'
+          import zipfile, sys
+          with zipfile.ZipFile("deploy.zip") as z:
+            bad = [n for n in z.namelist() if "\\" in n]
+          if bad:
+            print("ERROR: backslashes found in zip paths:", bad[:20])
+            sys.exit(1)
+          print("OK: zip paths look safe")
+          PY
 
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v22
