@@ -1092,7 +1092,11 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-5">
             <div className="bg-white p-1.5 rounded-lg shadow-inner">
-              <img src={LOGO_PATH} alt="Logo" className="h-8 w-auto object-contain" onError={(e) => (e.target as any).src = 'https://cdn.imweb.me/upload/S202307115b6fc32c3d2fe/df7c7ea2600c9.png'} />
+              <img
+                src={`${import.meta.env.BASE_URL}ci/aj-networks.png`}
+                alt="AJ네트웍스"
+                className="h-8 w-auto object-contain"
+              />
             </div>
             <div>
               <h1 className="text-xl font-black tracking-tighter leading-none text-white">IAS 시스템 권한 안내 센터</h1>
