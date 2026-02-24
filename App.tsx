@@ -4,7 +4,7 @@ import * as dataService from './services/dataService';
 import { Team, System, Role, RoleBundle, ChatMessage, Menu } from './types';
 import { analyzeIntent } from './services/geminiService';
 
-const LOGO_PATH = dataService.getAssetPath('assets/logo.png');
+const LOGO_PATH = `${import.meta.env.BASE_URL}ci/AJ_networks_logo.png`;
 
 // --- 유틸리티 및 데이터 전처리 함수 ---
 const normalize = (text: string) => (text || '').toLowerCase().replace(/\s+/g, '').trim();
