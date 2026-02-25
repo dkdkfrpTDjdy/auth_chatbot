@@ -1433,7 +1433,7 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
       </main>
 
       <footer className="p-10 text-center bg-white border-t border-slate-50 mt-10">
-        <p className="text-[11px] font-black text-slate-300 tracking-[0.5em] uppercase opacity-60">Copyright &copy; {new Date().getFullYear()} AJ네트웍스 전략기획실 정보전략팀</p>
+        <p className="text-[11px] font-black text-slate-300 tracking-[0.5em] uppercase opacity-60">Copyright &copy; {new Date().getFullYear()} AJ네트웍스</p>
       </footer>
     </div>
   );
