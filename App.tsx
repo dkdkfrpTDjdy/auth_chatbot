@@ -1098,10 +1098,19 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
                 className="h-9 w-auto object-contain"
               />
             </div>
-            <div>
-              <h1 className="text-xl font-black tracking-tighter leading-none text-white">IAS 시스템 권한 안내 센터</h1>
-              <p className="text-[10px] font-bold opacity-60 mt-1 uppercase tracking-widest hidden sm:block">IAS Access & Permissions Guide Center</p>
-            </div>
+            <a
+              href="http://authbot.support-ajnet.co.kr/"
+              className="block cursor-pointer select-none"
+              aria-label="홈으로 이동"
+              title="홈으로 이동"
+            >
+              <h1 className="text-xl font-black tracking-tighter leading-none text-white hover:opacity-90 transition-opacity">
+                IAS 시스템 권한 안내 센터
+              </h1>
+              <p className="text-[10px] font-bold opacity-60 mt-1 uppercase tracking-widest hidden sm:block hover:opacity-80 transition-opacity">
+                IAS Access & Permissions Guide Center
+              </p>
+            </a>
           </div>
         </div>
       </header>
