@@ -1091,9 +1091,9 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
       <header className="bg-[#c8102e] text-white shadow-xl p-5 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-5">
-            <div className="bg-white p-1.5 rounded-lg shadow-inner">
+            <div className="p-1.5 rounded-lg">
               <img
-                src={`${import.meta.env.BASE_URL}ci/aj-networks.png`}
+                src={LOGO_PATH}
                 alt="AJ네트웍스"
                 className="h-8 w-auto object-contain"
               />
