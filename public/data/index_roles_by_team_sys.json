@@ -1,9 +1,54 @@
 {
+  "|LEGO": [
+    {
+      "auth_code": "3",
+      "auth_name": "ROLE_USER",
+      "auth_desc": "Common user role.\nIt is an initial role setting and cannot be modified or deleted."
+    }
+  ],
+  "100440|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "11070400|LEGO": [
+    {
+      "auth_code": "118",
+      "auth_name": "ROLE_CM",
+      "auth_desc": "경영진 부여 권한"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "118630|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
   "3|LEGO": [
     {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3001|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3002|LEGO": [
@@ -11,6 +56,208 @@
       "auth_code": "34",
       "auth_name": "ROLE_BIZ_RENTAL_CD",
       "auth_desc": "IAS 비즈니스파트너 모든 권한"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3003|LEGO": [
+    {
+      "auth_code": "112",
+      "auth_name": "ROLE_RM",
+      "auth_desc": "RM 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30031|LEGO": [
+    {
+      "auth_code": "112",
+      "auth_name": "ROLE_RM",
+      "auth_desc": "RM 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3004|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "111",
+      "auth_name": "ROLE_PLTT_BZSL_SPRT",
+      "auth_desc": "파렛트영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3005|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3010|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30101|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "301011|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "301012|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30102|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "137",
+      "auth_name": "ROLE_RM_DASH",
+      "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "301021|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "301022|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30103|LEGO": [
+    {
+      "auth_code": "112",
+      "auth_name": "ROLE_RM",
+      "auth_desc": "RM 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "301031|LEGO": [
+    {
+      "auth_code": "112",
+      "auth_name": "ROLE_RM",
+      "auth_desc": "RM 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "301032|LEGO": [
+    {
+      "auth_code": "112",
+      "auth_name": "ROLE_RM",
+      "auth_desc": "RM 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30104|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30105|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30106|LEGO": [
@@ -18,6 +265,11 @@
       "auth_code": "119",
       "auth_name": "ROLE_PI",
       "auth_desc": "PI팀 시스템 권한"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30107|LEGO": [
@@ -50,6 +302,11 @@
       "auth_code": "120",
       "auth_name": "ROLE_PRICE_PRODUCT_CD",
       "auth_desc": "상품관리 권한입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "301071|LEGO": [
@@ -72,6 +329,11 @@
       "auth_code": "43",
       "auth_name": "ROLE_PURCHASING_CD",
       "auth_desc": "IAS 구매 모든 권한"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "301072|LEGO": [
@@ -264,6 +526,11 @@
       "auth_code": "109",
       "auth_name": "ROLE_RENTAL_BZSL_SPRT",
       "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "301073|LEGO": [
@@ -301,6 +568,11 @@
       "auth_code": "120",
       "auth_name": "ROLE_PRICE_PRODUCT_CD",
       "auth_desc": "상품관리 권한입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3020|LEGO": [
@@ -310,9 +582,31 @@
       "auth_desc": "경영진 부여 권한"
     },
     {
+      "auth_code": "106",
+      "auth_name": "ROLE_FI",
+      "auth_desc": "재무회계 업무 수행을 위한 역할입니다."
+    },
+    {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30201|LEGO": [
+    {
+      "auth_code": "106",
+      "auth_name": "ROLE_FI",
+      "auth_desc": "재무회계 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30202|LEGO": [
@@ -320,6 +614,11 @@
       "auth_code": "106",
       "auth_name": "ROLE_FI",
       "auth_desc": "재무회계 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30204|LEGO": [
@@ -362,20 +661,79 @@
       "auth_code": "105",
       "auth_name": "ROLE_PLAN",
       "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "302041|LEGO": [
     {
+      "auth_code": "118",
+      "auth_name": "ROLE_CM",
+      "auth_desc": "경영진 부여 권한"
+    },
+    {
       "auth_code": "112",
       "auth_name": "ROLE_RM",
       "auth_desc": "RM 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3030|LEGO": [
     {
+      "auth_code": "114",
+      "auth_name": "ROLE_HR",
+      "auth_desc": "인사총무 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30303|LEGO": [
+    {
+      "auth_code": "114",
+      "auth_name": "ROLE_HR",
+      "auth_desc": "인사총무 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "303031|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    },
+    {
+      "auth_code": "138",
+      "auth_name": "ROLE_WORK_HOME",
+      "auth_desc": ""
     }
   ],
   "30305|LEGO": [
@@ -393,20 +751,137 @@
       "auth_code": "114",
       "auth_name": "ROLE_HR",
       "auth_desc": "인사총무 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "303052|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3040|LEGO": [
     {
-      "auth_code": "137",
-      "auth_name": "ROLE_RM_DASH",
-      "auth_desc": "채권 대시보드 역할"
-    }
-  ],
-  "30401|LEGO": [
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
     {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30401|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "137",
+      "auth_name": "ROLE_RM_DASH",
+      "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3040101|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3040102|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3040103|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304011|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304014|LEGO": [
+    {
+      "auth_code": "83",
+      "auth_name": "ROLE_MGMT_CAPA_MGMT_CD",
+      "auth_desc": "센터 케파 수정 권한 운영"
+    },
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
     }
   ],
   "304015|LEGO": [
@@ -416,16 +891,199 @@
       "auth_desc": "부문 PI Sales 업무 수행 권한"
     },
     {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
       "auth_code": "145",
       "auth_name": "ROLE_QCT_PO",
       "auth_desc": "잠재기회 등록 권한"
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304017|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304018|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30403|LEGO": [
     {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3040301|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3040302|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304032|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304033|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304034|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304035|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304037|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30404|LEGO": [
@@ -433,21 +1091,71 @@
       "auth_code": "118",
       "auth_name": "ROLE_CM",
       "auth_desc": "경영진 부여 권한"
+    },
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "304041|LEGO": [
+    {
+      "auth_code": "141",
+      "auth_name": "ROLE_ACTION_PLAN_CD",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "82",
+      "auth_name": "ROLE_MGMT_CAPA_STD_CD",
+      "auth_desc": "센터 케파 수정 권한 기본"
+    },
     {
       "auth_code": "147",
       "auth_name": "ROLE_PART_PI",
       "auth_desc": "부문 PI Sales 업무 수행 권한"
     },
     {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
       "auth_code": "112",
       "auth_name": "ROLE_RM",
       "auth_desc": "RM 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "137",
+      "auth_name": "ROLE_RM_DASH",
+      "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "304042|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "113",
+      "auth_name": "ROLE_PRCS",
+      "auth_desc": "구매 업무 수행을 위한 역할입니다."
+    },
     {
       "auth_code": "120",
       "auth_name": "ROLE_PRICE_PRODUCT_CD",
@@ -462,9 +1170,19 @@
       "auth_code": "124",
       "auth_name": "ROLE_PRICE_RETL_CD",
       "auth_desc": "유통판가관리 모든 권한"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "304043|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
     {
       "auth_code": "108",
       "auth_name": "ROLE_RENTAL_CNST",
@@ -474,9 +1192,124 @@
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30405|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "3040502|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "3040503|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
     }
   ],
   "3040504|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "3040505|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "3040511|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "115",
+      "auth_name": "ROLE_RENTAL_WAREHOSING",
+      "auth_desc": "렌탈물류 업무를 위한 역할입니다."
+    }
+  ],
+  "3040512|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "115",
+      "auth_name": "ROLE_RENTAL_WAREHOSING",
+      "auth_desc": "렌탈물류 업무를 위한 역할입니다."
+    }
+  ],
+  "3040513|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "115",
+      "auth_name": "ROLE_RENTAL_WAREHOSING",
+      "auth_desc": "렌탈물류 업무를 위한 역할입니다."
+    }
+  ],
+  "3040514|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "115",
+      "auth_name": "ROLE_RENTAL_WAREHOSING",
+      "auth_desc": "렌탈물류 업무를 위한 역할입니다."
+    }
+  ],
+  "3040515|LEGO": [
+    {
+      "auth_code": "83",
+      "auth_name": "ROLE_MGMT_CAPA_MGMT_CD",
+      "auth_desc": "센터 케파 수정 권한 운영"
+    },
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "115",
+      "auth_name": "ROLE_RENTAL_WAREHOSING",
+      "auth_desc": "렌탈물류 업무를 위한 역할입니다."
+    }
+  ],
+  "30405151|LEGO": [
+    {
+      "auth_code": "83",
+      "auth_name": "ROLE_MGMT_CAPA_MGMT_CD",
+      "auth_desc": "센터 케파 수정 권한 운영"
+    },
     {
       "auth_code": "109",
       "auth_name": "ROLE_RENTAL_BZSL_SPRT",
@@ -493,6 +1326,40 @@
       "auth_code": "82",
       "auth_name": "ROLE_MGMT_CAPA_STD_CD",
       "auth_desc": "센터 케파 수정 권한 기본"
+    },
+    {
+      "auth_code": "111",
+      "auth_name": "ROLE_PLTT_BZSL_SPRT",
+      "auth_desc": "파렛트영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    }
+  ],
+  "3040517|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "115",
+      "auth_name": "ROLE_RENTAL_WAREHOSING",
+      "auth_desc": "렌탈물류 업무를 위한 역할입니다."
+    }
+  ],
+  "30405171|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
     }
   ],
   "3040518|LEGO": [
@@ -512,9 +1379,40 @@
       "auth_desc": "유통판가관리 모든 권한"
     },
     {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
       "auth_code": "143",
       "auth_name": "ROLE_SUB_EMP",
       "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "304051801|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "304051802|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "304051803|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
     }
   ],
   "3040519|LEGO": [
@@ -551,11 +1449,80 @@
       "auth_desc": "IAS 렌탈입출고 읽기 권한"
     }
   ],
+  "3040521|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
   "3040531|LEGO": [
     {
       "auth_code": "32",
       "auth_name": "ROLE_ASSET_U",
       "auth_desc": "IAS 자산 수정 권한"
+    },
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "3040532|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "3040533|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "3040534|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "30406|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3040601|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3040602|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3040603|LEGO": [
@@ -565,23 +1532,236 @@
       "auth_desc": "센터 케파 수정 권한 운영"
     },
     {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "124",
+      "auth_name": "ROLE_PRICE_RETL_CD",
+      "auth_desc": "유통판가관리 모든 권한"
+    },
+    {
       "auth_code": "109",
       "auth_name": "ROLE_RENTAL_BZSL_SPRT",
       "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3040604|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "124",
+      "auth_name": "ROLE_PRICE_RETL_CD",
+      "auth_desc": "유통판가관리 모든 권한"
+    },
+    {
+      "auth_code": "108",
+      "auth_name": "ROLE_RENTAL_CNST",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3050|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30501|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305011|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305012|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305013|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305014|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305016|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30502|LEGO": [
     {
-      "auth_code": "137",
-      "auth_name": "ROLE_RM_DASH",
-      "auth_desc": "채권 대시보드 역할"
-    }
-  ],
-  "305031|LEGO": [
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
     {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305021|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305022|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305023|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305024|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305026|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30503|LEGO": [
+    {
+      "auth_code": "115",
+      "auth_name": "ROLE_RENTAL_WAREHOSING",
+      "auth_desc": "렌탈물류 업무를 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305031|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "137",
+      "auth_name": "ROLE_RM_DASH",
+      "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "305032|LEGO": [
@@ -594,6 +1774,33 @@
       "auth_code": "120",
       "auth_name": "ROLE_PRICE_PRODUCT_CD",
       "auth_desc": "상품관리 권한입니다."
+    },
+    {
+      "auth_code": "115",
+      "auth_name": "ROLE_RENTAL_WAREHOSING",
+      "auth_desc": "렌탈물류 업무를 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    },
+    {
+      "auth_code": "3",
+      "auth_name": "ROLE_USER",
+      "auth_desc": "Common user role.\nIt is an initial role setting and cannot be modified or deleted."
+    }
+  ],
+  "305033|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "305034|LEGO": [
@@ -763,6 +1970,16 @@
       "auth_desc": "견적/계약 1레벨 권한"
     },
     {
+      "auth_code": "81",
+      "auth_name": "ROLE_DELIVERY_R",
+      "auth_desc": "IAS 배차 읽기 권한"
+    },
+    {
+      "auth_code": "80",
+      "auth_name": "ROLE_DELIVERY_U",
+      "auth_desc": "IAS 배차 수정 권한"
+    },
+    {
       "auth_code": "71",
       "auth_name": "ROLE_DEVELOPER",
       "auth_desc": ""
@@ -831,9 +2048,44 @@
       "auth_code": "47",
       "auth_name": "ROLE_ORDER_U",
       "auth_desc": "IAS 주문 수정 권한"
+    },
+    {
+      "auth_code": "113",
+      "auth_name": "ROLE_PRCS",
+      "auth_desc": "구매 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "120",
+      "auth_name": "ROLE_PRICE_PRODUCT_CD",
+      "auth_desc": "상품관리 권한입니다."
+    },
+    {
+      "auth_code": "122",
+      "auth_name": "ROLE_PRICE_PRODUCT_R",
+      "auth_desc": "상품관리 조회 권한입니다."
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30504|LEGO": [
+    {
+      "auth_code": "2",
+      "auth_name": "ROLE_ADMIN",
+      "auth_desc": "Administrator of this system.\nIt is an initial role setting and cannot be modified or deleted."
+    },
     {
       "auth_code": "4",
       "auth_name": "ROLE_ANONYMOUS",
@@ -843,6 +2095,79 @@
       "auth_code": "108",
       "auth_name": "ROLE_RENTAL_CNST",
       "auth_desc": "렌탈영업(건설) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305041|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305042|LEGO": [
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305043|LEGO": [
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "305051|LEGO": [
+    {
+      "auth_code": "141",
+      "auth_name": "ROLE_ACTION_PLAN_CD",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "82",
+      "auth_name": "ROLE_MGMT_CAPA_STD_CD",
+      "auth_desc": "센터 케파 수정 권한 기본"
+    },
+    {
+      "auth_code": "147",
+      "auth_name": "ROLE_PART_PI",
+      "auth_desc": "부문 PI Sales 업무 수행 권한"
+    },
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "137",
+      "auth_name": "ROLE_RM_DASH",
+      "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30505101|LEGO": [
@@ -957,6 +2282,11 @@
       "auth_desc": "채권 대시보드 역할"
     },
     {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    },
+    {
       "auth_code": "49",
       "auth_name": "ROLE_WAREHOSING_RENTAL_CD",
       "auth_desc": "IAS 렌탈입출고 모든 권한"
@@ -964,23 +2294,694 @@
   ],
   "3060|LEGO": [
     {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060022|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060023|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060024|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060025|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060026|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060027|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060028|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060029|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060030|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060031|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060032|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060033|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060034|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060035|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060036|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060037|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060038|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060039|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060040|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060041|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060042|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060043|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060044|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060045|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "306011|LEGO": [
     {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
-  "3060114|LEGO": [
+  "3060111|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
     {
       "auth_code": "120",
       "auth_name": "ROLE_PRICE_PRODUCT_CD",
       "auth_desc": "상품관리 권한입니다."
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060112|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060113|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060114|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "120",
+      "auth_name": "ROLE_PRICE_PRODUCT_CD",
+      "auth_desc": "상품관리 권한입니다."
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060115|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3060116|LEGO": [
@@ -998,25 +2999,256 @@
       "auth_code": "107",
       "auth_name": "ROLE_RENTAL_BZSL",
       "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306012|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060121|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060122|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3060123|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
     {
       "auth_code": "120",
       "auth_name": "ROLE_PRICE_PRODUCT_CD",
       "auth_desc": "상품관리 권한입니다."
     },
     {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
       "auth_code": "112",
       "auth_name": "ROLE_RM",
       "auth_desc": "RM 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060124|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060125|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060131|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "113",
+      "auth_name": "ROLE_PRCS",
+      "auth_desc": "구매 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30602|LEGO": [
     {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "115",
+      "auth_name": "ROLE_RENTAL_WAREHOSING",
+      "auth_desc": "렌탈물류 업무를 위한 역할입니다."
+    },
+    {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060211|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060212|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "132",
+      "auth_name": "ROLE_PLTT_ORDER",
+      "auth_desc": "파렛트 매각 주문 생성 권한입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30603|LEGO": [
@@ -1024,13 +3256,146 @@
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306031|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "306032|LEGO": [
     {
+      "auth_code": "141",
+      "auth_name": "ROLE_ACTION_PLAN_CD",
+      "auth_desc": ""
+    },
+    {
       "auth_code": "147",
       "auth_name": "ROLE_PART_PI",
       "auth_desc": "부문 PI Sales 업무 수행 권한"
+    },
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "137",
+      "auth_name": "ROLE_RM_DASH",
+      "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306033|LEGO": [
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "107",
+      "auth_name": "ROLE_RENTAL_BZSL",
+      "auth_desc": "렌탈영업(B&T/로지스) 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306035|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306036|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306037|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060371|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306038|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306039|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060392|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30604|LEGO": [
@@ -1038,6 +3403,60 @@
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306041|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "111",
+      "auth_name": "ROLE_PLTT_BZSL_SPRT",
+      "auth_desc": "파렛트영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "109",
+      "auth_name": "ROLE_RENTAL_BZSL_SPRT",
+      "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "306042|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "113",
+      "auth_name": "ROLE_PRCS",
+      "auth_desc": "구매 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3060431|LEGO": [
@@ -1045,9 +3464,34 @@
       "auth_code": "135",
       "auth_name": "ROLE_BIZ_LOGISPT_BRANCH_CD",
       "auth_desc": "로지스 현장 지점 관리"
+    },
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3060432|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
     {
       "auth_code": "111",
       "auth_name": "ROLE_PLTT_BZSL_SPRT",
@@ -1059,9 +3503,41 @@
       "auth_desc": "파렛트 매각 주문 생성 권한입니다."
     },
     {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
       "auth_code": "109",
       "auth_name": "ROLE_RENTAL_BZSL_SPRT",
       "auth_desc": "렌탈영업지원 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3060433|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "110",
+      "auth_name": "ROLE_PLTT_BZSL",
+      "auth_desc": "파렛트영업 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "306044|LEGO": [
@@ -1084,6 +3560,11 @@
       "auth_code": "92",
       "auth_name": "ROLE_BIZ_U",
       "auth_desc": "비즈니스 파트너 1레벨 권한"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30607|LEGO": [
@@ -1091,6 +3572,11 @@
       "auth_code": "40",
       "auth_name": "ROLE_CONTRACT_CONT_CD",
       "auth_desc": "IAS 계약심사 모든 권한"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     },
     {
       "auth_code": "52",
@@ -1103,6 +3589,11 @@
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "306114|LEGO": [
@@ -1140,6 +3631,11 @@
       "auth_code": "116",
       "auth_name": "ROLE_PLTT_WAREHOSING",
       "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "3070|LEGO": [
@@ -1147,13 +3643,144 @@
       "auth_code": "2",
       "auth_name": "ROLE_ADMIN",
       "auth_desc": "Administrator of this system.\nIt is an initial role setting and cannot be modified or deleted."
+    },
+    {
+      "auth_code": "104",
+      "auth_name": "ROLE_MM",
+      "auth_desc": "기준정보 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "307011|LEGO": [
     {
+      "auth_code": "33",
+      "auth_name": "ROLE_ASSET_R",
+      "auth_desc": "IAS 자산 읽기 권한"
+    },
+    {
+      "auth_code": "60",
+      "auth_name": "ROLE_BILLING_PALLET_R",
+      "auth_desc": "IAS 렌탈청구 읽기 권한"
+    },
+    {
+      "auth_code": "102",
+      "auth_name": "ROLE_BILLING_R",
+      "auth_desc": "청구 1레벨 권한"
+    },
+    {
+      "auth_code": "57",
+      "auth_name": "ROLE_BILLING_RENTAL_R",
+      "auth_desc": "IAS 렌탈청구 읽기 권한"
+    },
+    {
+      "auth_code": "93",
+      "auth_name": "ROLE_BIZ_R",
+      "auth_desc": "비즈니스 파트너 1레벨 권한"
+    },
+    {
+      "auth_code": "36",
+      "auth_name": "ROLE_BIZ_RENTAL_R",
+      "auth_desc": "IAS 비즈니스파트너 읽기 권한"
+    },
+    {
+      "auth_code": "42",
+      "auth_name": "ROLE_CONTRACT_CONT_R",
+      "auth_desc": "IAS 계약심사 읽기 권한"
+    },
+    {
+      "auth_code": "39",
+      "auth_name": "ROLE_CONTRACT_ESTM_R",
+      "auth_desc": "IAS 견적심사 읽기 권한"
+    },
+    {
+      "auth_code": "96",
+      "auth_name": "ROLE_CONTRACT_R",
+      "auth_desc": "견적/계약 1레벨 권한"
+    },
+    {
+      "auth_code": "81",
+      "auth_name": "ROLE_DELIVERY_R",
+      "auth_desc": "IAS 배차 읽기 권한"
+    },
+    {
+      "auth_code": "48",
+      "auth_name": "ROLE_ORDER_R",
+      "auth_desc": "IAS 주문 읽기 권한"
+    },
+    {
+      "auth_code": "119",
+      "auth_name": "ROLE_PI",
+      "auth_desc": "PI팀 시스템 권한"
+    },
+    {
+      "auth_code": "75",
+      "auth_name": "ROLE_PRICE_PALLET_R",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "30",
+      "auth_name": "ROLE_PRICE_RENTAL_R",
+      "auth_desc": "IAS 상품가격 읽기 권한"
+    },
+    {
+      "auth_code": "45",
+      "auth_name": "ROLE_PURCHASING_R",
+      "auth_desc": "IAS 구매 읽기 권한"
+    },
+    {
       "auth_code": "137",
       "auth_name": "ROLE_RM_DASH",
       "auth_desc": "채권 대시보드 역할"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    },
+    {
+      "auth_code": "54",
+      "auth_name": "ROLE_WAREHOSING_PALLET_R",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "51",
+      "auth_name": "ROLE_WAREHOSING_RENTAL_R",
+      "auth_desc": "IAS 렌탈입출고 읽기 권한"
+    }
+  ],
+  "30702|LEGO": [
+    {
+      "auth_code": "141",
+      "auth_name": "ROLE_ACTION_PLAN_CD",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "104",
+      "auth_name": "ROLE_MM",
+      "auth_desc": "기준정보 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "307021|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "307022|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "307023|LEGO": [
@@ -1228,9 +3855,97 @@
       "auth_desc": ""
     },
     {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    },
+    {
       "auth_code": "52",
       "auth_name": "ROLE_WAREHOSING_PALLET_CD",
       "auth_desc": "IAS 파레트입출고 모든 권한"
+    }
+  ],
+  "307024|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30703|LEGO": [
+    {
+      "auth_code": "119",
+      "auth_name": "ROLE_PI",
+      "auth_desc": "PI팀 시스템 권한"
+    },
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "307032|LEGO": [
+    {
+      "auth_code": "119",
+      "auth_name": "ROLE_PI",
+      "auth_desc": "PI팀 시스템 권한"
+    },
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30704|LEGO": [
+    {
+      "auth_code": "104",
+      "auth_name": "ROLE_MM",
+      "auth_desc": "기준정보 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "119",
+      "auth_name": "ROLE_PI",
+      "auth_desc": "PI팀 시스템 권한"
+    },
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "116",
+      "auth_name": "ROLE_PLTT_WAREHOSING",
+      "auth_desc": "파렛트물류"
+    },
+    {
+      "auth_code": "140",
+      "auth_name": "ROLE_QA",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30705|LEGO": [
@@ -1238,6 +3953,11 @@
       "auth_code": "104",
       "auth_name": "ROLE_MM",
       "auth_desc": "기준정보 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
     }
   ],
   "30706|LEGO": [
@@ -1300,6 +4020,245 @@
       "auth_code": "123",
       "auth_name": "ROLE_SETTING",
       "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3080|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30801|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30802|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30803|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30804|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "3090|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "30901|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "37|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "370100|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "370200|LEGO": [
+    {
+      "auth_code": "139",
+      "auth_name": "ROLE_PO",
+      "auth_desc": ""
+    },
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "5|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "50101|LEGO": [
+    {
+      "auth_code": "106",
+      "auth_name": "ROLE_FI",
+      "auth_desc": "재무회계 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "50102|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "50104|LEGO": [
+    {
+      "auth_code": "105",
+      "auth_name": "ROLE_PLAN",
+      "auth_desc": "기획 업무 수행을 위한 역할입니다."
+    }
+  ],
+  "601011|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "603|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "60301|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "60302|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "60303|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "604|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "60401|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "604012|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "604014|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "604015|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "7|LEGO": [
+    {
+      "auth_code": "143",
+      "auth_name": "ROLE_SUB_EMP",
+      "auth_desc": "임시 조직/임직원 조회 권한"
+    }
+  ],
+  "9999990|LEGO": [
+    {
+      "auth_code": "85",
+      "auth_name": "ROLE_RENTAL_CONTACTCENTER",
+      "auth_desc": ""
+    }
+  ],
+  "9999995|LEGO": [
+    {
+      "auth_code": "118",
+      "auth_name": "ROLE_CM",
+      "auth_desc": "경영진 부여 권한"
     }
   ],
   "3|SAP": [
@@ -1316,6 +4275,30 @@
     {
       "auth_code": "ZS_FIORI_DASHBOARD",
       "auth_name": "피오리 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
+    }
+  ],
+  "30101|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
+    }
+  ],
+  "301011|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
       "auth_desc": "시장금리관리 등이 있습니다."
     }
   ],
@@ -1421,6 +4404,11 @@
       "auth_code": "ZC_CO_02_AJ30",
       "auth_name": "로지스사업부 예산관리",
       "auth_desc": "[CO] 아이템 관리, 예산 기준 관리, 예산 실적 비교 리포트 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
     }
   ],
   "30106|SAP": [
@@ -1863,6 +4851,11 @@
       "auth_code": "ZC_FI_07",
       "auth_name": "현업사용자(재무관리팀)",
       "auth_desc": "C FI 테이블 TCURR 유지보수, Early Watch, FX 거래원장 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_FI_02",
+      "auth_name": "회계담당자",
+      "auth_desc": "C FI 테이블 T001B 유지보수, C FI 테이블 T011/T011T 유지보수, C FI 테이블 TCURR 유지보수 등이 있습니다."
     }
   ],
   "30202|SAP": [
@@ -1882,9 +4875,19 @@
       "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
     },
     {
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
+    },
+    {
       "auth_code": "ZC_FI_09",
       "auth_name": "현업담당자(자금팀 권한)",
       "auth_desc": "C FI 테이블 TCURR 유지보수, Early Watch, FX 거래원장 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FI_READER",
+      "auth_name": "회계 팀장 고유 권한",
+      "auth_desc": "C FI 테이블 T001B 유지보수, C FI 테이블 T011/T011T 유지보수, C FI 테이블 TCURR 유지보수 등이 있습니다."
     }
   ],
   "302041|SAP": [
@@ -1949,6 +4952,18 @@
       "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 상품재고 수불부 등이 있습니다."
     }
   ],
+  "3030|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
+    }
+  ],
   "30303|SAP": [
     {
       "auth_code": "ZS_COMMON_01_0000",
@@ -2003,63 +5018,16 @@
       "auth_desc": "G/L 계정개별항목, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
     }
   ],
-  "3040101|SAP": [
+  "3040|SAP": [
     {
       "auth_code": "ZS_COMMON_01_0000",
       "auth_name": "공통 기본 권한 (런치패드 접속권한)",
       "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
     },
     {
-      "auth_code": "ZC_LE_01_P120",
-      "auth_name": "물류 일반 사용자 (건설/산업장비)",
-      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 센터 재고이동 요청리스트 조회 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_02_P120",
-      "auth_name": "일반 사용자(건설/산업장비)",
-      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_LE_02_P120",
-      "auth_name": "자산운영 임직원 (건설/산업장비)",
-      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_01_P120",
-      "auth_name": "자산운영담당(건설/산업장비)",
-      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
-    }
-  ],
-  "3040103|SAP": [
-    {
-      "auth_code": "ZS_COMMON_01_0000",
-      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
-      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_LE_01_P120",
-      "auth_name": "물류 일반 사용자 (건설/산업장비)",
-      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 센터 재고이동 요청리스트 조회 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_LE_03_P120",
-      "auth_name": "물류 입출고 관리자 (건설/산업장비)",
-      "auth_desc": "센터간 이동요청 확정 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_02_P120",
-      "auth_name": "일반 사용자(건설/산업장비)",
-      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_LE_02_P120",
-      "auth_name": "자산운영 임직원 (건설/산업장비)",
-      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_01_P120",
-      "auth_name": "자산운영담당(건설/산업장비)",
-      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
     }
   ],
   "304011|SAP": [
@@ -2094,6 +5062,78 @@
       "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
     }
   ],
+  "304014|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_02_P120",
+      "auth_name": "구매 발주 담당자 (건설/산업장비)",
+      "auth_desc": "MIRO 호출 - 상태 변경, PO에 대한 선금 모니터링, PR리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_03_P120",
+      "auth_name": "구매 업무 조회 (건설/산업장비)",
+      "auth_desc": "MIRO 호출 - 상태 변경, PR리스트 조회, 구매 오더 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_01_P120",
+      "auth_name": "구매 일반 사용자 (건설/산업장비)",
+      "auth_desc": "PR리스트 조회, 구매 요청 변경, 구매 요청 생성 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_04_P120",
+      "auth_name": "물류 업무 조회 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 상품재고 수불부 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_01_P120",
+      "auth_name": "물류 일반 사용자 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 센터 재고이동 요청리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_03_P120",
+      "auth_name": "유통 영업(건설/산업장비)",
+      "auth_desc": "오더 참조에 따라 출하 생성, 유통 오더 Tracking, 자산 상태 및 변경 이력 조회 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_02_P120",
+      "auth_name": "일반 사용자(건설/산업장비)",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_02_P120",
+      "auth_name": "자산운영 임직원 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_01_P120",
+      "auth_name": "자산운영담당(건설/산업장비)",
+      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_01",
+      "auth_name": "자재 마스터 관리자",
+      "auth_desc": "공통코드, 권한 점검 평가, 스펙특성 대량 등록/수정 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_R",
+      "auth_name": "자재 마스터 관리자",
+      "auth_desc": "Business Partner 조회, 권한 점검 평가, 스펙특성 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_05",
+      "auth_name": "자재 마스터 실무 담당자",
+      "auth_desc": "자재코드 대량 등록/수정, 자재코드↔스펙특성 맵핑관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_FI_03",
+      "auth_name": "현업담당자(자산)",
+      "auth_desc": "G/L 계정개별항목, [FI] 렌탈자산대장, [FI] 리스 명세서 등이 있습니다."
+    }
+  ],
   "304018|SAP": [
     {
       "auth_code": "ZC_FI_R",
@@ -2104,6 +5144,70 @@
       "auth_code": "ZS_COMMON_01_0000",
       "auth_name": "공통 기본 권한 (런치패드 접속권한)",
       "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    }
+  ],
+  "304022|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_01_P120",
+      "auth_name": "물류 일반 사용자 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 센터 재고이동 요청리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_02_P120",
+      "auth_name": "일반 사용자(건설/산업장비)",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_02_P120",
+      "auth_name": "자산운영 임직원 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_01_P120",
+      "auth_name": "자산운영담당(건설/산업장비)",
+      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
+    }
+  ],
+  "304025|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_04_P120",
+      "auth_name": "물류 업무 조회 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 상품재고 수불부 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_01_P120",
+      "auth_name": "물류 일반 사용자 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 센터 재고이동 요청리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_03_P120",
+      "auth_name": "물류 입출고 관리자 (건설/산업장비)",
+      "auth_desc": "센터간 이동요청 확정 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_02_P120",
+      "auth_name": "일반 사용자(건설/산업장비)",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_02_P120",
+      "auth_name": "자산운영 임직원 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_01_P120",
+      "auth_name": "자산운영담당(건설/산업장비)",
+      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
     }
   ],
   "30404|SAP": [
@@ -2623,6 +5727,11 @@
       "auth_desc": "공통코드, 권한 점검 평가, 스펙특성 대량 등록/수정 등이 있습니다."
     },
     {
+      "auth_code": "ZC_MD_05",
+      "auth_name": "자재 마스터 실무 담당자",
+      "auth_desc": "자재코드 대량 등록/수정, 자재코드↔스펙특성 맵핑관리 등이 있습니다."
+    },
+    {
       "auth_code": "ZC_FI_03",
       "auth_name": "현업담당자(자산)",
       "auth_desc": "G/L 계정개별항목, [FI] 렌탈자산대장, [FI] 리스 명세서 등이 있습니다."
@@ -2846,23 +5955,6 @@
       "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
     }
   ],
-  "3040521|SAP": [
-    {
-      "auth_code": "ZS_COMMON_01_0000",
-      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
-      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_02_P120",
-      "auth_name": "일반 사용자(건설/산업장비)",
-      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_01_P120",
-      "auth_name": "자산운영담당(건설/산업장비)",
-      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
-    }
-  ],
   "3040531|SAP": [
     {
       "auth_code": "ZS_COMMON_01_0000",
@@ -2908,6 +6000,11 @@
       "auth_code": "ZC_LE_02_P120",
       "auth_name": "자산운영 임직원 (건설/산업장비)",
       "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_01_P120",
+      "auth_name": "자산운영담당(건설/산업장비)",
+      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
     }
   ],
   "3040532|SAP": [
@@ -2972,78 +6069,6 @@
       "auth_code": "ZC_LE_02_P120",
       "auth_name": "자산운영 임직원 (건설/산업장비)",
       "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
-    }
-  ],
-  "3040603|SAP": [
-    {
-      "auth_code": "ZS_COMMON_01_0000",
-      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
-      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_MM_02_P120",
-      "auth_name": "구매 발주 담당자 (건설/산업장비)",
-      "auth_desc": "MIRO 호출 - 상태 변경, PO에 대한 선금 모니터링, PR리스트 조회 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_MM_03_P120",
-      "auth_name": "구매 업무 조회 (건설/산업장비)",
-      "auth_desc": "MIRO 호출 - 상태 변경, PR리스트 조회, 구매 오더 조회 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_MM_01_P120",
-      "auth_name": "구매 일반 사용자 (건설/산업장비)",
-      "auth_desc": "PR리스트 조회, 구매 요청 변경, 구매 요청 생성 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_LE_04_P120",
-      "auth_name": "물류 업무 조회 (건설/산업장비)",
-      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 상품재고 수불부 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_LE_01_P120",
-      "auth_name": "물류 일반 사용자 (건설/산업장비)",
-      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 센터 재고이동 요청리스트 조회 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_03_P120",
-      "auth_name": "유통 영업(건설/산업장비)",
-      "auth_desc": "오더 참조에 따라 출하 생성, 유통 오더 Tracking, 자산 상태 및 변경 이력 조회 프로그램 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_02_P120",
-      "auth_name": "일반 사용자(건설/산업장비)",
-      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_LE_02_P120",
-      "auth_name": "자산운영 임직원 (건설/산업장비)",
-      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_01_P120",
-      "auth_name": "자산운영담당(건설/산업장비)",
-      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_MD_01",
-      "auth_name": "자재 마스터 관리자",
-      "auth_desc": "공통코드, 권한 점검 평가, 스펙특성 대량 등록/수정 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_MD_R",
-      "auth_name": "자재 마스터 관리자",
-      "auth_desc": "Business Partner 조회, 권한 점검 평가, 스펙특성 조회 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_MD_05",
-      "auth_name": "자재 마스터 실무 담당자",
-      "auth_desc": "자재코드 대량 등록/수정, 자재코드↔스펙특성 맵핑관리 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_FI_03",
-      "auth_name": "현업담당자(자산)",
-      "auth_desc": "G/L 계정개별항목, [FI] 렌탈자산대장, [FI] 리스 명세서 등이 있습니다."
     }
   ],
   "305032|SAP": [
@@ -3120,66 +6145,54 @@
       "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
     },
     {
+      "auth_code": "ZC_MM_04_P110",
+      "auth_name": "구매 관리자 (IT)",
+      "auth_desc": "MIRO 호출 - 상태 변경, PO에 대한 선금 모니터링, PR리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_05_P110",
+      "auth_name": "구매 마감처리 (IT)",
+      "auth_desc": "MIRO 호출 - 상태 변경, 구매단계별 진행현황 모니터링, 대금지급 결재상신 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_02_P110",
+      "auth_name": "구매 발주 담당자 (IT)",
+      "auth_desc": "MIRO 호출 - 상태 변경, PO에 대한 선금 모니터링, PR리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_03_P110",
+      "auth_name": "구매 업무 조회 (IT)",
+      "auth_desc": "MIRO 호출 - 상태 변경, PR리스트 조회, 구매 오더 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_01_P110",
+      "auth_name": "구매 일반 사용자 (IT)",
+      "auth_desc": "PR리스트 조회, 구매 요청 변경, 구매 요청 생성 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_R",
+      "auth_name": "구매물류 조회 권한",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 상품재고 수불부 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_04",
+      "auth_name": "기준정보(MD) IT 담당자",
+      "auth_desc": "Business Partner 조회, 고객 마스터 일괄 생성, 공급사/제조사 마스터 일괄 생성 등이 있습니다."
+    },
+    {
       "auth_code": "ZC_MD_03",
       "auth_name": "기준정보(자재,BP) 일반 사용자",
       "auth_desc": "Business Partner 조회, 권한 점검 평가, 스펙특성 조회 등이 있습니다."
     },
     {
+      "auth_code": "ZC_LE_04_P110",
+      "auth_name": "물류 업무 조회 (IT)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 상품재고 수불부 등이 있습니다."
+    },
+    {
       "auth_code": "ZC_LE_03_P110",
       "auth_name": "물류 입출고 관리자 (IT)",
       "auth_desc": "센터간 이동요청 확정, 센터간 출고이동 신청, 상품 입출고내역 조회 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_SD_02_P110",
-      "auth_name": "일반 사용자(IT)",
-      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_LE_02_P110",
-      "auth_name": "자산운영 임직원(IT)",
-      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_MD_05",
-      "auth_name": "자재 마스터 실무 담당자",
-      "auth_desc": "자재코드 대량 등록/수정, 자재코드↔스펙특성 맵핑관리 등이 있습니다."
-    }
-  ],
-  "305051|SAP": [
-    {
-      "auth_code": "ZC_CO_R",
-      "auth_name": "CO모듈 전체 조회권한",
-      "auth_desc": "FI/CO 손익일치 점검 양식관리, [CO] SKF적수 펑션 관리, [CO] 아이템 관리 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_FI_R",
-      "auth_name": "FI모듈 조회 권한",
-      "auth_desc": "G/L 계정 개별 항목(신규), G/L 계정 리스트, G/L 계정개별항목 등이 있습니다."
-    },
-    {
-      "auth_code": "ZS_COMMON_01_0000",
-      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
-      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_CO_01_AJ20",
-      "auth_name": "렌탈사업부 관리 기준정보",
-      "auth_desc": "SD 테이블 171    영업지역, [FI] 공통코드 관리, 계정 그룹 변경 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_CO_04_AJ20",
-      "auth_name": "렌탈사업부 관리결산 조회",
-      "auth_desc": "FI/CO 손익일치 점검 양식관리, [CO] SKF적수 펑션 관리, [CO] 아이템 관리 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_CO_03_AJ20",
-      "auth_name": "렌탈사업부 손익결산 관리",
-      "auth_desc": "CCA 배부 Cycle Receiver 점검, CO-PA 개별항목 엔트리, CO-PA 선배부 비용출처별 계정등록 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_CO_02_AJ20",
-      "auth_name": "렌탈사업부 예산관리",
-      "auth_desc": "[CO] 아이템 관리, 예산 기준 관리, 예산 실적 비교 리포트 등이 있습니다."
     },
     {
       "auth_code": "ZS_MM_07_P110",
@@ -3192,12 +6205,27 @@
       "auth_desc": "기간별 입고실적 조회, 송장리스트 및 대금지급 실적조회, 수불정보 집계 및 조회 등이 있습니다."
     },
     {
-      "auth_code": "ZS_FIORI_DASHBOARD_01",
-      "auth_name": "차입금 대시보드",
-      "auth_desc": "시장금리관리 등이 있습니다."
+      "auth_code": "ZC_SD_02_P110",
+      "auth_name": "일반 사용자(IT)",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_02_P110",
+      "auth_name": "자산운영 임직원(IT)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_01_P110",
+      "auth_name": "자산운영담당(IT)",
+      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_05",
+      "auth_name": "자재 마스터 실무 담당자",
+      "auth_desc": "자재코드 대량 등록/수정, 자재코드↔스펙특성 맵핑관리 등이 있습니다."
     }
   ],
-  "30505101|SAP": [
+  "305051|SAP": [
     {
       "auth_code": "ZC_PI_SUB_P110",
       "auth_name": "B&T 부문 PI 역할 권한",
@@ -3227,11 +6255,6 @@
       "auth_code": "ZS_COMMON_01_0000",
       "auth_name": "공통 기본 권한 (런치패드 접속권한)",
       "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
-    },
-    {
-      "auth_code": "ZC_LE_R",
-      "auth_name": "구매물류 조회 권한",
-      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 상품재고 수불부 등이 있습니다."
     },
     {
       "auth_code": "ZC_MD_03",
@@ -3277,16 +6300,6 @@
       "auth_code": "ZS_FIORI_DASHBOARD_01",
       "auth_name": "차입금 대시보드",
       "auth_desc": "시장금리관리 등이 있습니다."
-    },
-    {
-      "auth_code": "ZS_FIORI_DASHBOARD_02",
-      "auth_name": "차입금담보  대시보드",
-      "auth_desc": "시장금리관리 등이 있습니다."
-    },
-    {
-      "auth_code": "ZS_FIORI_DASHBOARD",
-      "auth_name": "피오리 대시보드",
-      "auth_desc": "시장금리관리 등이 있습니다."
     }
   ],
   "3060|SAP": [
@@ -3294,6 +6307,11 @@
       "auth_code": "ZS_COMMON_01_0000",
       "auth_name": "공통 기본 권한 (런치패드 접속권한)",
       "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
     }
   ],
   "3060022|SAP": [
@@ -3365,6 +6383,18 @@
       "auth_desc": "G/L 계정개별항목, [FI] 렌탈자산대장, [FI] 리스 명세서 등이 있습니다."
     }
   ],
+  "30603|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
+    }
+  ],
   "306032|SAP": [
     {
       "auth_code": "ZC_CO_R",
@@ -3390,6 +6420,11 @@
       "auth_code": "ZC_CO_04_AJ30",
       "auth_name": "로지스사업부 관리결산 조회",
       "auth_desc": "FI/CO 손익일치 점검 양식관리, [CO] SKF적수 펑션 관리, [CO] 아이템 관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
     }
   ],
   "306042|SAP": [
@@ -3412,6 +6447,16 @@
       "auth_code": "ZC_MM_01_P130",
       "auth_name": "구매 일반 사용자 (로지스)",
       "auth_desc": "PR리스트 조회, 구매 요청 변경, 구매 요청 생성 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_03",
+      "auth_name": "기준정보(자재,BP) 일반 사용자",
+      "auth_desc": "Business Partner 조회, 권한 점검 평가, 스펙특성 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_02_P130",
+      "auth_name": "일반 사용자(로지스)",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
     },
     {
       "auth_code": "ZC_LE_02_P130",
@@ -3701,6 +6746,11 @@
       "auth_code": "ZS_FIORI_DASHBOARD_02",
       "auth_name": "차입금담보  대시보드",
       "auth_desc": "시장금리관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_FI_09",
+      "auth_name": "현업담당자(자금팀 권한)",
+      "auth_desc": "C FI 테이블 TCURR 유지보수, Early Watch, FX 거래원장 등이 있습니다."
     }
   ],
   "30702|SAP": [
@@ -3763,6 +6813,11 @@
       "auth_code": "ZC_MM_03_P130",
       "auth_name": "구매 업무 조회 (로지스)",
       "auth_desc": "MIRO 호출 - 상태 변경, PR리스트 조회, 구매 오더 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_READ",
+      "auth_name": "데이터 테이블 조회 권한",
+      "auth_desc": "데이타브라우저, 일반 테이블 조회 등이 있습니다."
     },
     {
       "auth_code": "ZC_CO_01_AJ20",
@@ -4261,6 +7316,16 @@
   ],
   "30704|SAP": [
     {
+      "auth_code": "ZS_SYS_MO",
+      "auth_name": "SAP 모니터링 권한",
+      "auth_desc": "ABAP 덤프분석, AS 인스턴스의 작업 프로세스, DB Performance Monitor 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_ALL_R",
+      "auth_name": "SAP 전체 조회 권한",
+      "auth_desc": "Business Partner 조회, FI/CO 손익일치 점검 양식관리, G/L 계정개별항목 등이 있습니다."
+    },
+    {
       "auth_code": "ZS_FI_SE16N",
       "auth_name": "ZS_FI_SE16N",
       "auth_desc": "일반 테이블 조회 등이 있습니다."
@@ -4430,6 +7495,246 @@
       "auth_code": "ZC_LE_02_P110",
       "auth_name": "자산운영 임직원(IT)",
       "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
+    }
+  ],
+  "3040101|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_01_P120",
+      "auth_name": "물류 일반 사용자 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 센터 재고이동 요청리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_02_P120",
+      "auth_name": "일반 사용자(건설/산업장비)",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_02_P120",
+      "auth_name": "자산운영 임직원 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_01_P120",
+      "auth_name": "자산운영담당(건설/산업장비)",
+      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
+    }
+  ],
+  "3040103|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_01_P120",
+      "auth_name": "물류 일반 사용자 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 센터 재고이동 요청리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_03_P120",
+      "auth_name": "물류 입출고 관리자 (건설/산업장비)",
+      "auth_desc": "센터간 이동요청 확정 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_02_P120",
+      "auth_name": "일반 사용자(건설/산업장비)",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_02_P120",
+      "auth_name": "자산운영 임직원 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_01_P120",
+      "auth_name": "자산운영담당(건설/산업장비)",
+      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
+    }
+  ],
+  "3040521|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_02_P120",
+      "auth_name": "일반 사용자(건설/산업장비)",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_01_P120",
+      "auth_name": "자산운영담당(건설/산업장비)",
+      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
+    }
+  ],
+  "3040603|SAP": [
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_02_P120",
+      "auth_name": "구매 발주 담당자 (건설/산업장비)",
+      "auth_desc": "MIRO 호출 - 상태 변경, PO에 대한 선금 모니터링, PR리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_03_P120",
+      "auth_name": "구매 업무 조회 (건설/산업장비)",
+      "auth_desc": "MIRO 호출 - 상태 변경, PR리스트 조회, 구매 오더 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_01_P120",
+      "auth_name": "구매 일반 사용자 (건설/산업장비)",
+      "auth_desc": "PR리스트 조회, 구매 요청 변경, 구매 요청 생성 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_04_P120",
+      "auth_name": "물류 업무 조회 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 상품재고 수불부 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_01_P120",
+      "auth_name": "물류 일반 사용자 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 센터 재고이동 요청리스트 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_03_P120",
+      "auth_name": "유통 영업(건설/산업장비)",
+      "auth_desc": "오더 참조에 따라 출하 생성, 유통 오더 Tracking, 자산 상태 및 변경 이력 조회 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_02_P120",
+      "auth_name": "일반 사용자(건설/산업장비)",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_02_P120",
+      "auth_name": "자산운영 임직원 (건설/산업장비)",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 건설 AS 모바일 재고이동, 건설장비 배치자산별 옵션관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_01_P120",
+      "auth_name": "자산운영담당(건설/산업장비)",
+      "auth_desc": "POD - 출하 변경, [FI] 렌탈자산대장, [FI] 유무형자산 리스트 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_01",
+      "auth_name": "자재 마스터 관리자",
+      "auth_desc": "공통코드, 권한 점검 평가, 스펙특성 대량 등록/수정 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_R",
+      "auth_name": "자재 마스터 관리자",
+      "auth_desc": "Business Partner 조회, 권한 점검 평가, 스펙특성 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_05",
+      "auth_name": "자재 마스터 실무 담당자",
+      "auth_desc": "자재코드 대량 등록/수정, 자재코드↔스펙특성 맵핑관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_FI_03",
+      "auth_name": "현업담당자(자산)",
+      "auth_desc": "G/L 계정개별항목, [FI] 렌탈자산대장, [FI] 리스 명세서 등이 있습니다."
+    }
+  ],
+  "30505101|SAP": [
+    {
+      "auth_code": "ZC_PI_SUB_P110",
+      "auth_name": "B&T 부문 PI 역할 권한",
+      "auth_desc": "Business Partner 조회, MIRO 호출 - 상태 변경, PO에 대한 선금 모니터링 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_CO_R",
+      "auth_name": "CO모듈 전체 조회권한",
+      "auth_desc": "FI/CO 손익일치 점검 양식관리, [CO] SKF적수 펑션 관리, [CO] 아이템 관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_FI_R",
+      "auth_name": "FI모듈 조회 권한",
+      "auth_desc": "G/L 계정 개별 항목(신규), G/L 계정 리스트, G/L 계정개별항목 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MM_R",
+      "auth_name": "MM 모듈 조회 권한",
+      "auth_desc": "MIRO 호출 - 상태 변경, PR리스트 조회, 구매 오더 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_SD_R",
+      "auth_name": "SD 모듈 조회 권한",
+      "auth_desc": "[SDC] 렌탈 자산 정상 입고 처리 프로그램, [SDC] 출고 요청 조회, 비정상입고자산 등록, 변경, 삭제 프로그램 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_COMMON_01_0000",
+      "auth_name": "공통 기본 권한 (런치패드 접속권한)",
+      "auth_desc": "SAP Fiori Launchpad, 권한 점검 평가, 사용자 고유 데이터 유지보수 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_LE_R",
+      "auth_name": "구매물류 조회 권한",
+      "auth_desc": "건설 A/S 모바일 재고 이동 결과조회, 기간별 입고실적 조회, 상품재고 수불부 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_03",
+      "auth_name": "기준정보(자재,BP) 일반 사용자",
+      "auth_desc": "Business Partner 조회, 권한 점검 평가, 스펙특성 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_CO_01_AJ20",
+      "auth_name": "렌탈사업부 관리 기준정보",
+      "auth_desc": "SD 테이블 171    영업지역, [FI] 공통코드 관리, 계정 그룹 변경 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_CO_04_AJ20",
+      "auth_name": "렌탈사업부 관리결산 조회",
+      "auth_desc": "FI/CO 손익일치 점검 양식관리, [CO] SKF적수 펑션 관리, [CO] 아이템 관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_CO_03_AJ20",
+      "auth_name": "렌탈사업부 손익결산 관리",
+      "auth_desc": "CCA 배부 Cycle Receiver 점검, CO-PA 개별항목 엔트리, CO-PA 선배부 비용출처별 계정등록 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_CO_02_AJ20",
+      "auth_name": "렌탈사업부 예산관리",
+      "auth_desc": "[CO] 아이템 관리, 예산 기준 관리, 예산 실적 비교 리포트 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_MM_07_P110",
+      "auth_name": "월 마감 데이터 조회 및 검증(B&T)",
+      "auth_desc": "[FI] 자산처분명세서, 개별 항목 조회 - 실제 데이터, 수불정보 집계 및 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_MM_06_P110",
+      "auth_name": "월 마감 데이터 조회용(B&T)",
+      "auth_desc": "기간별 입고실적 조회, 송장리스트 및 대금지급 실적조회, 수불정보 집계 및 조회 등이 있습니다."
+    },
+    {
+      "auth_code": "ZC_MD_01",
+      "auth_name": "자재 마스터 관리자",
+      "auth_desc": "공통코드, 권한 점검 평가, 스펙특성 대량 등록/수정 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD_01",
+      "auth_name": "차입금 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD_02",
+      "auth_name": "차입금담보  대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
+    },
+    {
+      "auth_code": "ZS_FIORI_DASHBOARD",
+      "auth_name": "피오리 대시보드",
+      "auth_desc": "시장금리관리 등이 있습니다."
     }
   ],
   "3002|eAccount": [

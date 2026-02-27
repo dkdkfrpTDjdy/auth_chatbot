@@ -1,3 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+✅ 바로 실행 가능한 수정본 (삭제 금지 / 증분 추가-only)
+
+핵심 변경점
+1) "이전 산출물(out_base)"을 읽어서 base로 삼고, 이번 전처리 결과를 UNION merge
+   - 팀/시스템/권한/번들 모두 "없다고 삭제" 하지 않음 (NEVER DELETE)
+2) team_code / dept_code / role_code 등 코드 정규화 강화(선행0/float .0 등)
+3) apply_level_mapping의 out.get(...) 버그 수정(컬럼 없을 때 .map 호출 오류 방지)
+4) 기존 by_team/*.jsonl까지 읽어서 번들도 보존(가능한 경우)
+
+사용 방법
+- CONFIG.paths.excel_a / excel_b / out_base / out_xlsx 경로만 본인 환경에 맞게 확인
+- 기존 산출물이 out_base 아래에 존재하면: merge 수행(추가-only)
+- 없으면: 이번 결과만 생성
+"""
+
 import json
 import re
 from pathlib import Path
@@ -11,14 +28,12 @@ import pandas as pd
 # =========================
 CONFIG: Dict = {
     "paths": {
-        # ✅ 지금 대화에 업로드된 파일 경로(필요 시 수정)
         "excel_a": r"C:\Users\User\Downloads\AM 내 최신 권한 데이터_260206.xlsx",
         "excel_b": r"D:\works\GEN_AI\auth_chat\auth_chat_2_restore\사용자_조직_권한_메뉴 매핑_20251218_v1.2.xlsx",
 
-        # ✅ 결과 저장 경로
         "out_xlsx": r"C:\Users\User\Downloads\OUTPUT_팀별권한_통합_결과.xlsx",
 
-        # ✅ 원코드와 동일 산출물(JSON/JSONL) 저장 루트
+        # ✅ 기존 산출물이 이미 있는 폴더(append-only merge 기준)
         "out_base": r"D:\works\GEN_AI\auth_chat\auth_chat_2_restore\public\data",
     },
     "sheets_a": {
@@ -32,7 +47,7 @@ CONFIG: Dict = {
         "role_menu": ["역할별 메뉴"],
     },
     "sheets_b": {
-        "ias_sales": ["IAS_Sales"],
+        "ias_sales": ["IAS_Sales", "IAS_sales_조직", "IAS_sales"],  # 방어적으로 후보 추가
         "sap": ["SAP"],
     },
     "cols_a_user": {
@@ -62,7 +77,7 @@ CONFIG: Dict = {
     },
     "cols_b": {
         # IAS_Sales
-        "ias_menu_name": ["menu_name", "3level"],  # 방어 (원코드에선 menu_name)
+        "ias_menu_name": ["menu_name", "3level"],
         "ias_menu_id": ["menu_id"],
         "ias_1": ["1level"],
         "ias_2": ["2level"],
@@ -76,20 +91,16 @@ CONFIG: Dict = {
     },
     "constants": {
         "sap_desc_topn": 3,
-
-        # output excel sheet names
         "out_sheet1": "팀별 권한_통합",
         "out_sheet2": "팀별 권한_통합_메뉴매핑",
         "out_sheet_log": "로그",
-
-        # 원코드 강제명
         "IAS_SYS_NAME_FORCED": "IAS_Sales",
     },
 }
 
 
 # =========================
-# 유틸 (원코드 스타일 유지)
+# 유틸
 # =========================
 def clean_columns(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
@@ -107,6 +118,7 @@ def norm_text(x) -> str:
 
 
 def norm_code(x) -> str:
+    """역할코드/메뉴ID 등: float .0 제거 + strip"""
     if x is None or pd.isna(x):
         return ""
     if isinstance(x, int):
@@ -118,6 +130,25 @@ def norm_code(x) -> str:
     s = str(x).strip()
     if re.fullmatch(r"-?\d+\.0", s):
         s = s[:-2]
+    return s
+
+
+def canon_team_code(x) -> str:
+    """
+    팀/부서코드 canonicalize:
+    - 숫자만 있으면 선행0 제거 (0100440 -> 100440)
+    - "0RULE_" 같은 특수 코드는 그대로 유지
+    """
+    if x is None or pd.isna(x):
+        return ""
+    s = str(x).strip()
+    if s.endswith(".0"):
+        s = s[:-2]
+    if s.startswith("0RULE_"):
+        return s
+    if re.fullmatch(r"\d+", s):
+        s2 = s.lstrip("0")
+        return s2 if s2 != "" else "0"
     return s
 
 
@@ -198,22 +229,19 @@ def to_team_priv_format(
     df = df_src.copy()
 
     df["team_name"] = df[col_dept_name].map(norm_text)
-    df["team_code"] = df[col_dept_code].map(norm_code)
+    df["team_code"] = df[col_dept_code].map(canon_team_code)
 
-    # sys_code/sys_name: 원파일의 "시스템명" 값 기반 (IAS가 LEGO인 케이스 대응)
     df["sys_code"] = norm_text(sys_code)
     df["sys_name"] = norm_text(sys_code)
 
     df["auth_code"] = df[col_role_code].map(norm_code)
     df["auth_name"] = df[col_role_name].map(norm_text)
 
-    # 역할설명
     if col_desc and col_desc in df.columns:
         df["auth_desc"] = df[col_desc].map(norm_text)
     else:
         df["auth_desc"] = ""
 
-    # 시작/종료일자(있으면 유지)
     if col_start and col_start in df.columns:
         df["start_date"] = df[col_start]
     else:
@@ -229,7 +257,7 @@ def to_team_priv_format(
 
 
 # =========================
-# 요구 3) SAP 역할설명 생성 (SAP 역할별 TCODE)
+# 요구 3) SAP 역할설명 생성
 # =========================
 def fill_sap_auth_desc_from_tcode(
     df_team_sap: pd.DataFrame,
@@ -244,7 +272,6 @@ def fill_sap_auth_desc_from_tcode(
     t["role_name"] = t[role_name_col].map(norm_text)
     t["menu_name"] = t[menu_name_col].map(norm_text)
 
-    # 메뉴명이 없으면 역할명으로 fallback
     t.loc[t["menu_name"] == "", "menu_name"] = t.loc[t["menu_name"] == "", "role_name"]
 
     role_desc_map = (
@@ -255,7 +282,6 @@ def fill_sap_auth_desc_from_tcode(
     map_df = pd.DataFrame([{"auth_code": k, "sap_generated_desc": v} for k, v in role_desc_map.items()])
 
     df = df_team_sap.copy()
-    before_nonempty = (df["auth_desc"].map(norm_text) != "").sum()
 
     def _fill(row):
         cur = norm_text(row.get("auth_desc", ""))
@@ -264,9 +290,7 @@ def fill_sap_auth_desc_from_tcode(
         return role_desc_map.get(norm_code(row.get("auth_code", "")), "")
 
     df["auth_desc"] = df.apply(_fill, axis=1)
-    after_nonempty = (df["auth_desc"].map(norm_text) != "").sum()
-    print(f"[SAP DESC] non-empty {before_nonempty} -> {after_nonempty} / {len(df)}")
-
+    print(f"[SAP DESC] filled rows={len(df)}")
     return df, map_df
 
 
@@ -312,7 +336,7 @@ def expand_role_menu_mapping(df_team: pd.DataFrame, df_role_menu: pd.DataFrame) 
 def apply_level_mapping(df: pd.DataFrame, df_b_ias: pd.DataFrame, df_b_sap: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     out = df.copy()
 
-    # IAS_Sales: menu_name + menu_id
+    # IAS_Sales
     b_ias = df_b_ias.copy()
     b_ias["menu_name"] = b_ias[ensure_any_col(b_ias, CONFIG["cols_b"]["ias_menu_name"], "menu_name", "B.IAS_Sales")].map(norm_text)
     b_ias["menu_id"] = b_ias[ensure_any_col(b_ias, CONFIG["cols_b"]["ias_menu_id"], "menu_id", "B.IAS_Sales")].map(norm_code)
@@ -321,7 +345,7 @@ def apply_level_mapping(df: pd.DataFrame, df_b_ias: pd.DataFrame, df_b_sap: pd.D
     b_ias["3level"] = b_ias[ensure_any_col(b_ias, CONFIG["cols_b"]["ias_3"], "3level", "B.IAS_Sales")].map(norm_text)
     b_ias = b_ias[["menu_name", "menu_id", "1level", "2level", "3level"]].drop_duplicates()
 
-    # SAP: (A)menu_name == (B)3level AND menu_id match
+    # SAP
     b_sap = df_b_sap.copy()
     b_sap["menu_id"] = b_sap[ensure_any_col(b_sap, CONFIG["cols_b"]["sap_menu_id"], "menu_id", "B.SAP")].map(norm_code)
     b_sap["1level"] = b_sap[ensure_any_col(b_sap, CONFIG["cols_b"]["sap_1"], "1level", "B.SAP")].map(norm_text)
@@ -329,14 +353,16 @@ def apply_level_mapping(df: pd.DataFrame, df_b_ias: pd.DataFrame, df_b_sap: pd.D
     b_sap["3level"] = b_sap[ensure_any_col(b_sap, CONFIG["cols_b"]["sap_3"], "3level", "B.SAP")].map(norm_text)
     b_sap = b_sap[["menu_id", "1level", "2level", "3level"]].drop_duplicates()
 
-    # A normalize
-    out["menu_id"] = out.get("menu_id", "").map(norm_code)
-    out["menu_name"] = out.get("menu_name", "").map(norm_text)
+    # ✅ FIX: 컬럼이 없을 때 out.get("menu_id","")가 str이 되어 .map이 깨지는 문제 방지
+    if "menu_id" not in out.columns:
+        out["menu_id"] = ""
+    if "menu_name" not in out.columns:
+        out["menu_name"] = ""
+
+    out["menu_id"] = out["menu_id"].map(norm_code)
+    out["menu_name"] = out["menu_name"].map(norm_text)
     out["sys_code"] = out["sys_code"].map(norm_text)
 
-    # IAS 판정: 원파일 A에서는 IAS 시스템명이 LEGO이지만,
-    # 레벨 매핑 규칙은 "IAS_Sales 시트"를 쓴다고 했으므로,
-    # 여기서는 sys_code가 LEGO든 IAS든 "IAS계열"로 처리할 수 있게 후보를 둠.
     ias_like = set(["IAS", "LEGO", CONFIG["constants"]["IAS_SYS_NAME_FORCED"]])
 
     df_ias = out[out["sys_code"].isin(ias_like)].copy()
@@ -353,7 +379,6 @@ def apply_level_mapping(df: pd.DataFrame, df_b_ias: pd.DataFrame, df_b_sap: pd.D
 
     if len(df_sap) > 0:
         before = len(df_sap)
-        # A.menu_name == B.3level
         df_sap = df_sap.merge(
             b_sap,
             how="left",
@@ -366,8 +391,13 @@ def apply_level_mapping(df: pd.DataFrame, df_b_ias: pd.DataFrame, df_b_sap: pd.D
 
     out2 = pd.concat([df_ias, df_sap, df_other], ignore_index=True)
 
+    # level 컬럼 없으면 만들어두기
+    for c in ["1level", "2level", "3level"]:
+        if c not in out2.columns:
+            out2[c] = ""
+
     fail = out2.loc[
-        out2["menu_id"].map(norm_text).ne("") & out2.get("3level", "").map(norm_text).eq(""),
+        out2["menu_id"].map(norm_text).ne("") & out2["3level"].map(norm_text).eq(""),
         ["sys_code", "team_code", "team_name", "auth_code", "auth_name", "menu_id", "menu_name"]
     ].copy()
     fail["issue"] = "level mapping fail (menu exists but 3level empty)"
@@ -375,7 +405,7 @@ def apply_level_mapping(df: pd.DataFrame, df_b_ias: pd.DataFrame, df_b_sap: pd.D
 
 
 # =========================
-# 원코드 산출물(JSON/JSONL) 생성 로직 (최대한 그대로)
+# 원코드 산출물 생성
 # =========================
 def first_non_empty(series: pd.Series, is_code: bool = False) -> str:
     for v in series.tolist():
@@ -464,49 +494,161 @@ def to_outputs(df: pd.DataFrame, is_sap: bool) -> Dict:
     }
 
 
-def merge_outputs(base: Dict, add: Dict) -> Dict:
-    team_map = {(t["team_code"], t["team_name"]) for t in base["teams_records"]}
-    for t in add["teams_records"]:
-        team_map.add((t["team_code"], t["team_name"]))
-    base["teams_records"] = [{"team_code": tc, "team_name": tn} for tc, tn in sorted(team_map, key=lambda x: x[1])]
+# =========================
+# ✅ NEW: 기존 산출물과 append-only merge
+# =========================
+def load_old_outputs(out_base: Path) -> Optional[Dict]:
+    idx_teams = out_base / "index_teams.json"
+    idx_sys = out_base / "index_systems_by_team.json"
+    idx_roles = out_base / "index_roles_by_team_sys.json"
+    by_team = out_base / "by_team"
 
-    for team_code, sys_list in add["systems_by_team"].items():
-        base["systems_by_team"].setdefault(team_code, [])
-        existing = {s["sys_code"]: s["sys_name"] for s in base["systems_by_team"][team_code]}
+    if not (idx_teams.exists() and idx_sys.exists() and idx_roles.exists()):
+        print("[OLD] 기존 index json 없음 -> merge 없이 신규 생성")
+        return None
+
+    old_teams = json.loads(idx_teams.read_text(encoding="utf-8")).get("teams", [])
+    old_sys = json.loads(idx_sys.read_text(encoding="utf-8"))
+    old_roles = json.loads(idx_roles.read_text(encoding="utf-8"))
+
+    # bundles: by_team/*.jsonl 있으면 전부 로드
+    old_bundles_by_team: Dict[str, Dict[str, Dict]] = {}
+    if by_team.exists():
+        for p in by_team.glob("role_bundle_team_*.jsonl"):
+            team_code = p.stem.replace("role_bundle_team_", "").strip()
+            team_code = canon_team_code(team_code)
+            old_bundles_by_team.setdefault(team_code, {})
+            with p.open("r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    b = json.loads(line)
+                    tc = canon_team_code(b.get("team_code", team_code))
+                    sc = norm_text(b.get("sys_code", ""))
+                    ac = norm_code(b.get("auth_code", ""))
+                    key = f"{sc}|{ac}"
+                    b["team_code"] = tc
+                    old_bundles_by_team[tc][key] = b
+
+    print(f"[OLD] teams={len(old_teams)} systems_keys={len(old_sys)} roles_keys={len(old_roles)} bundles_teams={len(old_bundles_by_team)}")
+    return {
+        "teams_records": old_teams,
+        "systems_by_team": old_sys,
+        "roles_by_team_sys": old_roles,
+        "bundles_by_team": old_bundles_by_team,
+    }
+
+
+def merge_outputs_append_only(base: Dict, add: Dict) -> Dict:
+    """
+    ✅ 삭제 금지 merge
+    - teams: base 유지 + add 추가(동일 team_code면 team_name 빈값만 보강)
+    - systems_by_team: union
+    - roles_by_team_sys: union (auth_code 기준)
+    - bundles_by_team: union (sys|auth 기준), menus는 (menu_id,path) 기준 union
+    """
+    # teams
+    base_map = {canon_team_code(t["team_code"]): norm_text(t.get("team_name", "")) for t in base.get("teams_records", []) if norm_text(t.get("team_code", ""))}
+    for t in add.get("teams_records", []):
+        tc = canon_team_code(t.get("team_code", ""))
+        tn = norm_text(t.get("team_name", ""))
+        if not tc:
+            continue
+        if tc not in base_map:
+            base_map[tc] = tn
+        else:
+            if base_map[tc] == "" and tn != "":
+                base_map[tc] = tn
+    base["teams_records"] = [{"team_code": tc, "team_name": tn} for tc, tn in sorted(base_map.items(), key=lambda x: x[1])]
+
+    # systems_by_team
+    base.setdefault("systems_by_team", {})
+    for team_code, sys_list in add.get("systems_by_team", {}).items():
+        tc = canon_team_code(team_code)
+        base["systems_by_team"].setdefault(tc, [])
+        existing = {s["sys_code"]: s["sys_name"] for s in base["systems_by_team"][tc]}
         for s in sys_list:
-            existing[s["sys_code"]] = s["sys_name"]
-        base["systems_by_team"][team_code] = [{"sys_code": sc, "sys_name": sn} for sc, sn in sorted(existing.items(), key=lambda x: x[1])]
+            sc = norm_text(s.get("sys_code", ""))
+            sn = norm_text(s.get("sys_name", ""))
+            if not sc:
+                continue
+            if sc not in existing:
+                existing[sc] = sn
+            else:
+                if existing[sc] == "" and sn != "":
+                    existing[sc] = sn
+        base["systems_by_team"][tc] = [{"sys_code": sc, "sys_name": sn} for sc, sn in sorted(existing.items(), key=lambda x: x[1])]
 
-    for key, roles in add["roles_by_team_sys"].items():
-        base["roles_by_team_sys"].setdefault(key, [])
-        existing = {r["auth_code"]: r for r in base["roles_by_team_sys"][key]}
+    # roles_by_team_sys
+    base.setdefault("roles_by_team_sys", {})
+    for key, roles in add.get("roles_by_team_sys", {}).items():
+        # key: team|sys
+        if "|" not in key:
+            continue
+        team_code, sys_code = key.split("|", 1)
+        tc = canon_team_code(team_code)
+        sc = norm_text(sys_code)
+        k2 = f"{tc}|{sc}"
+        base["roles_by_team_sys"].setdefault(k2, [])
+        existing = {r["auth_code"]: dict(r) for r in base["roles_by_team_sys"][k2] if norm_text(r.get("auth_code", ""))}
         for r in roles:
-            ac = r["auth_code"]
+            ac = norm_code(r.get("auth_code", ""))
+            if not ac:
+                continue
+            rn = norm_text(r.get("auth_name", ""))
+            rd = norm_text(r.get("auth_desc", ""))
             if ac not in existing:
-                existing[ac] = r
+                existing[ac] = {"auth_code": ac, "auth_name": rn, "auth_desc": rd}
             else:
-                if not existing[ac].get("auth_desc") and r.get("auth_desc"):
-                    existing[ac]["auth_desc"] = r["auth_desc"]
-                if not existing[ac].get("auth_name") and r.get("auth_name"):
-                    existing[ac]["auth_name"] = r["auth_name"]
-        base["roles_by_team_sys"][key] = sorted(existing.values(), key=lambda x: (x["auth_name"], x["auth_code"]))
+                if existing[ac].get("auth_name", "") == "" and rn != "":
+                    existing[ac]["auth_name"] = rn
+                if existing[ac].get("auth_desc", "") == "" and rd != "":
+                    existing[ac]["auth_desc"] = rd
+        base["roles_by_team_sys"][k2] = sorted(existing.values(), key=lambda x: (x.get("auth_name",""), x.get("auth_code","")))
 
-    for team_code, bundle_map in add["bundles_by_team"].items():
-        base["bundles_by_team"].setdefault(team_code, {})
+    # bundles_by_team
+    base.setdefault("bundles_by_team", {})
+    for team_code, bundle_map in add.get("bundles_by_team", {}).items():
+        tc = canon_team_code(team_code)
+        base["bundles_by_team"].setdefault(tc, {})
         for sys_auth, bundle in bundle_map.items():
-            if sys_auth not in base["bundles_by_team"][team_code]:
-                base["bundles_by_team"][team_code][sys_auth] = bundle
-            else:
-                existing = base["bundles_by_team"][team_code][sys_auth]
-                seen = {(m["menu_id"], m["path"]) for m in existing["menus"]}
-                for m in bundle["menus"]:
-                    k = (m["menu_id"], m["path"])
-                    if k not in seen:
-                        existing["menus"].append(m)
-                        seen.add(k)
-                existing["menus"].sort(key=lambda x: (x["path"], x["menu_id"]))
-                if not existing.get("auth_desc") and bundle.get("auth_desc"):
-                    existing["auth_desc"] = bundle["auth_desc"]
+            # bundle key normalize
+            sc = norm_text(bundle.get("sys_code", ""))
+            ac = norm_code(bundle.get("auth_code", ""))
+            k = f"{sc}|{ac}"
+            bundle["team_code"] = tc
+
+            if k not in base["bundles_by_team"][tc]:
+                base["bundles_by_team"][tc][k] = bundle
+                continue
+
+            existing = base["bundles_by_team"][tc][k]
+
+            # menus union by (menu_id, path)
+            ex_menus = existing.get("menus", []) or []
+            ad_menus = bundle.get("menus", []) or []
+
+            seen = {(norm_code(m.get("menu_id","")), norm_text(m.get("path",""))) for m in ex_menus}
+            for m in ad_menus:
+                mid = norm_code(m.get("menu_id",""))
+                pth = norm_text(m.get("path",""))
+                if not mid and not pth:
+                    continue
+                kk = (mid, pth)
+                if kk not in seen:
+                    ex_menus.append({"menu_id": mid, "path": pth})
+                    seen.add(kk)
+            ex_menus.sort(key=lambda x: (x.get("path",""), x.get("menu_id","")))
+            existing["menus"] = ex_menus
+
+            # 메타 보강
+            for f in ["team_name","sys_name","auth_name","auth_desc"]:
+                if norm_text(existing.get(f,"")) == "" and norm_text(bundle.get(f,"")) != "":
+                    existing[f] = bundle[f]
+
+            base["bundles_by_team"][tc][k] = existing
+
     return base
 
 
@@ -555,6 +697,7 @@ def main():
 
     # --- resolve columns (A user sheets)
     c = CONFIG["cols_a_user"]
+
     def resolve_cols(df: pd.DataFrame, sheet: str) -> Dict[str, str]:
         return {
             "name": ensure_any_col(df, c["name"], "이름", sheet),
@@ -575,15 +718,14 @@ def main():
     cols_srm = resolve_cols(df_srm_raw, sh_srm)
     cols_eac = resolve_cols(df_eac_raw, sh_eac)
 
-    # --- 요구 1) dedup
+    # --- dedup
     df_sap_dedup, _, _ = dedup_drop_name_emp(df_sap_raw, sh_sap, cols_sap["name"], cols_sap["empno"])
     df_ias_dedup, _, _ = dedup_drop_name_emp(df_ias_raw, sh_ias, cols_ias["name"], cols_ias["empno"])
     df_mro_dedup, _, _ = dedup_drop_name_emp(df_mro_raw, sh_mro, cols_mro["name"], cols_mro["empno"])
     df_srm_dedup, _, _ = dedup_drop_name_emp(df_srm_raw, sh_srm, cols_srm["name"], cols_srm["empno"])
     df_eac_dedup, _, _ = dedup_drop_name_emp(df_eac_raw, sh_eac, cols_eac["name"], cols_eac["empno"])
 
-    # --- 요구 2/4/5) convert
-    # sys_code는 원파일의 시스템명 값 기반(예: IAS가 LEGO)
+    # --- convert
     sys_sap = first_non_empty(df_sap_raw[cols_sap["sys_name"]])
     sys_ias = first_non_empty(df_ias_raw[cols_ias["sys_name"]])
     sys_mro = first_non_empty(df_mro_raw[cols_mro["sys_name"]])
@@ -594,7 +736,7 @@ def main():
         df_sap_dedup, sh_sap, sys_sap,
         cols_sap["dept_name"], cols_sap["dept_code"],
         cols_sap["role_code"], cols_sap["role_name"],
-        None,  # SAP 설명은 빈값이므로 사용하지 않음 (요구 2)
+        None,  # SAP desc는 생성
         cols_sap["start"], cols_sap["end"],
     )
     df_team_ias = to_team_priv_format(
@@ -626,7 +768,7 @@ def main():
         cols_eac["start"], cols_eac["end"],
     )
 
-    # --- 요구 3) SAP desc
+    # --- SAP desc
     tc = CONFIG["cols_a_sap_tcode"]
     c_tc_role_code = ensure_any_col(df_sap_tcode, tc["role_code"], "역할코드", sh_sap_tcode)
     c_tc_role_name = ensure_any_col(df_sap_tcode, tc["role_name"], "역할명", sh_sap_tcode)
@@ -640,14 +782,14 @@ def main():
         topn=int(CONFIG["constants"]["sap_desc_topn"]),
     )
 
-    # --- union
+    # --- union all systems
     df_team_all = pd.concat([df_team_sap, df_team_ias, df_team_mro, df_team_srm, df_team_eac], ignore_index=True)
     print(f"[UNION] team_all rows={len(df_team_all)}")
 
-    # --- 요구 6) role_menu expand (1:N)
+    # --- role_menu expand (1:N)
     df_menu_mapped, log_fail_role_menu = expand_role_menu_mapping(df_team_all, df_role_menu)
 
-    # --- 요구 7) level mapping
+    # --- level mapping
     df_level_mapped, log_fail_level = apply_level_mapping(df_menu_mapped, df_b_ias, df_b_sap)
 
     # --- logs
@@ -655,7 +797,7 @@ def main():
     if len(df_log) == 0:
         df_log = pd.DataFrame([{"issue": "no issues"}])
 
-    # --- 요구 8) Excel 저장
+    # --- Excel 저장
     out_sheets = {
         CONFIG["constants"]["out_sheet1"]: df_team_all,
         CONFIG["constants"]["out_sheet2"]: df_level_mapped,
@@ -663,49 +805,58 @@ def main():
     }
     write_output_xlsx(out_xlsx, out_sheets)
 
-    # --- 원코드와 동일 산출물(JSON/JSONL) 저장
-    # 원코드는 IAS + SAP만 합치던 구조였지만, 여기선 전체를 한 번에 out로 만들어도 됨.
-    # 다만 merge_outputs를 그대로 살리기 위해 IAS-like / SAP / others로 나눠 병합.
-    df_ias_like = df_level_mapped[df_level_mapped["sys_code"].isin(["IAS", "LEGO", CONFIG["constants"]["IAS_SYS_NAME_FORCED"]])].copy()
+    # --- 산출물 생성 (이번 데이터 기준)
+    ias_like = ["IAS", "LEGO", CONFIG["constants"]["IAS_SYS_NAME_FORCED"]]
+    df_ias_like = df_level_mapped[df_level_mapped["sys_code"].isin(ias_like)].copy()
     df_sap_like = df_level_mapped[df_level_mapped["sys_code"] == "SAP"].copy()
-    df_other = df_level_mapped[~df_level_mapped["sys_code"].isin(["IAS", "LEGO", CONFIG["constants"]["IAS_SYS_NAME_FORCED"], "SAP"])].copy()
+    df_other = df_level_mapped[~df_level_mapped["sys_code"].isin(ias_like + ["SAP"])].copy()
 
     out_ias = to_outputs(df_ias_like, is_sap=False)
     out_sap = to_outputs(df_sap_like, is_sap=True)
-    merged = {
+
+    merged_new = {
         "teams_records": out_ias["teams_records"],
         "systems_by_team": out_ias["systems_by_team"],
         "roles_by_team_sys": out_ias["roles_by_team_sys"],
         "bundles_by_team": out_ias["bundles_by_team"],
     }
-    merged = merge_outputs(merged, out_sap)
+    merged_new = merge_outputs_append_only(merged_new, out_sap)
 
     if len(df_other) > 0:
         out_o = to_outputs(df_other, is_sap=False)
-        merged = merge_outputs(merged, out_o)
+        merged_new = merge_outputs_append_only(merged_new, out_o)
 
+    # ✅ 기존 산출물 로드 + append-only merge
+    old = load_old_outputs(out_base)
+    if old is not None:
+        merged_all = merge_outputs_append_only(old, merged_new)
+    else:
+        merged_all = merged_new
+
+    # --- index json 저장
     (out_base / "index_teams.json").write_text(
-        json.dumps({"teams": merged["teams_records"]}, ensure_ascii=False, indent=2),
+        json.dumps({"teams": merged_all["teams_records"]}, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     (out_base / "index_systems_by_team.json").write_text(
-        json.dumps(merged["systems_by_team"], ensure_ascii=False, indent=2),
+        json.dumps(merged_all["systems_by_team"], ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     (out_base / "index_roles_by_team_sys.json").write_text(
-        json.dumps(merged["roles_by_team_sys"], ensure_ascii=False, indent=2),
+        json.dumps(merged_all["roles_by_team_sys"], ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
 
-    for team_code, bundle_map in merged["bundles_by_team"].items():
+    # --- bundles jsonl 저장(by_team)
+    for team_code, bundle_map in merged_all["bundles_by_team"].items():
         out_path = out_by_team / f"role_bundle_team_{team_code}.jsonl"
         rows = list(bundle_map.values())
-        rows.sort(key=lambda b: (b["sys_name"], b["auth_name"], b["auth_code"]))
+        rows.sort(key=lambda b: (norm_text(b.get("sys_name","")), norm_text(b.get("auth_name","")), norm_code(b.get("auth_code",""))))
         with out_path.open("w", encoding="utf-8") as f:
             for row in rows:
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
-    print("✅ 완료")
+    print("✅ 완료 (append-only, no delete)")
     print(f"- Excel Output: {out_xlsx}")
     print(f"- JSON index: {out_base / 'index_teams.json'}")
     print(f"- JSON index: {out_base / 'index_systems_by_team.json'}")
