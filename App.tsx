@@ -1127,7 +1127,7 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
                 IAS 시스템 권한 안내 센터는 팀별 시스템 권한과 접근 가능한 메뉴를 빠르게 조회하는 내부 가이드입니다.              
               </div>
               <div className="text-[12px] text-slate-600 leading-relaxed">
-                필요한 권한은 AJ포털의 IAM에서 신청할 수 있으며, 최종 신청 가능 여부는 내부 승인 절차를 따릅니다. (문의:전략기획실 정보전략팀 정주연대리)
+                필요한 권한은 AJ포털의 IAM에서 신청할 수 있으며, 최종 신청 가능 여부는 내부 승인 절차를 따릅니다.
               </div>
             </div>
           </div>
