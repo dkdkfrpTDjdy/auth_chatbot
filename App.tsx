@@ -406,6 +406,7 @@ const formatSapModuleLabel = (label: string) => {
 
 const App: React.FC = () => {
 
+  
   const isGuideQuestion = (text: string) => {
     const t = normalize(text);
 
@@ -1116,6 +1117,21 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
       </header>
 
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-8 space-y-6 animate-fade-in">
+        <section className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <div className="flex items-start gap-3">
+            <div className="mt-[2px] bg-red-50 text-red-600 rounded-xl p-2">
+              <Info size={18} />
+            </div>
+            <div className="space-y-1">
+              <div className="text-sm font-black text-slate-900 leading-snug">
+                IAS 시스템 권한 안내 센터는 팀·시스템별 역할(권한)과 접근 가능한 메뉴를 빠르게 조회하는 내부 가이드입니다.
+              </div>
+              <div className="text-[12px] font-semibold text-slate-600 leading-relaxed">
+                필요한 권한은 AJ포털의 IAM(IT신청)에서 신청할 수 있으며, 최종 신청 가능 여부는 IAM 정책/승인 절차를 따릅니다.
+              </div>
+            </div>
+          </div>
+        </section>
         <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 flex flex-col md:flex-row gap-6 items-end">
           <SearchableSelect options={teamOptions} value={selectedTeam} onChange={setSelectedTeam} placeholder="팀 선택" label="Team" icon={<Home size={14} className="text-red-600" />} />
           <SearchableSelect options={systemOptions} value={selectedSystem} onChange={setSelectedSystem} placeholder="시스템 선택" label="System" icon={<Layout size={14} className="text-red-600" />} disabled={!selectedTeam} />
