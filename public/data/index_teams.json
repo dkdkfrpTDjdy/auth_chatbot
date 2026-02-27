@@ -49,10 +49,6 @@
       "team_name": "AJ전국스카이"
     },
     {
-      "team_code": "304014",
-      "team_name": "AM파트"
-    },
-    {
       "team_code": "3040603",
       "team_name": "AM파트"
     },
@@ -78,7 +74,7 @@
     },
     {
       "team_code": "301072",
-      "team_name": "B&T파트"
+      "team_name": "통합구매팀_B&T파트"
     },
     {
       "team_code": "604",
@@ -150,7 +146,7 @@
     },
     {
       "team_code": "30704",
-      "team_name": "QA파트"
+      "team_name": "QA혁신팀_QA파트"
     },
     {
       "team_code": "30703",
@@ -442,7 +438,7 @@
     },
     {
       "team_code": "301073",
-      "team_name": "로지스파트"
+      "team_name": "통합구매팀_로지스파트"
     },
     {
       "team_code": "3060026",
@@ -550,7 +546,7 @@
     },
     {
       "team_code": "301071",
-      "team_name": "산업장비파트"
+      "team_name": "통합구매팀_산업장비파트"
     },
     {
       "team_code": "3060125",
@@ -645,10 +641,6 @@
       "team_name": "운영본부"
     },
     {
-      "team_code": "3040513",
-      "team_name": "운영본부"
-    },
-    {
       "team_code": "3040502",
       "team_name": "운영센터"
     },
@@ -658,11 +650,11 @@
     },
     {
       "team_code": "307023",
-      "team_name": "운영파트"
+      "team_name": "IT운영팀_운영파트"
     },
     {
       "team_code": "30802",
-      "team_name": "운영파트"
+      "team_name": "자산관리팀_운영파트"
     },
     {
       "team_code": "3040521",
@@ -682,15 +674,15 @@
     },
     {
       "team_code": "3060131",
-      "team_name": "유통사업팀"
+      "team_name": "로지스_유통사업팀"
     },
     {
       "team_code": "3040601",
-      "team_name": "유통사업팀"
+      "team_name": "산업장비_유통사업팀"
     },
     {
       "team_code": "3040604",
-      "team_name": "유통파트"
+      "team_name": "유통사업팀_유통파트"
     },
     {
       "team_code": "304017",
@@ -777,10 +769,6 @@
       "team_name": "채권관리팀"
     },
     {
-      "team_code": "301032",
-      "team_name": "채권관리파트"
-    },
-    {
       "team_code": "3040515",
       "team_name": "천안정비팀"
     },
@@ -846,7 +834,7 @@
     },
     {
       "team_code": "307032",
-      "team_name": "혁신파트"
+      "team_name": "QA혁신팀_혁신파트"
     },
     {
       "team_code": "30405171",
