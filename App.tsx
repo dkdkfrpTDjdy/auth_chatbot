@@ -1124,9 +1124,8 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
             </div>
             <div className="space-y-1">
               <div className="text-sm font-black text-slate-900 leading-snug">
-                IAS 시스템 권한 안내 센터는 팀·시스템별 역할(권한)과 접근 가능한 메뉴를 빠르게 조회하는 내부 가이드입니다.
-              </div>
-              <div className="text-[12px] font-semibold text-slate-600 leading-relaxed">
+                IAS 시스템 권한 안내 센터는 팀별 시스템 역할(권한)과 접근 가능한 메뉴를 빠르게 조회하는 내부 가이드입니다.              </div>
+              <div className="text-[10px] text-slate-600 leading-relaxed">
                 필요한 권한은 AJ포털의 IAM(IT신청)에서 신청할 수 있으며, 최종 신청 가능 여부는 IAM 정책/승인 절차를 따릅니다.
               </div>
             </div>
