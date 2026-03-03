@@ -17,6 +17,45 @@ const cleanValue = (val: any): string => {
   return str;
 };
 
+const handleKeyDown = (e: React.KeyboardEvent) => {
+  if (disabled) return;
+
+  // 닫혀있을 때: 아래/엔터로 열기
+  if (!isOpen) {
+    if (e.key === 'ArrowDown' || e.key === 'Enter') {
+      e.preventDefault();
+      setIsOpen(true);
+      setSearchTerm('');
+      setActiveIndex(0);
+    }
+    return;
+  }
+
+  // 열려있을 때
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    setActiveIndex((prev) => {
+      const next = Math.min((prev < 0 ? 0 : prev) + 1, filteredOptions.length - 1);
+      return next;
+    });
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    setActiveIndex((prev) => {
+      const next = Math.max((prev < 0 ? 0 : prev) - 1, 0);
+      return next;
+    });
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (activeIndex >= 0 && activeIndex < filteredOptions.length) {
+      handleSelect(filteredOptions[activeIndex].value);
+    }
+  } else if (e.key === 'Escape') {
+    e.preventDefault();
+    setIsOpen(false);
+    setSearchTerm('');
+    setActiveIndex(-1);
+  }
+};
 
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
@@ -263,6 +302,8 @@ interface SearchableSelectProps {
 const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onChange, placeholder, label, icon, disabled }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
+  const listRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const selectedOption = options.find(opt => opt.value === value);
@@ -285,10 +326,23 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
     ), [options, searchTerm]
   );
 
+  useEffect(() => {
+    if (!isOpen) return;
+    if (filteredOptions.length === 0) {
+      setActiveIndex(-1);
+    } else if (activeIndex < 0) {
+      setActiveIndex(0);
+    } else if (activeIndex >= filteredOptions.length) {
+      setActiveIndex(filteredOptions.length - 1);
+    }
+  }, [filteredOptions, isOpen]);
+
   const handleToggle = () => {
     if (disabled) return;
-    setIsOpen(!isOpen);
-    if (!isOpen) setSearchTerm('');
+    const nextOpen = !isOpen;
+    setIsOpen(nextOpen);
+    setSearchTerm('');
+    setActiveIndex(nextOpen ? 0 : -1);
   };
 
   const handleSelect = (val: string) => {
@@ -305,6 +359,10 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
       <div
         className={`relative group bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-sm ${isOpen ? 'ring-4 ring-red-500/10 border-red-500 bg-white' : 'hover:bg-white cursor-pointer'}`}
         onClick={handleToggle}
+        onKeyDown={handleKeyDown}
+        tabIndex={disabled ? -1 : 0}
+        role="combobox"
+        aria-expanded={isOpen}
       >
         <div className="flex items-center px-4 py-3.5">
           <div className="flex-1 flex items-center overflow-hidden">
@@ -335,23 +393,41 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
         </div>
 
         {isOpen && (
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-2xl z-[100] max-h-64 overflow-y-auto custom-scrollbar animate-in fade-in slide-in-from-top-1 duration-200">
+          <div
+            ref={listRef}
+            className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-2xl z-[100] max-h-64 overflow-y-auto custom-scrollbar animate-in fade-in slide-in-from-top-1 duration-200"
+            role="listbox"
+          >
             {filteredOptions.length > 0 ? (
-              filteredOptions.map((opt) => (
-                <div key={opt.value} className={`px-5 py-3 text-sm font-bold flex items-center justify-between cursor-pointer transition-colors ${value === opt.value ? 'bg-red-50 text-red-700' : 'text-slate-600 hover:bg-slate-50'}`} onClick={() => handleSelect(opt.value)}>
-                  <span>{opt.label}</span>
-                  {value === opt.value && <Check size={14} />}
-                </div>
-              ))
+              filteredOptions.map((opt, idx) => {
+                const isSelected = value === opt.value;
+                const isActive = idx === activeIndex;
+        
+                return (
+                  <div
+                    key={opt.value}
+                    role="option"
+                    aria-selected={isSelected}
+                    className={[
+                      "px-5 py-3 text-sm font-bold flex items-center justify-between cursor-pointer transition-colors",
+                      isSelected ? "bg-red-50 text-red-700" : "text-slate-600 hover:bg-slate-50",
+                      isActive && !isSelected ? "bg-slate-100" : "",
+                    ].join(" ")}
+                    onMouseEnter={() => setActiveIndex(idx)}
+                    onClick={() => handleSelect(opt.value)}
+                  >
+                    <span>{opt.label}</span>
+                    {isSelected && <Check size={14} />}
+                  </div>
+                );
+              })
             ) : (
-              <div className="px-5 py-10 text-center text-xs text-slate-400 font-bold">결과 없음</div>
+              <div className="px-5 py-10 text-center text-xs text-slate-400 font-bold">
+                결과 없음
+              </div>
             )}
           </div>
         )}
-      </div>
-    </div>
-  );
-};
 
 const guideSteps = [
   { iconKey: 'Home', text: 'AJ포털 접속 > IT신청 > IAM', url: 'https://portal.ajnet.co.kr/', keyword: 'AJ포털 IT신청 IAM' },
