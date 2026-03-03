@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Search, ChevronDown, Layout, MessageSquare, AlertCircle, RefreshCcw, Loader2, Home, ShieldCheck, Check, X, Layers, Copy, ClipboardCheck, Info, MousePointer2, UserCheck, PlusCircle, Send, CheckCircle2, ChevronUp } from 'lucide-react';
 import * as dataService from './services/dataService';
-import { Team, System, Role, RoleBundle, ChatMessage, Menu } from './types';
+import { Team, System, RoleBundle, ChatMessage, Menu } from './types';
 import { analyzeIntent } from './services/geminiService';
 
 const LOGO_PATH = `${import.meta.env.BASE_URL}ci/AJ_networks_logo.png`;
@@ -15,46 +15,6 @@ const cleanValue = (val: any): string => {
   const lower = str.toLowerCase();
   if (lower === 'nan' || lower === 'null' || str === '') return '기타';
   return str;
-};
-
-const handleKeyDown = (e: React.KeyboardEvent) => {
-  if (disabled) return;
-
-  // 닫혀있을 때: 아래/엔터로 열기
-  if (!isOpen) {
-    if (e.key === 'ArrowDown' || e.key === 'Enter') {
-      e.preventDefault();
-      setIsOpen(true);
-      setSearchTerm('');
-      setActiveIndex(0);
-    }
-    return;
-  }
-
-  // 열려있을 때
-  if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    setActiveIndex((prev) => {
-      const next = Math.min((prev < 0 ? 0 : prev) + 1, filteredOptions.length - 1);
-      return next;
-    });
-  } else if (e.key === 'ArrowUp') {
-    e.preventDefault();
-    setActiveIndex((prev) => {
-      const next = Math.max((prev < 0 ? 0 : prev) - 1, 0);
-      return next;
-    });
-  } else if (e.key === 'Enter') {
-    e.preventDefault();
-    if (activeIndex >= 0 && activeIndex < filteredOptions.length) {
-      handleSelect(filteredOptions[activeIndex].value);
-    }
-  } else if (e.key === 'Escape') {
-    e.preventDefault();
-    setIsOpen(false);
-    setSearchTerm('');
-    setActiveIndex(-1);
-  }
 };
 
 const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -299,12 +259,21 @@ interface SearchableSelectProps {
   disabled?: boolean;
 }
 
-const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onChange, placeholder, label, icon, disabled }) => {
+const SearchableSelect: React.FC<SearchableSelectProps> = ({
+  options,
+  value,
+  onChange,
+  placeholder,
+  label,
+  icon,
+  disabled,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeIndex, setActiveIndex] = useState<number>(-1);
-  const listRef = useRef<HTMLDivElement>(null);
+
   const containerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const selectedOption = options.find(opt => opt.value === value);
 
@@ -313,29 +282,38 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
         setSearchTerm('');
+        setActiveIndex(-1);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const filteredOptions = useMemo(() =>
-    options.filter(opt =>
-      normalize(opt.label).includes(normalize(searchTerm)) ||
-      normalize(opt.value).includes(normalize(searchTerm))
-    ), [options, searchTerm]
+  const filteredOptions = useMemo(
+    () =>
+      options.filter(
+        opt =>
+          normalize(opt.label).includes(normalize(searchTerm)) ||
+          normalize(opt.value).includes(normalize(searchTerm))
+      ),
+    [options, searchTerm]
   );
 
   useEffect(() => {
     if (!isOpen) return;
-    if (filteredOptions.length === 0) {
-      setActiveIndex(-1);
-    } else if (activeIndex < 0) {
-      setActiveIndex(0);
-    } else if (activeIndex >= filteredOptions.length) {
-      setActiveIndex(filteredOptions.length - 1);
-    }
+    if (filteredOptions.length === 0) setActiveIndex(-1);
+    else if (activeIndex < 0) setActiveIndex(0);
+    else if (activeIndex >= filteredOptions.length) setActiveIndex(filteredOptions.length - 1);
   }, [filteredOptions, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    if (!listRef.current) return;
+    if (activeIndex < 0) return;
+
+    const el = listRef.current.children.item(activeIndex) as HTMLElement | null;
+    if (el) el.scrollIntoView({ block: 'nearest' });
+  }, [activeIndex, isOpen]);
 
   const handleToggle = () => {
     if (disabled) return;
@@ -349,15 +327,54 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
     onChange(val);
     setIsOpen(false);
     setSearchTerm('');
+    setActiveIndex(-1);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (disabled) return;
+
+    if (!isOpen) {
+      if (e.key === 'ArrowDown' || e.key === 'Enter') {
+        e.preventDefault();
+        setIsOpen(true);
+        setSearchTerm('');
+        setActiveIndex(0);
+      }
+      return;
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveIndex(prev => Math.min((prev < 0 ? 0 : prev) + 1, filteredOptions.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIndex(prev => Math.max((prev < 0 ? 0 : prev) - 1, 0));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeIndex >= 0 && activeIndex < filteredOptions.length) {
+        handleSelect(filteredOptions[activeIndex].value);
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      setIsOpen(false);
+      setSearchTerm('');
+      setActiveIndex(-1);
+    }
   };
 
   return (
-    <div className={`flex-1 w-full space-y-2 relative ${disabled ? 'opacity-40 pointer-events-none' : ''}`} ref={containerRef}>
+    <div
+      className={`flex-1 w-full space-y-2 relative ${disabled ? 'opacity-40 pointer-events-none' : ''}`}
+      ref={containerRef}
+    >
       <label className="text-[11px] font-black text-slate-400 flex items-center gap-2 uppercase tracking-tight ml-1">
         {icon} {label}
       </label>
+
       <div
-        className={`relative group bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-sm ${isOpen ? 'ring-4 ring-red-500/10 border-red-500 bg-white' : 'hover:bg-white cursor-pointer'}`}
+        className={`relative group bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-sm ${
+          isOpen ? 'ring-4 ring-red-500/10 border-red-500 bg-white' : 'hover:bg-white cursor-pointer'
+        }`}
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
         tabIndex={disabled ? -1 : 0}
@@ -382,13 +399,24 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
               </span>
             )}
           </div>
+
           <div className="flex items-center gap-2">
             {!isOpen && selectedOption && (
-              <button onClick={(e) => { e.stopPropagation(); onChange(''); }} className="text-slate-300 hover:text-red-500 transition-colors">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onChange('');
+                }}
+                className="text-slate-300 hover:text-red-500 transition-colors"
+              >
                 <X size={14} />
               </button>
             )}
-            <ChevronDown className={`text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-red-500' : ''}`} size={18} />
+            <ChevronDown
+              className={`text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-red-500' : ''}`}
+              size={18}
+            />
           </div>
         </div>
 
@@ -402,17 +430,17 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
               filteredOptions.map((opt, idx) => {
                 const isSelected = value === opt.value;
                 const isActive = idx === activeIndex;
-        
+
                 return (
                   <div
                     key={opt.value}
                     role="option"
                     aria-selected={isSelected}
                     className={[
-                      "px-5 py-3 text-sm font-bold flex items-center justify-between cursor-pointer transition-colors",
-                      isSelected ? "bg-red-50 text-red-700" : "text-slate-600 hover:bg-slate-50",
-                      isActive && !isSelected ? "bg-slate-100" : "",
-                    ].join(" ")}
+                      'px-5 py-3 text-sm font-bold flex items-center justify-between cursor-pointer transition-colors',
+                      isSelected ? 'bg-red-50 text-red-700' : 'text-slate-600 hover:bg-slate-50',
+                      isActive && !isSelected ? 'bg-slate-100' : '',
+                    ].join(' ')}
                     onMouseEnter={() => setActiveIndex(idx)}
                     onClick={() => handleSelect(opt.value)}
                   >
@@ -422,12 +450,14 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({ options, value, onC
                 );
               })
             ) : (
-              <div className="px-5 py-10 text-center text-xs text-slate-400 font-bold">
-                결과 없음
-              </div>
+              <div className="px-5 py-10 text-center text-xs text-slate-400 font-bold">결과 없음</div>
             )}
           </div>
         )}
+      </div>
+    </div>
+  );
+};
 
 const guideSteps = [
   { iconKey: 'Home', text: 'AJ포털 접속 > IT신청 > IAM', url: 'https://portal.ajnet.co.kr/', keyword: 'AJ포털 IT신청 IAM' },
