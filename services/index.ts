@@ -8,6 +8,16 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
+// 1) 민감 경로 차단 (SPA fallback보다 위에!)
+app.get("/.env", (req, res) => res.status(404).send("Not Found"));
+app.get("/.git", (req, res) => res.status(404).send("Not Found"));
+app.get("/.git/*", (req, res) => res.status(404).send("Not Found"));
+
+// 흔한 스캔 경로도 같이 차단(선택)
+app.get(/phpunit|vendor|eval-stdin\.php|\.php$|\.aspx$/i, (req, res) =>
+  res.status(404).send("Not Found")
+);
+
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
 
 type IntentType = "ROLE_TO_MENU" | "MENU_TO_ROLE" | "ROLE_LIST" | "UNKNOWN";
