@@ -100,7 +100,14 @@ const stripAllModulePrefixes = (text: string) =>
   String(text || '').replace(/\[(FI|CO|SD|MM|PP|PM|QM|HR|HCM|LE|BW)\]\s*/gi, '').trim();
 
 
-const isIASSales = (sysName: string) => cleanValue(sysName) === 'IAS_Sales';
+const isIASSales = (sysName: string) => {
+  const normalized = cleanValue(sysName)
+    .toUpperCase()
+    .replace(/\s+/g, '')
+    .replace(/-/g, '_');
+
+  return normalized === 'IAS' || normalized === 'IASSALES' || normalized === 'IAS_SALES';
+};
 type IntentType = "ROLE_TO_MENU" | "MENU_TO_ROLE" | "ROLE_LIST" | "UNKNOWN";
 type UnifiedRole = {
   groupKey: string;
