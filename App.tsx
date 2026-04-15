@@ -100,18 +100,14 @@ const stripAllModulePrefixes = (text: string) =>
   String(text || '').replace(/\[(FI|CO|SD|MM|PP|PM|QM|HR|HCM|LE|BW)\]\s*/gi, '').trim();
 
 
-const isIASSales = (sysName: string, sysCode?: string, authCode?: string) => {
+const isIASSales = (sysName: string) => {
   const raw = cleanValue(sysName);
   const normalized = raw
     .toUpperCase()
     .replace(/\s+/g, '')
     .replace(/-/g, '_');
 
-  const code = cleanValue(sysCode).toUpperCase();
-  const auth = cleanValue(authCode);
-
   return (
-    code === 'LEGO' ||
     normalized === 'IAS' ||
     normalized === 'IASSALES' ||
     normalized === 'IAS_SALES' ||
@@ -684,7 +680,7 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
 
     return Object.entries(roleMap)
       .map(([groupKey, data]) => {
-        const ias = isIASSales(sysNameClean, b.sys_code, b.auth_code);
+        const ias = isIASSales(data.sys_name);
         const descArr = Array.from(data.desc)
           .map(sanitizeKoreanDesc)
           .filter(Boolean);
