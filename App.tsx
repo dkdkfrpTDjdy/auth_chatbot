@@ -100,14 +100,26 @@ const stripAllModulePrefixes = (text: string) =>
   String(text || '').replace(/\[(FI|CO|SD|MM|PP|PM|QM|HR|HCM|LE|BW)\]\s*/gi, '').trim();
 
 
-const isIASSales = (sysName: string) => {
-  const normalized = cleanValue(sysName)
+const isIASSales = (sysName: string, sysCode?: string, authCode?: string) => {
+  const raw = cleanValue(sysName);
+  const normalized = raw
     .toUpperCase()
     .replace(/\s+/g, '')
     .replace(/-/g, '_');
 
-  return normalized === 'IAS' || normalized === 'IASSALES' || normalized === 'IAS_SALES';
+  const code = cleanValue(sysCode).toUpperCase();
+  const auth = cleanValue(authCode);
+
+  return (
+    code === 'LEGO' ||
+    normalized === 'IAS' ||
+    normalized === 'IASSALES' ||
+    normalized === 'IAS_SALES' ||
+    raw.includes('AJ차세대영업') ||
+    raw.includes('IAS(AJ차세대영업)')
+  );
 };
+
 type IntentType = "ROLE_TO_MENU" | "MENU_TO_ROLE" | "ROLE_LIST" | "UNKNOWN";
 type UnifiedRole = {
   groupKey: string;
@@ -672,7 +684,7 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
 
     return Object.entries(roleMap)
       .map(([groupKey, data]) => {
-        const ias = isIASSales(data.sys_name);
+        const ias = isIASSales(sysNameClean, b.sys_code, b.auth_code);
         const descArr = Array.from(data.desc)
           .map(sanitizeKoreanDesc)
           .filter(Boolean);
