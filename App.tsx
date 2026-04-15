@@ -1252,15 +1252,6 @@ const isSapSystemSelected = useMemo(() => /sap/i.test(selectedSystemName), [sele
               <div className="text-[12px] text-slate-600 leading-relaxed">
                 필요한 권한은 AJ포털의 IAM에서 신청할 수 있으며, 최종 신청 가능 여부는 내부 승인 절차를 따릅니다.
               </div>
-        
-              <div className="pt-2">
-                <div className="inline-flex items-start gap-2 rounded-2xl border border-amber-200 bg-amber-50 px-3 py-2 text-[12px] font-bold text-amber-800 shadow-sm">
-                  <Info size={14} className="mt-[1px] shrink-0" />
-                  <span className="leading-relaxed break-keep">
-                    26년 4월 1일 조직개편 이후 데이터는 4월 10일 전까지 순차 반영됩니다.
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
         </section>
