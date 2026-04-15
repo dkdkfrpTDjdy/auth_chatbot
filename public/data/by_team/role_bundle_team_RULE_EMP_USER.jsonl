@@ -1,0 +1,3 @@
+{"team_code": "RULE_EMP_USER", "team_name": "임직원", "sys_code": "IASEMP", "sys_name": "IAS(AJ차세대영업)(LEGO_임직원)", "auth_code": "NAME::IAS(AJ차세대영업)(LEGO_임직원)", "auth_name": "IAS(AJ차세대영업)(LEGO_임직원)", "auth_desc": "", "menus": [{"menu_id": "", "path": ">  >"}]}
+{"team_code": "RULE_EMP_USER", "team_name": "임직원", "sys_code": "SAP_HR", "sys_name": "SAP (IAS ERP)(임직원/그룹웨어)", "auth_code": "NAME::SAP (IAS ERP)(임직원/그룹웨어)", "auth_name": "SAP (IAS ERP)(임직원/그룹웨어)", "auth_desc": "", "menus": [{"menu_id": "", "path": ">  >"}]}
+{"team_code": "RULE_EMP_USER", "team_name": "임직원", "sys_code": "eAccount", "sys_name": "eAccount", "auth_code": "BASIC", "auth_name": "기본권한", "auth_desc": "모든 사용자 대상으로 기본적으로 부여하는 권한", "menus": [{"menu_id": "", "path": ">  >"}]}

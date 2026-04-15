@@ -1,0 +1,2184 @@
+{
+  "100440": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "11070400": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "118630": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3001": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3002": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "3003": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3004": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    }
+  ],
+  "3005": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3010": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30101": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "301011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "301012": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30102": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "301021": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "301022": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30103": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "30104": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3010401": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30106": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30107": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "301071": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "301072": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "301073": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "30108": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3020": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30201": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "3020101": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "3020102": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30202": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "30204": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "302041": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3030": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30303": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "303031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30305": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "303052": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30401": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040101": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3040102": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304014": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304015": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "304017": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304018": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304022": [
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304025": [
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30403": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040301": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3040302": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304033": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304034": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304035": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304037": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "30404": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "304041": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304042": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304043": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "30405": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040502": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040503": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040504": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040505": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040511": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040512": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040513": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040514": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040515": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30405151": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040516": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3040517": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30405171": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040518": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "304051801": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "304051802": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "304051803": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040519": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040520": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040521": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040531": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040532": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040533": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3040534": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30406": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040601": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040602": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3040603": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3040604": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3050": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30501": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "305011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305012": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305013": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305014": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305016": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "30502": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "305021": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305022": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305023": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305024": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305026": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "30503": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "305031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "305032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305033": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "305034": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "305035": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "30504": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "305042": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "305043": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305044": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305045": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "305051": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "30505101": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3060": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3060022": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060023": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060024": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060025": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060026": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060027": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060028": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060029": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060030": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060033": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3060034": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060035": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060036": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060037": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060038": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060039": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060040": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060041": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060042": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060043": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060044": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060045": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "306011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3060111": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060112": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060113": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060114": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060115": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060116": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "306012": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3060121": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060122": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060123": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060124": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060125": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060131": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "30602": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3060211": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3060212": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30603": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "306031": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "306032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "306033": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    }
+  ],
+  "306035": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "306036": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "306037": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3060371": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "306038": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "306039": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3060392": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30604": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "306041": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "PRS",
+      "sys_name": "PRS"
+    }
+  ],
+  "306042": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3060431": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "3060432": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3060433": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "306044": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30607": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30611": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "306114": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3070": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "307011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30702": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "307021": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "307022": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "307023": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "307024": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30703": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "307032": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30704": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30705": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30706": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    }
+  ],
+  "3080": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30801": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30802": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    }
+  ],
+  "30803": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30804": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "3090": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "30901": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "SAP",
+      "sys_name": "SAP (IAS ERP)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "37": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "370100": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "370200": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "5": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "50101": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "50102": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "50104": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "601011": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "603": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "60301": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "60302": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "60303": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "60304": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "6030401": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "604": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "60401": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "604012": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "604014": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "604015": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "7": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "9999990": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "9999995": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    }
+  ],
+  "RULE_ALL_USER": [
+    {
+      "sys_code": "LEGO",
+      "sys_name": "IAS(AJ차세대영업)"
+    },
+    {
+      "sys_code": "GW",
+      "sys_name": "그룹웨어"
+    },
+    {
+      "sys_code": "SRM",
+      "sys_name": "통합구매시스템(SRM)"
+    },
+    {
+      "sys_code": "SSO",
+      "sys_name": "통합인증(SSO)"
+    }
+  ],
+  "RULE_EMP_USER": [
+    {
+      "sys_code": "IASEMP",
+      "sys_name": "IAS(AJ차세대영업)(LEGO_임직원)"
+    },
+    {
+      "sys_code": "SAP_HR",
+      "sys_name": "SAP (IAS ERP)(임직원/그룹웨어)"
+    },
+    {
+      "sys_code": "eAccount",
+      "sys_name": "eAccount"
+    }
+  ],
+  "RULE_GW_OTHER_USER": [
+    {
+      "sys_code": "SAP_HR",
+      "sys_name": "SAP (IAS ERP)(임직원/그룹웨어)"
+    }
+  ],
+  "RULE_MRO_POS": [
+    {
+      "sys_code": "MRO",
+      "sys_name": "MRO"
+    }
+  ]
+}

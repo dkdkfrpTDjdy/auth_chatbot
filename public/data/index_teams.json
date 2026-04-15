@@ -17,11 +17,11 @@
       "team_name": "AJ LogisValue USA"
     },
     {
-      "team_code": "7",
+      "team_code": "118630",
       "team_name": "AJ Rental"
     },
     {
-      "team_code": "118630",
+      "team_code": "7",
       "team_name": "AJ Rental"
     },
     {
@@ -49,6 +49,10 @@
       "team_name": "AJ전국스카이"
     },
     {
+      "team_code": "304014",
+      "team_name": "AM파트"
+    },
+    {
       "team_code": "3040603",
       "team_name": "AM파트"
     },
@@ -74,7 +78,7 @@
     },
     {
       "team_code": "301072",
-      "team_name": "통합구매팀_B&T파트"
+      "team_name": "B&T파트"
     },
     {
       "team_code": "604",
@@ -91,10 +95,6 @@
     {
       "team_code": "3070",
       "team_name": "DX본부"
-    },
-    {
-      "team_code": "60301",
-      "team_name": "Enterprise팀"
     },
     {
       "team_code": "3040534",
@@ -137,6 +137,10 @@
       "team_name": "M&A팀"
     },
     {
+      "team_code": "RULE_MRO_POS",
+      "team_name": "MRO_직위그룹"
+    },
+    {
       "team_code": "307011",
       "team_name": "PI 협력사"
     },
@@ -146,7 +150,7 @@
     },
     {
       "team_code": "30704",
-      "team_name": "QA혁신팀_QA파트"
+      "team_name": "QA파트"
     },
     {
       "team_code": "30703",
@@ -273,8 +277,8 @@
       "team_name": "경인파트"
     },
     {
-      "team_code": "60302",
-      "team_name": "공공/금융/SMB팀"
+      "team_code": "306031",
+      "team_name": "글로벌기획팀"
     },
     {
       "team_code": "306033",
@@ -297,16 +301,16 @@
       "team_name": "내부통제팀 협력사"
     },
     {
-      "team_code": "30105",
-      "team_name": "동남아 지역총괄"
-    },
-    {
       "team_code": "604012",
       "team_name": "두산파트"
     },
     {
       "team_code": "30104",
       "team_name": "렌탈 베트남"
+    },
+    {
+      "team_code": "3010401",
+      "team_name": "렌탈 베트남_로컬"
     },
     {
       "team_code": "604014",
@@ -319,10 +323,6 @@
     {
       "team_code": "30504",
       "team_name": "로봇영업본부"
-    },
-    {
-      "team_code": "305041",
-      "team_name": "로봇영업팀"
     },
     {
       "team_code": "305042",
@@ -438,7 +438,7 @@
     },
     {
       "team_code": "301073",
-      "team_name": "통합구매팀_로지스파트"
+      "team_name": "로지스파트"
     },
     {
       "team_code": "3060026",
@@ -489,14 +489,6 @@
       "team_name": "미국동부지점"
     },
     {
-      "team_code": "306031",
-      "team_name": "미래성장팀"
-    },
-    {
-      "team_code": "301031",
-      "team_name": "법무심사파트"
-    },
-    {
       "team_code": "3060111",
       "team_name": "법인1팀"
     },
@@ -521,8 +513,32 @@
       "team_name": "비서팀"
     },
     {
+      "team_code": "60301",
+      "team_name": "사업 1파트"
+    },
+    {
+      "team_code": "60302",
+      "team_name": "사업 2파트"
+    },
+    {
+      "team_code": "6030401",
+      "team_name": "사업 3파트"
+    },
+    {
       "team_code": "3040602",
       "team_name": "사업개발팀"
+    },
+    {
+      "team_code": "305035",
+      "team_name": "사업관리파트"
+    },
+    {
+      "team_code": "60304",
+      "team_name": "사업기획팀"
+    },
+    {
+      "team_code": "30503",
+      "team_name": "사업운영본부"
     },
     {
       "team_code": "601011",
@@ -546,7 +562,7 @@
     },
     {
       "team_code": "301071",
-      "team_name": "통합구매팀_산업장비파트"
+      "team_name": "산업장비파트"
     },
     {
       "team_code": "3060125",
@@ -555,6 +571,10 @@
     {
       "team_code": "305044",
       "team_name": "서비스로봇 영업팀"
+    },
+    {
+      "team_code": "305045",
+      "team_name": "솔루션로봇 영업팀"
     },
     {
       "team_code": "3060121",
@@ -573,8 +593,8 @@
       "team_name": "스토리지영업본부"
     },
     {
-      "team_code": "30503",
-      "team_name": "시너지운영본부"
+      "team_code": "30108",
+      "team_name": "신사업TFT"
     },
     {
       "team_code": "301011",
@@ -625,6 +645,10 @@
       "team_name": "영업지원본부"
     },
     {
+      "team_code": "RULE_GW_OTHER_USER",
+      "team_name": "외부사용자(그룹웨어)"
+    },
+    {
       "team_code": "9999995",
       "team_name": "외부사용자그룹"
     },
@@ -635,6 +659,10 @@
     {
       "team_code": "3060432",
       "team_name": "운송지원팀"
+    },
+    {
+      "team_code": "3040513",
+      "team_name": "운영본부"
     },
     {
       "team_code": "30602",
@@ -650,11 +678,11 @@
     },
     {
       "team_code": "307023",
-      "team_name": "IT운영팀_운영파트"
+      "team_name": "운영파트"
     },
     {
       "team_code": "30802",
-      "team_name": "자산관리팀_운영파트"
+      "team_name": "운영파트"
     },
     {
       "team_code": "3040521",
@@ -673,16 +701,16 @@
       "team_name": "원가관리팀"
     },
     {
-      "team_code": "3060131",
-      "team_name": "로지스_유통사업팀"
+      "team_code": "3040601",
+      "team_name": "유통사업팀"
     },
     {
-      "team_code": "3040601",
-      "team_name": "산업장비_유통사업팀"
+      "team_code": "3060131",
+      "team_name": "유통사업팀"
     },
     {
       "team_code": "3040604",
-      "team_name": "유통사업팀_유통파트"
+      "team_name": "유통파트"
     },
     {
       "team_code": "304017",
@@ -697,8 +725,24 @@
       "team_name": "인프라파트"
     },
     {
+      "team_code": "RULE_EMP_USER",
+      "team_name": "임직원"
+    },
+    {
+      "team_code": "3020101",
+      "team_name": "자금운영파트"
+    },
+    {
+      "team_code": "3020102",
+      "team_name": "자금조달파트"
+    },
+    {
       "team_code": "3080",
       "team_name": "자산관리팀"
+    },
+    {
+      "team_code": "305032",
+      "team_name": "자산운영센터"
     },
     {
       "team_code": "305032",
@@ -717,6 +761,10 @@
       "team_name": "전략기획실"
     },
     {
+      "team_code": "305034",
+      "team_name": "전략마케팅팀"
+    },
+    {
       "team_code": "3060114",
       "team_name": "전략영업팀"
     },
@@ -727,6 +775,10 @@
     {
       "team_code": "301012",
       "team_name": "전략파트"
+    },
+    {
+      "team_code": "RULE_ALL_USER",
+      "team_name": "전체사용자(아르바이트제외)"
     },
     {
       "team_code": "30705",
@@ -834,15 +886,11 @@
     },
     {
       "team_code": "307032",
-      "team_name": "QA혁신팀_혁신파트"
+      "team_name": "혁신파트"
     },
     {
       "team_code": "30405171",
       "team_name": "현장관리자고덕탕정"
-    },
-    {
-      "team_code": "3040103",
-      "team_name": "호남파트"
     },
     {
       "team_code": "304025",
